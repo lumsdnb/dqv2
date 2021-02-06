@@ -4,7 +4,7 @@
         about
     </h1>
     <p>add a description here. maybe later, when there is more to talk about.</p>
-    <NuxtLink class="linky" to="/">go back</NuxtLink>
+    <Navbar/>
   </div>
 </template>
 

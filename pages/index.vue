@@ -17,9 +17,7 @@
     </div>
     <Hand />
     
-    <footer>
-      <NuxtLink class="linky" to="/about">about</NuxtLink>
-    </footer>
+    <Navbar/>
   </div>
 </template>
 
@@ -103,12 +101,11 @@ export default {}
 }
 
 .linky {
-  font-size: 110%;
+  font-size: 160%;
   text-decoration: none;
-  color: #526488;
-  background-color: rgb(179, 179, 179);
-  padding:1rem;
-  border-radius: .6rem;
+  color: black;
+  background-color: rgb(200, 200, 200);
+  border-radius: .3rem;
 }
 
 .linky:hover {
