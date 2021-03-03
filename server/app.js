@@ -1,6 +1,5 @@
 const express = require('express');
 const http = require('http');
-const socketIo = require('socket.io');
 
 const port = process.env.PORT || 4001;
 const index = require('./routes/index');
@@ -10,7 +9,15 @@ app.use(index);
 
 const server = http.createServer(app);
 
-const io = socketIo(server); // < Interesting!
+const options = {
+  cors: true,
+  origins: ['http://127.0.0.1:5347'],
+};
+
+const io = require('socket.io')(server, options);
+io.on('connection', (socket) => {
+  /* ... */
+});
 
 let interval;
 
