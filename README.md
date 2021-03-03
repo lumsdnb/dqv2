@@ -1,20 +1,34 @@
-# cards
+forked from https://github.com/shanmugharajk/react-card-game
 
-## Build Setup
+# react-card-game
 
-```bash
-# install dependencies
-$ yarn install
+A multliplayer game built with socket.io + react + nodejs + typescript.
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+## How to run
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+Navigate to the root directory and run the following.
 
-# generate static project
-$ yarn generate
-```
+yarn install
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+yarn run build:common
+
+yarn run run-server
+
+yarn run run-client
+
+Navigate to <http://localhost:3000>.
+
+## Game Screen
+
+![home screen](https://user-images.githubusercontent.com/11159061/45929339-e179da80-bf6d-11e8-9395-91377159aa5b.png)
+
+## Game rules
+
+To know about the rule's execute the above mentioned commands and navigate to <http://localhost:3000>.
+
+## TODO
+
+- Improve the build system.
+- Create a roadmap.
+- Use redis to store the game data.
+- Build a project site explaining the architectue, how to play and demo etc..

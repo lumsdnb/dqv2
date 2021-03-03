@@ -1,23 +1,16 @@
 {
-  "name": "cards",
-  "version": "1.0.0",
+  "name": "react-card-game",
   "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "test": "jest"
-  },
-  "dependencies": {
-    "core-js": "^3.8.3",
-    "nuxt": "^2.14.12"
-  },
-  "devDependencies": {
-    "@vue/test-utils": "^1.1.2",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^26.6.3",
-    "jest": "^26.6.3",
-    "vue-jest": "^3.0.4"
+    "run:client": "cd ./packages/web && yarn start",
+    "run:server": "cd ./packages/game-server && yarn start",
+    "build:client": "cd ./packages/web && yarn run build",
+    "build:common": "cd ./packages/common && yarn run build",
+    "build:server": "cd ./packages/game-server && yarn run build"
   }
 }
