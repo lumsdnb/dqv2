@@ -1,0 +1,27 @@
+.main-form {
+  padding: 3px;
+  margin: 2rem;
+  min-height: 12rem;
+  background-color: #bbb;
+  border-radius: 0.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  padding: 2rem;
+  text-align: center;
+  user-select: none;
+}
+
+.form-textarea {
+  align-items: center;
+  resize: none;
+  background-color: #bbb;
+  border-style: dotted;
+}
+
+.form-btn {
+  padding: 1rem;
+}

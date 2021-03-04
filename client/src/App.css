@@ -1,31 +1,53 @@
-body {
+#root {
   display: flex;
-  justify-content: center;
-}
-
-.App {
-  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  text-align: center;
 }
-
-.app-header {
+h1 {
   background-color: #282c34;
-  min-height: 5rem;
-  min-width: 100%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
   color: white;
+  padding: 1rem;
+  margin: 1rem;
+  text-align: center;
+  border-radius: 0.3rem;
 }
 
-.App-link {
-  color: #61dafb;
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 1.2fr 0.8fr;
+  grid-template-rows: 0.7fr 1.5fr 0.8fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'chat title-claim title-claim judge'
+    'chat table table .'
+    'player1 arguments arguments player2';
 }
 
-.bottom-section {
-  display: flex;
+.chat {
+  grid-area: chat;
+}
+
+.player1 {
+  grid-area: player1;
+}
+
+.player2 {
+  grid-area: player2;
+}
+
+.arguments {
+  grid-area: arguments;
+}
+
+.title-claim {
+  grid-area: title-claim;
+}
+
+.table {
+  grid-area: table;
+}
+
+.judge {
+  grid-area: judge;
 }

@@ -5,7 +5,7 @@ const Card = (props) => {
   return (
     <>
       <div className="card">
-        <h3>hey {props.claim}</h3>
+        <h3>{props.claim}</h3>
       </div>
     </>
   );
