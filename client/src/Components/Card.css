@@ -1,0 +1,12 @@
+.card {
+  padding: 3px;
+  margin: 3px;
+  min-height: 12rem;
+  background-color: #bbb;
+  border-radius: 0.2rem;
+  user-select: none;
+}
+.card:hover {
+  background-color: #ddd;
+  transition: background-color 100ms;
+}

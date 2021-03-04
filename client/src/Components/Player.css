@@ -1,0 +1,27 @@
+.player {
+  background-color: rgba(216, 192, 216, 0.5);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  max-width: fit-content;
+  display: flex;
+
+  box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
+  -webkit-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
+}
+
+.player :is(img) {
+  border-radius: 50%;
+  box-shadow: ;
+  width: 7rem;
+  height: 7rem;
+}
+
+.player h3 {
+  flex-basis: 100%;
+}
+
+.judge {
+  background-color: yellowgreen !important;
+}

@@ -1,0 +1,8 @@
+.table {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8db8b;
+  width: 90%;
+}
