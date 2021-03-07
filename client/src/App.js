@@ -1,31 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import socketIOClient from 'socket.io-client';
+import React, { useState, useEffect, useRef } from 'react';
+import io from 'socket.io-client';
 
-import './Components/CardTable.js';
 import CardTable from './Components/CardTable.js';
-import './App.css';
-import Player from './Components/Player';
+import Player from './Components/Player.js';
 import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
 
+import './App.css';
+import './Components/MainForm.css';
+
 const ENDPOINT = 'http://127.0.0.1:4001';
 
-function App() {
-  const [response, setResponse] = useState('');
+const App = () => {
+  const [yourID, setYourID] = useState();
+  const [role, setRole] = useState();
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+
+  const socketRef = useRef();
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
-    socket.on('FromAPI', (data) => {
-      setResponse(data);
+    socketRef.current = io.connect(ENDPOINT);
+    socketRef.current.on('your id', (id) => {
+      setYourID(id);
+      console.log(id);
+    });
+    socketRef.current.on('message', (message) => {
+      setMessage(message.body);
+      receivedMessage(message.body);
     });
   }, []);
+
+  function receivedMessage(message) {
+    setMessages((oldMsgs) => [...oldMsgs, message]);
+  }
+
+  function sendMessage(e) {
+    e.preventDefault();
+    const messageObject = {
+      body: message,
+      id: yourID,
+    };
+    socketRef.current.emit('send message', messageObject);
+  }
+
+  function handleChange(e) {
+    setMessage(e.target.value);
+  }
 
   return (
     <>
       <div class="grid-container">
-        <div class="chat">
-          <Chat />
-        </div>
+        <div class="chat">{messages}</div>
         <div class="player1">
           <Player name="player1" role=" affirmative" />
         </div>
@@ -33,25 +59,34 @@ function App() {
           <Player name="player2" role="negative" />
         </div>
         <div class="arguments">
-          <MainForm />
+          <form className="main-form" onSubmit={sendMessage}>
+            {' '}
+            <label className="form-label" for="cardform">
+              Your Argument:
+              <br />
+              <textarea
+                id="cardform"
+                className="form-textarea"
+                onChange={handleChange}
+              />{' '}
+            </label>
+            <br />
+            <input type="submit" className="form-btn" value="Place card" />
+          </form>
         </div>
         <div class="title-claim">
           <h4>claim:</h4>
           <h1 className="claim-header">pineapple belongs on pizza</h1>
         </div>
         <div class="table">
-          <CardTable />
+          <CardTable arg1={message} />
         </div>
         <div class="judge">
           <Player name="bob" role="judge" />
         </div>
       </div>
-
-      <p>
-        It's <time dateTime={response}>{response}</time>
-      </p>
     </>
   );
-}
+};
 
 export default App;
