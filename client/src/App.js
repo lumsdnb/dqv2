@@ -51,7 +51,9 @@ const App = () => {
   return (
     <>
       <div class="grid-container">
-        <div class="chat">{messages}</div>
+        <div class="chat">
+          <Chat />
+        </div>
         <div class="player1">
           <Player name="player1" role=" affirmative" />
         </div>
@@ -75,11 +77,14 @@ const App = () => {
           </form>
         </div>
         <div class="title-claim">
-          <h4>claim:</h4>
-          <h1 className="claim-header">pineapple belongs on pizza</h1>
+          <h1 className="claim-header">
+            <sup>
+              <i>claim: </i>
+            </sup>
+            pineapple belongs on pizza
+          </h1>
         </div>
         <div class="table">
-          //TODO: store other argument
           <CardTable arg1={message} arg2="examination card" />
         </div>
         <div class="judge">
