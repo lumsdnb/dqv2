@@ -24,9 +24,7 @@ io.on('connection', (socket) => {
   console.log('New client connected');
   socket.on('send message', (body) => {
     io.emit('message', body);
-  });
-  socket.on('send message', (msg) => {
-    console.log(msg);
+    console.log(body);
   });
 
   socket.on('disconnect', () => {
