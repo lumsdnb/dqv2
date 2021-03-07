@@ -79,7 +79,8 @@ const App = () => {
           <h1 className="claim-header">pineapple belongs on pizza</h1>
         </div>
         <div class="table">
-          <CardTable arg1={message} />
+          //TODO: store other argument
+          <CardTable arg1={message} arg2="examination card" />
         </div>
         <div class="judge">
           <Player name="bob" role="judge" />

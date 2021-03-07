@@ -10,7 +10,7 @@ const CardTable = (props) => {
           <Card claim={props.arg1} />
         </div>
         <div className="right">
-          <Card claim="you're wrong" />
+          <Card claim={props.arg2} />
         </div>
       </div>
     </>
