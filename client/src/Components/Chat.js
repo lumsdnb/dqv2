@@ -4,6 +4,21 @@ const Chat = (props) => {
   return (
     <>
       <div className="chatmessages">
+        <div>
+          <input type="radio" id="negative" name="role" value="affirmative" />
+          <label for="affirmative">affirmative</label>
+        </div>
+
+        <div>
+          <input type="radio" id="negative" name="role" value="negative" />
+          <label for="negative">negative</label>
+        </div>
+
+        <div>
+          <input type="radio" id="judge" name="role" value="judge" />
+          <label for="judge">judge</label>
+        </div>
+
         <p>DOUBT</p>
         <p>DOUBT</p>
         <p>DOUBT</p>
