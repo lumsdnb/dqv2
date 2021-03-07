@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 import CardTable from './Components/CardTable.js';
 import Player from './Components/Player.js';
-import MainForm from './Components/MainForm.js';
+//import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
 
 import './App.css';
@@ -14,8 +14,12 @@ const ENDPOINT = 'http://127.0.0.1:4001';
 const App = () => {
   const [yourID, setYourID] = useState();
   const [role, setRole] = useState();
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [yourMessage, setYourMessage] = useState('');
+  const [yourUnsentArgument, setYourUnsentArgument] = useState('');
+  const [opponentMessage, setOpponentMessage] = useState('');
+
+  //const [messages, setMessages] = useState([]);
+  //setYourMessages((oldMsgs) => [...oldMsgs, message]);
 
   const socketRef = useRef();
 
@@ -23,29 +27,27 @@ const App = () => {
     socketRef.current = io.connect(ENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
-      console.log(id);
     });
     socketRef.current.on('message', (message) => {
-      setMessage(message.body);
-      receivedMessage(message.body);
+      console.log(message.id);
+      console.log(yourID);
+      if (message.id !== yourID) {
+        setOpponentMessage(message.body);
+      }
     });
   }, []);
-
-  function receivedMessage(message) {
-    setMessages((oldMsgs) => [...oldMsgs, message]);
-  }
 
   function sendMessage(e) {
     e.preventDefault();
     const messageObject = {
-      body: message,
+      body: yourUnsentArgument,
       id: yourID,
     };
     socketRef.current.emit('send message', messageObject);
   }
 
   function handleChange(e) {
-    setMessage(e.target.value);
+    setYourUnsentArgument(e.target.value);
   }
 
   return (
@@ -85,7 +87,7 @@ const App = () => {
           </h1>
         </div>
         <div class="table">
-          <CardTable arg1={message} arg2="examination card" />
+          <CardTable arg1={yourMessage} arg2={opponentMessage} />
         </div>
         <div class="judge">
           <Player name="bob" role="judge" />
