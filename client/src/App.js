@@ -14,12 +14,13 @@ const ENDPOINT = 'http://127.0.0.1:4001';
 const App = () => {
   const [yourID, setYourID] = useState();
   const [role, setRole] = useState();
-  const [yourMessage, setYourMessage] = useState('');
+  const [affirmativeMessage, setAffirmativeMessage] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
-  const [opponentMessage, setOpponentMessage] = useState('');
+  const [NegativeMessage, setNegativeMessage] = useState('');
+  const [argType, setArgType] = useState('');
 
   //const [messages, setMessages] = useState([]);
-  //setYourMessages((oldMsgs) => [...oldMsgs, message]);
+  //setaffirmativeMessages((oldMsgs) => [...oldMsgs, message]);
 
   const socketRef = useRef();
 
@@ -31,8 +32,11 @@ const App = () => {
     socketRef.current.on('message', (message) => {
       console.log(message.id);
       console.log(yourID);
-      if (message.id !== yourID) {
-        setOpponentMessage(message.body);
+      if (message.type == 'affirmative') {
+        setAffirmativeMessage(message.body);
+      }
+      if (message.type == 'negative') {
+        setNegativeMessage(message.body);
       }
     });
   }, []);
@@ -42,12 +46,17 @@ const App = () => {
     const messageObject = {
       body: yourUnsentArgument,
       id: yourID,
+      type: argType,
     };
     socketRef.current.emit('send message', messageObject);
   }
 
   function handleChange(e) {
     setYourUnsentArgument(e.target.value);
+  }
+
+  function handleRadioChange(e) {
+    setArgType(e.target.value);
   }
 
   return (
@@ -74,6 +83,26 @@ const App = () => {
                 onChange={handleChange}
               />{' '}
             </label>
+            <div>
+              <input
+                type="radio"
+                id="negative"
+                name="role"
+                value="affirmative"
+                onChange={handleRadioChange}
+              />
+              <label for="affirmative">affirmative</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="negative"
+                name="role"
+                value="negative"
+                onChange={handleRadioChange}
+              />
+              <label for="negative">negative</label>
+            </div>
             <br />
             <input type="submit" className="form-btn" value="Place card" />
           </form>
@@ -87,7 +116,7 @@ const App = () => {
           </h1>
         </div>
         <div class="table">
-          <CardTable arg1={yourMessage} arg2={opponentMessage} />
+          <CardTable arg1={affirmativeMessage} arg2={NegativeMessage} />
         </div>
         <div class="judge">
           <Player name="bob" role="judge" />

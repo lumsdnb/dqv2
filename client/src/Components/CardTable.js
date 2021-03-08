@@ -7,9 +7,11 @@ const CardTable = (props) => {
     <>
       <div className="table">
         <div className="left">
+          <h3>affirmative</h3>
           <Card claim={props.arg1} />
         </div>
         <div className="right">
+          <h3>negative</h3>
           <Card claim={props.arg2} />
         </div>
       </div>
