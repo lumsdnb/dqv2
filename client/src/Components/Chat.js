@@ -1,21 +1,41 @@
 import React from 'react';
 import './Chat.css';
 const Chat = (props) => {
+  function handleRadioChange(event) {
+    // invoke the callback with the new value
+    props.onChange(event.target.value);
+  }
   return (
     <>
       <div className="chatmessages">
         <div>
-          <input type="radio" id="negative" name="role" value="affirmative" />
+          <input
+            type="radio"
+            id="negative"
+            name="role"
+            value="affirmative"
+            onChange={props.handleRadioChange}
+          />
           <label for="affirmative">affirmative</label>
         </div>
-
         <div>
-          <input type="radio" id="negative" name="role" value="negative" />
+          <input
+            type="radio"
+            id="negative"
+            name="role"
+            value="negative"
+            onChange={props.handleRadioChange}
+          />
           <label for="negative">negative</label>
         </div>
-
         <div>
-          <input type="radio" id="judge" name="role" value="judge" />
+          <input
+            type="radio"
+            id="judge"
+            name="role"
+            value="judge"
+            onChange={props.handleRadioChange}
+          />
           <label for="judge">judge</label>
         </div>
 
