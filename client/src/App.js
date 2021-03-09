@@ -8,6 +8,7 @@ import Chat from './Components/Chat.js';
 
 import './App.css';
 import './Components/MainForm.css';
+import MainForm from './Components/MainForm.js';
 
 const ENDPOINT = 'http://127.0.0.1:4001';
 const productionENDPOINT = 'http://192.168.2.199:4001';
@@ -64,7 +65,7 @@ const App = () => {
     <>
       <div class="grid-container">
         <div class="chat">
-          <Chat />
+          <Chat handleRadioChange={handleRadioChange} />
         </div>
         <div class="player1">
           <Player name="player1" role=" affirmative" />
@@ -84,26 +85,6 @@ const App = () => {
                 onChange={handleChange}
               />{' '}
             </label>
-            <div>
-              <input
-                type="radio"
-                id="negative"
-                name="role"
-                value="affirmative"
-                onChange={handleRadioChange}
-              />
-              <label for="affirmative">affirmative</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="negative"
-                name="role"
-                value="negative"
-                onChange={handleRadioChange}
-              />
-              <label for="negative">negative</label>
-            </div>
             <br />
             <input type="submit" className="form-btn" value="Place card" />
           </form>
@@ -116,7 +97,7 @@ const App = () => {
             pineapple belongs on pizza
           </h1>
         </div>
-        <div class="table">
+        <div class="card-table">
           <CardTable arg1={affirmativeMessage} arg2={NegativeMessage} />
         </div>
         <div class="judge">
