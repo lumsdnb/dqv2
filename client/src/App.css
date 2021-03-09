@@ -20,7 +20,7 @@ h1 {
   gap: 0px 0px;
   grid-template-areas:
     'chat title-claim title-claim judge'
-    'chat table table .'
+    'chat card-table card-table .'
     'player1 arguments arguments player2';
 }
 
@@ -44,8 +44,8 @@ h1 {
   grid-area: title-claim;
 }
 
-.table {
-  grid-area: table;
+.card-table {
+  grid-area: card-table;
 }
 
 .judge {
