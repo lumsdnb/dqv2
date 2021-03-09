@@ -8,10 +8,11 @@ const Chat = (props) => {
   return (
     <>
       <div className="chatmessages">
+        <h4>user type</h4>
         <div>
           <input
             type="radio"
-            id="negative"
+            id="usertype"
             name="role"
             value="affirmative"
             onChange={props.handleRadioChange}
@@ -21,7 +22,7 @@ const Chat = (props) => {
         <div>
           <input
             type="radio"
-            id="negative"
+            id="usertype"
             name="role"
             value="negative"
             onChange={props.handleRadioChange}
@@ -31,7 +32,7 @@ const Chat = (props) => {
         <div>
           <input
             type="radio"
-            id="judge"
+            id="usertype"
             name="role"
             value="judge"
             onChange={props.handleRadioChange}
@@ -39,14 +40,14 @@ const Chat = (props) => {
           <label for="judge">judge</label>
         </div>
 
-        <p>DOUBT</p>
-        <p>DOUBT</p>
-        <p>DOUBT</p>
-        <p>DOUBT</p>
+        <p>X DOUBT</p>
+        <p>X DOUBT</p>
+        <p>X DOUBT</p>
+        <p>X DOUBT</p>
         <p>wtf lol</p>
-        <p>DOUBT</p>
+        <p>X DOUBT</p>
         <p>i dont thing those two know what they are talking about</p>
-        <p>DOUBT</p>
+        <p>X DOUBT</p>
       </div>
     </>
   );

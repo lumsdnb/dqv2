@@ -1,0 +1,24 @@
+.judge-ruling {
+  display:none;
+  position: fixed;
+    width: 700px;
+    height: 400px;
+    margin: 5% auto;
+    padding: 10px;
+    border: 5px solid rgba(167, 166, 160, 0.8);
+    background-color:rgba(167, 166, 160, 0.8);
+    border-radius: .6rem;
+    box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.41);
+    font-size: 300%;
+  user-select: none;
+  overflow: hidden;
+  text-align: center;
+}
+
+.judge-ruling button {
+  padding: 1rem;
+  margin: 1.5rem;
+}
+.judge-ruling h2 {
+  text-align: left;
+}

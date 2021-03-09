@@ -5,6 +5,7 @@ import CardTable from './Components/CardTable.js';
 import Player from './Components/Player.js';
 //import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
+import Verdict from './Components/Verdict.js';
 
 import './App.css';
 import './Components/MainForm.css';
@@ -19,7 +20,10 @@ const App = () => {
   const [affirmativeMessage, setAffirmativeMessage] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [NegativeMessage, setNegativeMessage] = useState('');
+  const [judgeMessage, setJudgeMessage] = useState('')
   const [argType, setArgType] = useState('');
+  const [canSend, setCanSend] = useState(true);
+  const [showRuling, setShowRuling] = useState(false);
 
   //const [messages, setMessages] = useState([]);
   //setaffirmativeMessages((oldMsgs) => [...oldMsgs, message]);
@@ -34,23 +38,39 @@ const App = () => {
     socketRef.current.on('message', (message) => {
       console.log(message.id);
       console.log(yourID);
-      if (message.type == 'affirmative') {
-        setAffirmativeMessage(message.body);
-      }
-      if (message.type == 'negative') {
-        setNegativeMessage(message.body);
+
+      switch (message.type) {
+        case 'affirmative':
+          setAffirmativeMessage(message.body);
+          
+          break;
+          case 'negative':
+            setNegativeMessage(message.body);
+            
+            break;
+            case 'judge':
+        setJudgeMessage(message.body);
+            setShowRuling(true);
+          break;
+      
+        default:
+          break;
       }
     });
   }, []);
 
   function sendMessage(e) {
     e.preventDefault();
-    const messageObject = {
-      body: yourUnsentArgument,
-      id: yourID,
-      type: argType,
-    };
-    socketRef.current.emit('send message', messageObject);
+    if(canSend){
+
+      const messageObject = {
+        body: yourUnsentArgument,
+        id: yourID,
+        type: argType,
+      };
+      setCanSend(false);
+      socketRef.current.emit('send message', messageObject);
+    }
   }
 
   function handleChange(e) {
@@ -59,6 +79,10 @@ const App = () => {
 
   function handleRadioChange(e) {
     setArgType(e.target.value);
+  }
+
+  function closeVerdict(){
+    setShowRuling(false)
   }
 
   return (
@@ -97,13 +121,14 @@ const App = () => {
             pineapple belongs on pizza
           </h1>
         </div>
-        <div class="card-table">
+        <div class="tabla">
           <CardTable arg1={affirmativeMessage} arg2={NegativeMessage} />
         </div>
         <div class="judge">
           <Player name="bob" role="judge" />
         </div>
       </div>
+        <Verdict verdict="guilty" showRuling={showRuling} verdict={judgeMessage} closeVerdict={closeVerdict}/>
     </>
   );
 };

@@ -5,7 +5,7 @@ import './CardTable.css';
 const CardTable = (props) => {
   return (
     <>
-      <div className="table">
+      <div className="card-table">
         <div className="left">
           <h3>affirmative</h3>
           <Card claim={props.arg1} />
