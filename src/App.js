@@ -15,7 +15,7 @@ import useSound from 'use-sound';
 import gavelSound from './sounds/gavel-2.mp3';
 
 const ENDPOINT = 'http://127.0.0.1:4001';
-const productionENDPOINT = 'http://192.168.2.199:4001';
+const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com/:4001';
 
 const App = () => {
   const [yourID, setYourID] = useState();
@@ -34,7 +34,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(ENDPOINT);
+    socketRef.current = io.connect(productionENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
