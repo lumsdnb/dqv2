@@ -11,6 +11,9 @@ import './App.css';
 import './Components/MainForm.css';
 import MainForm from './Components/MainForm.js';
 
+import useSound from 'use-sound';
+import gavelSound from './sounds/gavel-2.mp3';
+
 const ENDPOINT = 'http://127.0.0.1:4001';
 const productionENDPOINT = 'http://192.168.2.199:4001';
 
@@ -20,7 +23,7 @@ const App = () => {
   const [affirmativeMessage, setAffirmativeMessage] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [NegativeMessage, setNegativeMessage] = useState('');
-  const [judgeMessage, setJudgeMessage] = useState('')
+  const [judgeMessage, setJudgeMessage] = useState('');
   const [argType, setArgType] = useState('');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
@@ -42,17 +45,17 @@ const App = () => {
       switch (message.type) {
         case 'affirmative':
           setAffirmativeMessage(message.body);
-          
+
           break;
-          case 'negative':
-            setNegativeMessage(message.body);
-            
-            break;
-            case 'judge':
-        setJudgeMessage(message.body);
-            setShowRuling(true);
+        case 'negative':
+          setNegativeMessage(message.body);
+
           break;
-      
+        case 'judge':
+          setJudgeMessage(message.body);
+          setShowRuling(true);
+          break;
+
         default:
           break;
       }
@@ -61,8 +64,7 @@ const App = () => {
 
   function sendMessage(e) {
     e.preventDefault();
-    if(canSend){
-
+    if (canSend) {
       const messageObject = {
         body: yourUnsentArgument,
         id: yourID,
@@ -81,9 +83,17 @@ const App = () => {
     setArgType(e.target.value);
   }
 
-  function closeVerdict(){
-    setShowRuling(false)
+  function closeVerdict() {
+    setShowRuling(false);
   }
+
+  const handleSound = () => {
+    play();
+  };
+
+  const [play] = useSound(gavelSound, {
+    volume: 0.5,
+  });
 
   return (
     <>
@@ -123,12 +133,18 @@ const App = () => {
         </div>
         <div class="tabla">
           <CardTable arg1={affirmativeMessage} arg2={NegativeMessage} />
+          <button onClick={handleSound}>gavel</button>
         </div>
         <div class="judge">
           <Player name="bob" role="judge" />
         </div>
       </div>
-        <Verdict verdict="guilty" showRuling={showRuling} verdict={judgeMessage} closeVerdict={closeVerdict}/>
+      <Verdict
+        verdict="guilty"
+        showRuling={showRuling}
+        verdict={judgeMessage}
+        closeVerdict={closeVerdict}
+      />
     </>
   );
 };
