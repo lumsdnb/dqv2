@@ -5,7 +5,7 @@ import CardTable from './Components/CardTable.js';
 import Player from './Components/Player.js';
 //import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
-import Verdict from './Components/Verdict.js';
+import Modal from './Components/Modal.js';
 
 import './App.css';
 import './Components/MainForm.css';
@@ -34,7 +34,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(ENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -70,7 +70,7 @@ const App = () => {
         id: yourID,
         type: argType,
       };
-      setCanSend(false);
+      //setCanSend(false);
       socketRef.current.emit('send message', messageObject);
     }
   }
@@ -83,7 +83,7 @@ const App = () => {
     setArgType(e.target.value);
   }
 
-  function closeVerdict() {
+  function closeModal() {
     setShowRuling(false);
   }
 
@@ -139,11 +139,11 @@ const App = () => {
           <Player name="bob" role="judge" />
         </div>
       </div>
-      <Verdict
+      <Modal
         verdict="guilty"
-        showRuling={showRuling}
+        showModal={showRuling}
         verdict={judgeMessage}
-        closeVerdict={closeVerdict}
+        closeModal={closeModal}
       />
     </>
   );
