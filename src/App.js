@@ -20,12 +20,12 @@ const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com/:4001';
 
 const App = () => {
   const [yourID, setYourID] = useState();
+  const [userName, setUserName] = useState('player you');
   const [role, setRole] = useState();
   const [affirmativeMessage, setAffirmativeMessage] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [NegativeMessage, setNegativeMessage] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('');
-  const [argType, setArgType] = useState('');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
 
@@ -76,11 +76,15 @@ const App = () => {
       const messageObject = {
         body: yourUnsentArgument,
         id: yourID,
-        type: argType,
+        type: role,
       };
       //setCanSend(false);
       socketRef.current.emit('send message', messageObject);
     }
+  }
+
+  function setName(name) {
+    setUserName(name);
   }
 
   function handleChange(e) {
@@ -88,16 +92,20 @@ const App = () => {
   }
 
   function handleRadioChange(e) {
-    setArgType(e.target.value);
+    setRole(e.target.value);
+  }
+
+  function handleNameChange(e) {
+    setUserName(e.target.value);
+  }
+
+  function handleSetuser(e) {
     const messageObject = {
       id: yourID,
-      name: 'placeholdername',
-      role: e.target.value,
+      name: userName,
+      role: role,
     };
     socketRef.current.emit('set user', messageObject);
-  }
-  function setUser(e) {
-    //todo: refactor from handleRadioChange
   }
 
   function closeModal() {
@@ -116,10 +124,15 @@ const App = () => {
     <>
       <div class="grid-container">
         <div class="chat">
-          <UserList users={userList} handleRadioChange={handleRadioChange} />
+          <UserList
+            users={userList}
+            handleRadioChange={handleRadioChange}
+            handleSetUser={handleSetuser}
+            handleNameChange={handleNameChange}
+          />
         </div>
         <div class="player1">
-          <Player name="player1" role=" affirmative" />
+          <Player name={userName} role={role} />
         </div>
         <div class="player2">
           <Player name="player2" role="negative" />
