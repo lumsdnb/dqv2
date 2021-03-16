@@ -44,6 +44,18 @@ const UserList = (props) => {
             judge
           </label>
         </div>
+        <div>
+          <label>
+            <input
+              type="radio"
+              id="usertype"
+              name="role"
+              value="spectator"
+              onChange={props.handleRadioChange}
+            />
+            spectator
+          </label>
+        </div>
         {props.users.map((item, i) => (
           <li key={i}>
             {item.id} - {item.role}
