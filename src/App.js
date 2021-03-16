@@ -10,6 +10,7 @@ import Modal from './Components/Modal.js';
 import './App.css';
 import './Components/MainForm.css';
 import MainForm from './Components/MainForm.js';
+import UserList from './Components/UserList.js';
 
 import useSound from 'use-sound';
 import gavelSound from './sounds/gavel-2.mp3';
@@ -27,6 +28,8 @@ const App = () => {
   const [argType, setArgType] = useState('');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
+
+  const [userList, setUserList] = useState([]);
 
   //const [messages, setMessages] = useState([]);
   //setaffirmativeMessages((oldMsgs) => [...oldMsgs, message]);
@@ -60,6 +63,11 @@ const App = () => {
           break;
       }
     });
+    socketRef.current.on('set user', (user) => {});
+    socketRef.current.on('user list', (users) => {
+      setUserList(users);
+      console.log(users);
+    });
   }, []);
 
   function sendMessage(e) {
@@ -81,6 +89,15 @@ const App = () => {
 
   function handleRadioChange(e) {
     setArgType(e.target.value);
+    const messageObject = {
+      id: yourID,
+      name: 'placeholdername',
+      role: e.target.value,
+    };
+    socketRef.current.emit('set user', messageObject);
+  }
+  function setUser(e) {
+    //todo: refactor from handleRadioChange
   }
 
   function closeModal() {
@@ -99,7 +116,7 @@ const App = () => {
     <>
       <div class="grid-container">
         <div class="chat">
-          <Chat handleRadioChange={handleRadioChange} />
+          <UserList users={userList} handleRadioChange={handleRadioChange} />
         </div>
         <div class="player1">
           <Player name="player1" role=" affirmative" />
