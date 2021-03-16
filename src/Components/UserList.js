@@ -90,6 +90,7 @@ const UserList = (props) => {
           </div>
         </form>
 
+        <h2>connected users:</h2>
         {props.users.map((item, i) => (
           <p key={i}>
             {item.name} - {item.role}
