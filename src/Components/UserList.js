@@ -9,34 +9,40 @@ const UserList = (props) => {
     <>
       <div className="user-list">
         <div>
-          <input
-            type="radio"
-            id="usertype"
-            name="role"
-            value="affirmative"
-            onChange={props.handleRadioChange}
-          />
-          <label for="affirmative">affirmative</label>
+          <label>
+            <input
+              type="radio"
+              id="usertype"
+              name="role"
+              value="affirmative"
+              onChange={props.handleRadioChange}
+            />
+            affirmative
+          </label>
         </div>
         <div>
-          <input
-            type="radio"
-            id="usertype"
-            name="role"
-            value="negative"
-            onChange={props.handleRadioChange}
-          />
-          <label for="negative">negative</label>
+          <label>
+            <input
+              type="radio"
+              id="usertype"
+              name="role"
+              value="negative"
+              onChange={props.handleRadioChange}
+            />
+            negative
+          </label>
         </div>
         <div>
-          <input
-            type="radio"
-            id="usertype"
-            name="role"
-            value="judge"
-            onChange={props.handleRadioChange}
-          />
-          <label for="judge">judge</label>
+          <label>
+            <input
+              type="radio"
+              id="usertype"
+              name="role"
+              value="judge"
+              onChange={props.handleRadioChange}
+            />
+            judge
+          </label>
         </div>
         {props.users.map((item, i) => (
           <li key={i}>
