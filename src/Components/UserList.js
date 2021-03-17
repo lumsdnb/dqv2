@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './UserList.css';
 const UserList = (props) => {
+  const [showBtn, setShowBtn] = useState(false);
+
   function handleSubmitBtn(event) {
     event.preventDefault();
     props.handleSetUser(event.target.value);
   }
+
+  function handleName(e) {
+    e.preventDefault();
+    setShowBtn(true);
+    props.handleNameChange(e);
+  }
+
   return (
     <>
       <div className="user-list">
         <form>
           <div class="form-group">
             <label>
-              your name *
               <input
                 type="text"
                 class="form-control"
                 name="name"
-                placeholder="name"
-                onChange={props.handleNameChange}
+                placeholder="your name"
+                onChange={handleName}
                 required="required"
               />
             </label>{' '}
@@ -80,13 +88,15 @@ const UserList = (props) => {
           </div>
 
           <div class="form-group">
-            <input
-              type="submit"
-              class="btn btn-primary"
-              name="set"
-              value="set"
-              onClick={handleSubmitBtn}
-            />
+            {showBtn ? (
+              <input
+                type="submit"
+                class="btn btn-primary"
+                name="set"
+                value="set"
+                onClick={handleSubmitBtn}
+              />
+            ) : null}
           </div>
         </form>
 
