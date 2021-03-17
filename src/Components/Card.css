@@ -1,5 +1,5 @@
 .card {
-  padding: 10px;
+  padding: 1rem;
   margin: 40px;
   height: 17rem;
   width: 12rem;
@@ -11,4 +11,28 @@
 .card:hover {
   background-color: #ddd;
   transition: background-color 100ms;
+}
+
+.card-inner {
+  width: 90%;
+  height: 90%;
+  border: 1px solid black;
+  position: relative;
+}
+
+.card-inner:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 25%;
+  top: 0;
+  margin-left: -26%;
+  border: 4px solid #fff;
+}
+
+.card-inner:hover::after {
+  transition: border-color 100ms;
+  border-color: #ddd;
 }

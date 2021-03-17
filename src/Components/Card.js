@@ -7,8 +7,10 @@ const Card = (props) => {
   const { fontSize, ref } = useFitText();
   return (
     <>
-      <div ref={ref} className="card" style={{ fontSize }}>
-        <p>{props.claim}</p>
+      <div className="card">
+        <div ref={ref} className="card-inner" style={{ fontSize }}>
+          <p>{props.claim}</p>
+        </div>
       </div>
     </>
   );
