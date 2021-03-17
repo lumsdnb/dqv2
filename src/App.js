@@ -6,11 +6,10 @@ import Player from './Components/Player.js';
 //import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
+import UserList from './Components/UserList.js';
 
 import './App.css';
 import './Components/MainForm.css';
-import MainForm from './Components/MainForm.js';
-import UserList from './Components/UserList.js';
 
 import useSound from 'use-sound';
 import gavelSound from './sounds/gavel-2.mp3';
@@ -30,6 +29,8 @@ const App = () => {
   const [showRuling, setShowRuling] = useState(false);
 
   const [userList, setUserList] = useState([]);
+  const [cardList, setCardList] = useState([]);
+  //todo: implement card array )doesnt work atm
 
   //const [messages, setMessages] = useState([]);
   //setaffirmativeMessages((oldMsgs) => [...oldMsgs, message]);
@@ -37,13 +38,12 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(ENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
     socketRef.current.on('message', (message) => {
-      console.log(message.id);
-      console.log(yourID);
+      //setCardList((cardList) => [...cardList, message]);
 
       switch (message.type) {
         case 'affirmative':
