@@ -1,22 +1,26 @@
 .player {
-  border-radius: 0.3rem;
-  padding: 1rem;
-  margin-bottom: 2rem;
+  display: flex;
+}
+.player-text {
+  word-wrap: break-word;
+  padding-right: 1rem;
+  padding-left: 3rem;
   max-width: fit-content;
   max-height: fit-content;
+  border-radius: 0.3rem;
   align-items: center;
-  display: flex;
   user-select: none;
   box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
   -webkit-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
   -moz-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
 }
 
-.player :is(img) {
+.player-img {
+  position: relative;
   border-radius: 50%;
-  box-shadow: ;
   width: 7rem;
   height: 7rem;
+  left: 2.5rem;
 }
 
 .player h3 {

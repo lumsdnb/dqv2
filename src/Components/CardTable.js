@@ -6,14 +6,10 @@ const CardTable = (props) => {
   return (
     <>
       <div className="card-table">
-        <div className="left">
-          <h3>affirmative</h3>
-          <Card claim={props.arg1} />
-        </div>
-        <div className="right">
-          <h3>negative</h3>
-          <Card claim={props.arg2} />
-        </div>
+        <Card claim={props.arg1} />
+        <Card claim={props.arg2} />
+        <Card claim="test eins zwei drei" />
+        <Card claim="das argument ist falsch weil bla bla" />
       </div>
     </>
   );

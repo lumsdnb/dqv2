@@ -3,6 +3,8 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 h1 {
   background-color: #282c34;
@@ -19,16 +21,12 @@ button {
 
 .grid-container {
   display: grid;
-
-  width: 100vw;
-  height: 100vh;
-
-  grid-template-columns: 0.8fr 1.2fr 1.2fr 0.8fr;
-  grid-template-rows: 0.7fr 1.5fr 0.8fr;
+  grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
+  grid-template-rows: 0.1fr 1.5fr 0.8fr;
   gap: 0px 0px;
   grid-template-areas:
     'chat title-claim title-claim judge'
-    'chat card-table card-table .'
+    'chat card-table card-table card-table'
     'player1 arguments arguments player2';
 }
 
@@ -50,6 +48,7 @@ button {
 
 .title-claim {
   grid-area: title-claim;
+  justify-content: center;
 }
 
 .card-table {
