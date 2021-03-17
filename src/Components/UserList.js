@@ -26,6 +26,7 @@ const UserList = (props) => {
                 name="name"
                 placeholder="your name"
                 onChange={handleName}
+                maxlength="10"
                 required="required"
               />
             </label>{' '}
