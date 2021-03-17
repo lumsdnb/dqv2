@@ -20,7 +20,7 @@ const productionENDPOINT = '192.168.2.199:4001';
 
 const App = () => {
   const [yourID, setYourID] = useState();
-  const [userName, setUserName] = useState('player you');
+  const [userName, setUserName] = useState('');
   const [role, setRole] = useState();
   const [affirmativeMessage, setAffirmativeMessage] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
@@ -37,7 +37,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(ENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
