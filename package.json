@@ -18,6 +18,7 @@
   "optionalDependencies": {
     "fsevents": "2.3.2"
   },
+  "proxy": "https://cardgame-server-master.herokuapp.com:4001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
