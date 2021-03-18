@@ -25,9 +25,10 @@ const App = () => {
   const [affirmativeMessage, setAffirmativeMessage] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [NegativeMessage, setNegativeMessage] = useState('');
-  const [judgeMessage, setJudgeMessage] = useState('');
+  const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
+  const [debateClaim, setDebateClaim] = useState('pineapple belongs on pizza');
 
   const [userList, setUserList] = useState([]);
   const [cardList, setCardList] = useState([]);
@@ -123,7 +124,19 @@ const App = () => {
 
   return (
     <>
-      <div class="grid-container">
+      <div
+        class={
+          role == 'judge' ? 'grid-container-judge' : 'grid-container-player'
+        }
+      >
+        <div class="title-claim">
+          <h1 className="claim-header">
+            <sup>
+              <i>claim: </i>
+            </sup>
+            {debateClaim}
+          </h1>
+        </div>
         <div class="chat">
           <UserList
             users={userList}
@@ -131,19 +144,28 @@ const App = () => {
             handleSetUser={handleSetuser}
             handleNameChange={handleNameChange}
           />
-          <button onClick={handleSound}>gavel</button>
         </div>
-        <div class="player1">
-          <Player name={userName} role={role} />
-        </div>
-        <div class="player2">
-          <Player name="player2" role="negative" />
-        </div>
-        <div class="arguments">
+        {role == 'affirmative' || role == 'negative' ? (
+          <>
+            <div className="player1">
+              <Player name={userName} role={role} />
+            </div>
+            <div className="player2">
+              <Player name="player2" role="negative" />
+            </div>
+          </>
+        ) : null}
+        {role == 'judge' ? (
+          <div class="players">
+            <Player name={'affirmativ'} role={'affirmative'} />
+            <Player name="neg" role="negative" />
+          </div>
+        ) : null}
+        <div class="toolbox">
           <form className="main-form" onSubmit={sendMessage}>
             {' '}
             <label className="form-label" for="cardform">
-              Your Argument:
+              {role == 'judge' ? 'Your ruling' : 'Your Argument'}
               <br />
               <textarea
                 id="cardform"
@@ -154,24 +176,23 @@ const App = () => {
             <br />
             <input type="submit" className="form-btn" value="Place card" />
           </form>
-        </div>
-        <div class="title-claim">
-          <h1 className="claim-header">
-            <sup>
-              <i>claim: </i>
-            </sup>
-            pineapple belongs on pizza
-          </h1>
+          {role == 'judge' ? (
+            <button onClick={handleSound}>gavel</button>
+          ) : null}
         </div>
 
-        <CardTable arg1={affirmativeMessage} arg2={NegativeMessage} />
+        <CardTable
+          arg1={affirmativeMessage}
+          arg2={NegativeMessage}
+          role={role}
+        />
 
         <div class="judge">
           <Player name="bob" role="judge" />
         </div>
       </div>
+
       <Modal
-        verdict="guilty"
         showModal={showRuling}
         verdict={judgeMessage}
         closeModal={closeModal}

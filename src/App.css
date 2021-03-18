@@ -19,7 +19,7 @@ button {
   height: 3rem;
 }
 
-.grid-container {
+.grid-container-player {
   display: grid;
   grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
   grid-template-rows: 0.1fr 1.5fr 0.8fr;
@@ -27,11 +27,38 @@ button {
   grid-template-areas:
     'chat title-claim title-claim judge'
     'chat card-table card-table card-table'
-    'player1 arguments arguments player2';
+    'player1 toolbox toolbox player2';
+}
+
+.grid-container-judge {
+  display: grid;
+  grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
+  grid-template-rows: 0.1fr 1.5fr 0.8fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'chat title-claim title-claim players'
+    'chat card-table card-table .'
+    'judge toolbox toolbox .';
+}
+
+.grid-container-spectator {
+  display: grid;
+  grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
+  grid-template-rows: 0.1fr 1.5fr 0.8fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'title-claim title-claim judge players'
+    'card-table card-table card-table .'
+    'chat chat chat .';
 }
 
 .chat {
   grid-area: chat;
+}
+
+.players {
+  grid-area: players;
+  display: flex;
 }
 
 .player1 {
@@ -40,10 +67,6 @@ button {
 
 .player2 {
   grid-area: player2;
-}
-
-.arguments {
-  grid-area: arguments;
 }
 
 .title-claim {
@@ -57,4 +80,16 @@ button {
 
 .judge {
   grid-area: judge;
+}
+
+.toolbox {
+  grid-area: toolbox;
+  padding: 3px;
+  margin: 2rem;
+  min-height: 12rem;
+  background-color: #bbb;
+  border-radius: 0.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
 }

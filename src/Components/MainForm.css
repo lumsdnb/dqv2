@@ -4,9 +4,6 @@
   min-height: 12rem;
   background-color: #bbb;
   border-radius: 0.2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
 }
 
 .form-label {
