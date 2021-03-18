@@ -1,0 +1,42 @@
+.card {
+  position: relative;
+  padding: 1rem;
+  margin: 0.5rem;
+  height: 90%;
+  min-width: 12em;
+  width: fit-content;
+  background-color: #bbb;
+  border-radius: 0.4rem;
+  user-select: none;
+  overflow-wrap: break-word;
+}
+.card:hover {
+  background-color: #ddd;
+  transition: background-color 100ms;
+  rotate: (20deg);
+}
+
+.card-bottom {
+  position: absolute;
+  bottom: 1rem;
+}
+.rate-card {
+}
+
+.rate-card button {
+  width: fit-content;
+  height: fit-content;
+  transform: ;
+}
+
+progress::-moz-progress-bar {
+  color: white;
+}
+progress::-webkit-progress-value {
+  background: rgb(16, 190, 16);
+}
+progress {
+  background: rgb(16, 190, 16);
+  color: white;
+  height: 0.5rem;
+}
