@@ -102,11 +102,9 @@ const UserList = (props) => {
         </form>
 
         <h2>connected users:</h2>
-        {props.users.map((item, i) => (
-          <p key={i}>
-            {item.name} - {item.role}
-          </p>
-        ))}
+        <p>AFF: {props.aff}</p>
+        <p>NEG: {props.neg}</p>
+        <p>Judge: {props.judge}</p>
       </div>
     </>
   );

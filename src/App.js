@@ -23,13 +23,14 @@ const App = () => {
   const [yourID, setYourID] = useState();
   const [userName, setUserName] = useState('');
   const [role, setRole] = useState();
-  const [affirmativeMessage, setAffirmativeMessage] = useState('');
+  const [affirmativeID, setAffirmativeID] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
-  const [NegativeMessage, setNegativeMessage] = useState('');
+  const [NegativeID, setNegativeID] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
   const [debateClaim, setDebateClaim] = useState('pineapple belongs on pizza');
+  const [game, setGame] = useState({});
 
   const [userList, setUserList] = useState([]);
   const [cardList, setCardList] = useState([]);
@@ -53,7 +54,12 @@ const App = () => {
     });
     socketRef.current.on('game', (game) => {
       setCardList(game.cardList);
+      setGame(game);
       console.log(game);
+    });
+    socketRef.current.on('judge ruling', (ruling) => {
+      setJudgeMessage(ruling);
+      setShowRuling(true);
     });
   }, []);
 
@@ -62,6 +68,7 @@ const App = () => {
   };
 
   function sendMessage(e) {
+    if (e == '') return;
     if (canSend) {
       const messageObject = {
         body: e,
@@ -71,6 +78,7 @@ const App = () => {
       };
       //setCanSend(false);
       socketRef.current.emit('send message', messageObject);
+      setYourUnsentArgument('');
     }
   }
 
@@ -122,6 +130,10 @@ const App = () => {
     setDebateClaim(e.target.value);
   };
 
+  const nextRound = () => {
+    socketRef.current.emit('next round');
+  };
+
   return (
     <>
       <div
@@ -136,6 +148,7 @@ const App = () => {
             </sup>
             {debateClaim}
           </h1>
+          <h3>Round {game.round}</h3>
         </div>
         <div class="chat">
           <textarea
@@ -145,7 +158,9 @@ const App = () => {
           />{' '}
           <button onClick={setTopic}>set claim</button>
           <UserList
-            users={userList}
+            aff={game.affirmativeName}
+            neg={game.negativeName}
+            judge={game.judgeName}
             handleRadioChange={handleRadioChange}
             handleSetUser={handleSetuser}
             handleNameChange={handleNameChange}
@@ -163,8 +178,8 @@ const App = () => {
         ) : null}
         {role == 'judge' ? (
           <div class="players">
-            <Player name={'affirmativ'} role={'affirmative'} />
-            <Player name="neg" role="negative" />
+            <Player name={game.affirmativeName} role={'affirmative'} />
+            <Player name={game.negativeName} role="negative" />
           </div>
         ) : null}
         <div class="toolbox">
@@ -173,7 +188,11 @@ const App = () => {
           )}
 
           {role == 'judge' ? (
-            <button onClick={handleSound}>gavel</button>
+            <>
+              <button onClick={handleSound}>gavel</button>
+              <button onClick={nextRound}>next round</button>
+              <button>finish game</button>
+            </>
           ) : null}
           {role == 'spectator' ? (
             <>
@@ -183,16 +202,10 @@ const App = () => {
           ) : null}
         </div>
 
-        <CardTable
-          arg1={affirmativeMessage}
-          arg2={NegativeMessage}
-          cardList={cardList}
-          role={role}
-          rateCard={rateCard}
-        />
+        <CardTable cardList={cardList} rateCard={rateCard} />
 
         <div class="judge">
-          <Player name="bob" role="judge" />
+          <Player name={game.judgeName} role="judge" />
         </div>
       </div>
 
