@@ -1,23 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MainForm.css';
 
 const MainForm = (props) => {
-  function handleChange(event) {
-    props.onChange(event.target.value);
+  const [formState, setFormState] = useState();
+  function handleChange(e) {
+    setFormState(e.target.value);
   }
-  function handleSubmit(event) {
-    event.preventDefault();
-    if (this.state.value === '') {
-      return;
-    }
-    props.onSubmit(event.target.value);
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.handleSubmit(formState);
   }
 
   return (
     <form className="main-form" onSubmit={handleSubmit}>
       {' '}
       <label className="form-label" for="cardform">
-        Your Argument:
+        {props.role == 'judge' ? 'Your ruling' : 'Your Argument'}
         <br />
         <textarea
           id="cardform"

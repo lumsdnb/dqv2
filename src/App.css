@@ -5,6 +5,7 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
+  margin: 0.5rem;
 }
 h1 {
   background-color: #282c34;
@@ -84,7 +85,7 @@ button {
 
 .toolbox {
   grid-area: toolbox;
-  padding: 3px;
+  padding: 0.2rem;
   margin: 2rem;
   min-height: 12rem;
   background-color: #bbb;

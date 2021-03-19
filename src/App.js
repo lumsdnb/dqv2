@@ -7,6 +7,7 @@ import Player from './Components/Player.js';
 import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
 import UserList from './Components/UserList.js';
+import MainForm from './Components/MainForm.js';
 
 import './App.css';
 import './Components/MainForm.css';
@@ -45,7 +46,9 @@ const App = () => {
       setYourID(id);
     });
     socketRef.current.on('message', (message) => {
-      //setCardList((cardList) => [...cardList, message]);
+      const tempCardList = cardList;
+      tempCardList.push(message);
+      setCardList(tempCardList);
 
       switch (message.type) {
         case 'affirmative':
@@ -73,10 +76,9 @@ const App = () => {
   }, []);
 
   function sendMessage(e) {
-    e.preventDefault();
     if (canSend) {
       const messageObject = {
-        body: yourUnsentArgument,
+        body: e,
         id: yourID,
         type: role,
       };
@@ -119,7 +121,7 @@ const App = () => {
   };
 
   const [play] = useSound(gavelSound, {
-    volume: 0.5,
+    volume: 0.8,
   });
 
   return (
@@ -162,28 +164,25 @@ const App = () => {
           </div>
         ) : null}
         <div class="toolbox">
-          <form className="main-form" onSubmit={sendMessage}>
-            {' '}
-            <label className="form-label" for="cardform">
-              {role == 'judge' ? 'Your ruling' : 'Your Argument'}
-              <br />
-              <textarea
-                id="cardform"
-                className="form-textarea"
-                onChange={handleChange}
-              />{' '}
-            </label>
-            <br />
-            <input type="submit" className="form-btn" value="Place card" />
-          </form>
+          {role == 'spectator' ? null : (
+            <MainForm onChange={handleChange} handleSubmit={sendMessage} />
+          )}
+
           {role == 'judge' ? (
             <button onClick={handleSound}>gavel</button>
+          ) : null}
+          {role == 'spectator' ? (
+            <>
+              <button>cheer</button>
+              <button>throw tomato</button>
+            </>
           ) : null}
         </div>
 
         <CardTable
           arg1={affirmativeMessage}
           arg2={NegativeMessage}
+          cardList={cardList}
           role={role}
         />
 
