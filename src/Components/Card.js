@@ -18,8 +18,13 @@ const Card = (props) => {
 
   return (
     <>
-      <div ref={ref} className="card" style={{ fontSize }}>
-        <h4>card type</h4>
+      <div
+        onClick={props.detailCard}
+        ref={ref}
+        className="card"
+        style={{ fontSize }}
+      >
+        <h4 className="card-top">card type</h4>
         <p>{props.claim}</p>
         <div className="card-bottom">
           <progress value={'50'} max="100"></progress>
