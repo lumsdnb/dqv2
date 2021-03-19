@@ -24,11 +24,11 @@ const Card = (props) => {
         className="card"
         style={{ fontSize }}
       >
-        <h4 className="card-top">card type</h4>
+        <h4 className="card-top">card type: {props.role}</h4>
         <p>{props.claim}</p>
         <div className="card-bottom">
           <progress value={'50'} max="100"></progress>
-          {props.role == 'judge' ? (
+          {props.userRole == 'judge' ? (
             <div className="rate-card">
               {cardScore == 0 ? (
                 <>

@@ -202,7 +202,7 @@ const App = () => {
           ) : null}
         </div>
 
-        <CardTable cardList={cardList} rateCard={rateCard} />
+        <CardTable cardList={cardList} rateCard={rateCard} userRole={role} />
 
         <div class="judge">
           <Player name={game.judgeName} role="judge" />
