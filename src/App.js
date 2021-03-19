@@ -45,42 +45,29 @@ const App = () => {
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
-    socketRef.current.on('message', (message) => {
-      const tempCardList = cardList;
-      tempCardList.push(message);
-      setCardList(tempCardList);
-
-      switch (message.type) {
-        case 'affirmative':
-          setAffirmativeMessage(message.body);
-
-          break;
-        case 'negative':
-          setNegativeMessage(message.body);
-
-          break;
-        case 'judge':
-          setJudgeMessage(message.body);
-          setShowRuling(true);
-          break;
-
-        default:
-          break;
-      }
+    socketRef.current.on('topic', (topic) => {
+      setDebateClaim(topic);
     });
-    socketRef.current.on('set user', (user) => {});
-    socketRef.current.on('user list', (users) => {
-      setUserList(users);
-      console.log(users);
+    socketRef.current.on('message', (list) => {
+      setCardList(list);
+    });
+    socketRef.current.on('game', (game) => {
+      setCardList(game.cardList);
+      console.log(game);
     });
   }, []);
+
+  const setTopic = () => {
+    socketRef.current.emit('set topic', debateClaim);
+  };
 
   function sendMessage(e) {
     if (canSend) {
       const messageObject = {
         body: e,
-        id: yourID,
-        type: role,
+        role: role,
+        judgeRating: 0,
+        spectatorRating: 0,
       };
       //setCanSend(false);
       socketRef.current.emit('send message', messageObject);
@@ -105,12 +92,19 @@ const App = () => {
 
   function handleSetuser(e) {
     const messageObject = {
-      id: yourID,
       name: userName,
       role: role,
     };
     socketRef.current.emit('set user', messageObject);
   }
+
+  const rateCard = (index, rating) => {
+    const msgObj = {
+      index: index,
+      rating: rating,
+    };
+    socketRef.current.emit('rate card', msgObj);
+  };
 
   function closeModal() {
     setShowRuling(false);
@@ -123,6 +117,10 @@ const App = () => {
   const [play] = useSound(gavelSound, {
     volume: 0.8,
   });
+
+  const handleDebateField = (e) => {
+    setDebateClaim(e.target.value);
+  };
 
   return (
     <>
@@ -140,6 +138,12 @@ const App = () => {
           </h1>
         </div>
         <div class="chat">
+          <textarea
+            id="cardform"
+            className="form-textarea"
+            onChange={handleDebateField}
+          />{' '}
+          <button onClick={setTopic}>set claim</button>
           <UserList
             users={userList}
             handleRadioChange={handleRadioChange}
@@ -184,6 +188,7 @@ const App = () => {
           arg2={NegativeMessage}
           cardList={cardList}
           role={role}
+          rateCard={rateCard}
         />
 
         <div class="judge">
