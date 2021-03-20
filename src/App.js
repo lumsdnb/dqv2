@@ -6,7 +6,7 @@ import Player from './Components/Player.js';
 //import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
-import UserList from './Components/UserList.js';
+import LoginModal from './Components/LoginModal.js';
 import MainForm from './Components/MainForm.js';
 
 import './App.css';
@@ -37,6 +37,7 @@ const App = () => {
   const [showRuling, setShowRuling] = useState(false);
   const [debateClaim, setDebateClaim] = useState('pineapple belongs on pizza');
   const [game, setGame] = useState({});
+  const [showLogin, setShowLogin] = useState(true);
   
   const [userList, setUserList] = useState([]);
 
@@ -102,6 +103,7 @@ const App = () => {
     socketRef.current.emit('set topic', debateClaim);
   };
 
+  //todo: send question cards
   function sendMessage(e) {
     if (e == '') return;
     if (canSend) {
@@ -111,6 +113,7 @@ const App = () => {
         judgeRating: 0,
         spectatorRating: 0,
       };
+      
       //setCanSend(false);
       socketRef.current.emit('send message', messageObject);
       setYourUnsentArgument('');
@@ -219,7 +222,7 @@ const App = () => {
             onChange={handleDebateField}
           />{' '}
           <button onClick={setTopic}>set claim</button>
-          <UserList
+          <LoginModal
             aff={game.affirmativeName}
             neg={game.negativeName}
             judge={game.judgeName}

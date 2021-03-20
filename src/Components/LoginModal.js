@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './UserList.css';
-const UserList = (props) => {
+import './LoginModal.css';
+const LoginModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
 
   function handleSubmitBtn(event) {
@@ -110,4 +110,4 @@ const UserList = (props) => {
   );
 };
 
-export default UserList;
+export default LoginModal;

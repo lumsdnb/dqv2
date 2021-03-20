@@ -15,15 +15,15 @@ const MainForm = (props) => {
     <form className="main-form" onSubmit={handleSubmit}>
       {' '}
       <label className="form-label" for="cardform">
-        {props.role == 'judge' ? 'Your ruling' : 'Your Argument'}
-        <br />
+        {props.role === 'judge' ? 'Your ruling' : 'Your Argument'}
+      
         <textarea
           id="cardform"
           className="form-textarea"
           onChange={handleChange}
         />{' '}
       </label>
-      <br />
+      
       <input type="submit" className="form-btn" value="Place card" />
     </form>
   );
