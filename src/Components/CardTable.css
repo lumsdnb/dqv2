@@ -3,6 +3,8 @@
   flex-direction: row;
   justify-content: left;
   align-items: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
   width: 90%;
   height: 40vh;
   border-radius: 0.4rem;

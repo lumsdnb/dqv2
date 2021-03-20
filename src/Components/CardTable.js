@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { } from 'react';
 import Card from './Card.js';
 import './CardTable.css';
 
+
 const CardTable = (props) => {
-  const detailCard = (e) => {};
+  
+
+  const scrollToEnd = (e)=>{
+    e.scrollIntoView()
+  }
   const listOfCards = props.cardList.map((c) => (
     <Card
       claim={c.body}

@@ -34,6 +34,8 @@ const App = () => {
 
   const [userList, setUserList] = useState([]);
   const [cardList, setCardList] = useState([]);
+
+  const [judgeCanAdvance, setJudgeCanAdvance] = useState([])
   //todo: implement card array )doesnt work atm
 
   //const [messages, setMessages] = useState([]);
@@ -148,7 +150,7 @@ const App = () => {
             </sup>
             {debateClaim}
           </h1>
-          <h3>Round {game.round}</h3>
+          <h3>Round hey {game.round }</h3>
         </div>
         <div class="chat">
           <textarea
@@ -190,7 +192,7 @@ const App = () => {
           {role == 'judge' ? (
             <>
               <button onClick={handleSound}>gavel</button>
-              <button onClick={nextRound}>next round</button>
+              {judgeCanAdvance?<button onClick={nextRound}>next round</button>:null}
               <button>finish game</button>
             </>
           ) : null}
