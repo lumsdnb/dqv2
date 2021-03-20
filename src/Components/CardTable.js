@@ -1,14 +1,12 @@
-import React, { } from 'react';
+import React from 'react';
 import Card from './Card.js';
 import './CardTable.css';
 
 
 const CardTable = (props) => {
   
-
-  const scrollToEnd = (e)=>{
-    e.scrollIntoView()
-  }
+//todo: scroll to newest card
+  
   const listOfCards = props.cardList.map((c) => (
     <Card
       claim={c.body}
