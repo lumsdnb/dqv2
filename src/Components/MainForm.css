@@ -1,9 +1,9 @@
 .main-form {
   padding: 3px;
-  margin: 2rem;
   min-height: 12rem;
-  background-color: #bbb;
+  background-color: #515052;
   border-radius: 0.2rem;
+  color: whitesmoke;
 }
 
 .form-label {
@@ -21,4 +21,12 @@
 
 .form-btn {
   padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 110%;
+}
+
+.form-btn:hover {
+  color: #515151;
+  background-color: #f5f5f5;
 }

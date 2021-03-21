@@ -7,6 +7,8 @@ const Card = (props) => {
   const { fontSize, ref } = useFitText();
   const [cardScore, setCardScore] = useState(0);
 
+  //todo: pass this up
+
   const upvoteCard = () => {
     console.log('updoot');
     setCardScore(1);
@@ -24,8 +26,10 @@ const Card = (props) => {
         className="card"
         style={{ fontSize }}
       >
-        <h4 className="card-top">card type: {props.role}</h4>
-        <p>{props.claim}</p>
+        <h4 className="card-top">
+          {props.role} {props.type}
+        </h4>
+        <p className="card-body">{props.claim}</p>
         <div className="card-bottom">
           <progress value={'50'} max="100"></progress>
           {props.userRole == 'judge' ? (

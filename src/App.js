@@ -14,16 +14,14 @@ import './Components/MainForm.css';
 
 import useSound from 'use-sound';
 import soundGavel from './sounds/gavel-2.mp3';
-import soundWoo from "./sounds/woo.wav";
-import soundSlap from "./sounds/smol.wav";
-import soundAirhorn from "./sounds/airhorn.wav";
-import soundBigHammer from "./sounds/big-hammer.wav";
+import soundWoo from './sounds/woo.wav';
+import soundSlap from './sounds/smol.wav';
+import soundAirhorn from './sounds/airhorn.wav';
+import soundBigHammer from './sounds/big-hammer.wav';
 
 const ENDPOINT = 'http://127.0.0.1:4001';
 const herokuENDPOINT = 'https://cardgame-server-master.herokuapp.com:4001';
 const piENDPOINT = 'http://192.168.2.199:4001';
-
-
 
 const App = () => {
   const [yourID, setYourID] = useState();
@@ -38,39 +36,39 @@ const App = () => {
   const [debateClaim, setDebateClaim] = useState('pineapple belongs on pizza');
   const [game, setGame] = useState({});
   const [showLogin, setShowLogin] = useState(true);
-  
+
   const [userList, setUserList] = useState([]);
 
   const [cardList, setCardList] = useState([]);
   const [receivedVerdict, setReceivedVerdict] = useState(false);
-  const [isTyping] = useState(false)
+  const [isTyping] = useState(false);
 
-  const [judgeCanAdvance, setJudgeCanAdvance] = useState([])
+  const [newCardType, setNewCardType] = useState();
+
+  const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
   //todo: implement card array )doesnt work atm
 
   //const [messages, setMessages] = useState([]);
   //setaffirmativeMessages((oldMsgs) => [...oldMsgs, message]);
 
   function onKeyPressed(e) {
-  console.log(e.key);
-  if (role=="spectator") {
-    
-    switch (e.key) {
-      case "w":
-        playWoo();
-        break;
-      case "s":
-        playSlap();
-        break;
-      case "a":
-        playAirhorn();
-        break;
-      default:
-        break;
-        }
+    console.log(e.key);
+    if (role == 'spectator') {
+      switch (e.key) {
+        case 'w':
+          playWoo();
+          break;
+        case 's':
+          playSlap();
+          break;
+        case 'a':
+          playAirhorn();
+          break;
+        default:
+          break;
+      }
+    }
   }
-}
-
 
   const socketRef = useRef();
 
@@ -86,9 +84,7 @@ const App = () => {
       setCardList(cards);
     });
 
-    
     socketRef.current.on('game', (gameObj) => {
-
       setCardList(gameObj.cardList);
       setGame(gameObj);
       console.log(game);
@@ -110,10 +106,11 @@ const App = () => {
       const messageObject = {
         body: e,
         role: role,
+        type: newCardType,
         judgeRating: 0,
         spectatorRating: 0,
       };
-      
+
       //setCanSend(false);
       socketRef.current.emit('send message', messageObject);
       setYourUnsentArgument('');
@@ -136,7 +133,11 @@ const App = () => {
     setUserName(e.target.value);
   }
 
-  function handleSetuser(e) {
+  function handleCardType(e) {
+    setNewCardType(e.target.value);
+  }
+
+  function handleSetUser(e) {
     const messageObject = {
       name: userName,
       role: role,
@@ -162,9 +163,8 @@ const App = () => {
     volume: 0.8,
   });
 
-  const [playWoo,{ stop }] = useSound(soundWoo, {
+  const [playWoo, { stop }] = useSound(soundWoo, {
     volume: 0.8,
-    
   });
 
   const [playSlap] = useSound(soundSlap, {
@@ -179,16 +179,16 @@ const App = () => {
 
   //use this for increasing pitch of slaps
 
-  const [playbackRate, setPlaybackRate] = React.useState(0.75)
-  
+  const [playbackRate, setPlaybackRate] = React.useState(0.75);
+
   const handleClick = () => {
     setPlaybackRate(playbackRate + 0.1);
     playSlap();
   };
 
-  const handleSoundKeys = (e)=>{
+  const handleSoundKeys = (e) => {
     console.log(e.key);
-  }
+  };
 
   const handleDebateField = (e) => {
     setDebateClaim(e.target.value);
@@ -203,8 +203,9 @@ const App = () => {
       <div
         class={
           role == 'judge' ? 'grid-container-judge' : 'grid-container-player'
-        } onKeyDown={onKeyPressed}
-    tabIndex={0}
+        }
+        onKeyDown={onKeyPressed}
+        tabIndex={0}
       >
         <div class="title-claim">
           <h1 className="claim-header">
@@ -213,7 +214,7 @@ const App = () => {
             </sup>
             {debateClaim}
           </h1>
-          <h3>Round hey {game.round }</h3>
+          <h3>Round hey {game.round}</h3>
         </div>
         <div class="chat">
           <textarea
@@ -227,7 +228,7 @@ const App = () => {
             neg={game.negativeName}
             judge={game.judgeName}
             handleRadioChange={handleRadioChange}
-            handleSetUser={handleSetuser}
+            handleSetUser={handleSetUser}
             handleNameChange={handleNameChange}
           />
         </div>
@@ -249,30 +250,35 @@ const App = () => {
         ) : null}
         <div class="toolbox">
           {role == 'spectator' ? null : (
-            <MainForm onChange={handleChange} handleSubmit={sendMessage} />
+            <MainForm
+              onChange={handleChange}
+              handleCardType={handleCardType}
+              handleSubmit={sendMessage}
+            />
           )}
 
           {role == 'judge' ? (
             <>
               <button onClick={playGavel}>gavel</button>
-              {judgeCanAdvance?<button onClick={nextRound}>next round</button>:null}
+              {judgeCanAdvance ? (
+                <button onClick={nextRound}>next round</button>
+              ) : null}
               <button>finish game</button>
             </>
           ) : null}
           {role == 'spectator' ? (
             <>
-            <div onKeyPress={handleSoundKeys}>
-
-              <button onClick={playWoo}>woo</button>
-              <button onClick={playSlap}>slap</button>
-              <button onClick={playAirhorn}>airhorn</button>
-              <button>throw tomato?</button>
-            </div>
+              <div onKeyPress={handleSoundKeys}>
+                <button onClick={playWoo}>woo</button>
+                <button onClick={playSlap}>slap</button>
+                <button onClick={playAirhorn}>airhorn</button>
+                <button>throw tomato?</button>
+              </div>
             </>
           ) : null}
         </div>
 
-        <CardTable cardList={cardList}  userRole={role} />
+        <CardTable cardList={cardList} userRole={role} />
 
         <div class="judge">
           <Player name={game.judgeName} role="judge" />
