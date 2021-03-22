@@ -1,6 +1,4 @@
 .main-form {
-  padding: 3px;
-  min-height: 12rem;
   background-color: #515052;
   border-radius: 0.2rem;
   color: whitesmoke;
@@ -17,6 +15,7 @@
   resize: none;
   background-color: #bbb;
   border-style: dotted;
+  height: 70%;
 }
 
 .form-btn {

@@ -16,95 +16,119 @@ const LoginModal = (props) => {
 
   return (
     <>
-      <div className="user-list">
-        <form>
-          <div class="form-group">
-            <label>
-              <input
-                type="text"
-                class="form-control"
-                name="name"
-                placeholder="your name"
-                onChange={handleName}
-                maxlength="10"
-                required="required"
-              />
-            </label>{' '}
-          </div>
+      <div className="login-modal">
+        <div>
+          <h2>KNOWLEDGE DECKS</h2>
 
-          <div class="form-group">
-            <label>role</label>
-
-            <div class="form-check">
-              <label class="form-check-label">
-                affirmative
+          <h3>
+            <sup>Thema:</sup>
+            {props.topic}
+          </h3>
+          <form>
+            <div class="form-group">
+              <label>
                 <input
-                  class="form-check-input"
-                  type="radio"
-                  name="role"
-                  value="affirmative"
-                  onChange={props.handleRadioChange}
-                />{' '}
-              </label>
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  placeholder="your name"
+                  onChange={handleName}
+                  maxlength="10"
+                  required="required"
+                  autocomplete="off"
+                />
+              </label>{' '}
             </div>
 
-            <div class="form-check">
-              <label class="form-check-label">
-                negative
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="role"
-                  value="negative"
-                  onChange={props.handleRadioChange}
-                />{' '}
-              </label>
+            <div class="form-group">
+              <label>Wähle deine Rolle:</label>
+
+              <div class="form-check">
+                <label class="form-check-label">
+                  Pro
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    value="affirmative"
+                    onChange={props.handleRadioChange}
+                  />{' '}
+                </label>
+              </div>
+
+              <div class="form-check">
+                <label class="form-check-label">
+                  Contra
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    value="negative"
+                    onChange={props.handleRadioChange}
+                  />{' '}
+                </label>
+              </div>
+
+              <div class="form-check">
+                <label class="form-check-label">
+                  Richter
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    value="judge"
+                    onChange={props.handleRadioChange}
+                  />{' '}
+                </label>
+              </div>
+
+              <div class="form-check">
+                <label class="form-check-label">
+                  Zuschauer
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    value="spectator"
+                    onChange={props.handleRadioChange}
+                  />{' '}
+                </label>
+              </div>
             </div>
 
-            <div class="form-check">
-              <label class="form-check-label">
-                judge
+            <div class="form-group">
+              {showBtn ? (
                 <input
-                  class="form-check-input"
-                  type="radio"
-                  name="role"
-                  value="judge"
-                  onChange={props.handleRadioChange}
-                />{' '}
-              </label>
+                  type="submit"
+                  class="btn btn-primary"
+                  name="set"
+                  value="set"
+                  onClick={handleSubmitBtn}
+                />
+              ) : null}
             </div>
+          </form>
 
-            <div class="form-check">
-              <label class="form-check-label">
-                spectator
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="role"
-                  value="spectator"
-                  onChange={props.handleRadioChange}
-                />{' '}
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            {showBtn ? (
-              <input
-                type="submit"
-                class="btn btn-primary"
-                name="set"
-                value="set"
-                onClick={handleSubmitBtn}
-              />
-            ) : null}
-          </div>
-        </form>
-
-        <h2>connected users:</h2>
-        <p>AFF: {props.aff}</p>
-        <p>NEG: {props.neg}</p>
-        <p>Judge: {props.judge}</p>
+          {props.gameReady ? (
+            <button className="BUTTON_START" onClick={props.handleStartGame}>
+              start game!
+            </button>
+          ) : (
+            <>
+              <p>Warte auf weitere Spieler...</p>
+              <div class="spinner-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </>
+          )}
+          <h2>connected players:</h2>
+          <p>AFF: {props.aff}</p>
+          <p>NEG: {props.neg}</p>
+          <p>Judge: {props.judge}</p>
+        </div>
       </div>
     </>
   );

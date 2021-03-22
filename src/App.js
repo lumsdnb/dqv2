@@ -28,14 +28,17 @@ const App = () => {
   const [userName, setUserName] = useState('');
   const [role, setRole] = useState();
   const [affirmativeID, setAffirmativeID] = useState('');
-  const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [NegativeID, setNegativeID] = useState('');
+  const [judgeID, setJudgeID] = useState('');
+  const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
-  const [debateClaim, setDebateClaim] = useState('pineapple belongs on pizza');
+  const [topic, setTopic] = useState('ÖPNV sollte kostenlos sein');
   const [game, setGame] = useState({});
   const [showLogin, setShowLogin] = useState(true);
+
+  const [serverMessage, setServerMessage] = useState('');
 
   const [userList, setUserList] = useState([]);
 
@@ -44,6 +47,8 @@ const App = () => {
   const [isTyping] = useState(false);
 
   const [newCardType, setNewCardType] = useState();
+
+  const [gameReady, setGameReady] = useState('');
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
   //todo: implement card array )doesnt work atm
@@ -78,13 +83,21 @@ const App = () => {
       setYourID(id);
     });
     socketRef.current.on('topic', (topic) => {
-      setDebateClaim(topic);
+      setTopic(topic);
     });
     socketRef.current.on('message', (cards) => {
       setCardList(cards);
     });
 
+    socketRef.current.on('get ready', () => {
+      setServerMessage('All players have joined, get ready...');
+      setGameReady(true);
+    });
+
     socketRef.current.on('game', (gameObj) => {
+      setAffirmativeID(gameObj.affirmativeID);
+      setNegativeID(gameObj.NegativeID);
+      setJudgeID(gameObj.judgeID);
       setCardList(gameObj.cardList);
       setGame(gameObj);
       console.log(game);
@@ -95,8 +108,8 @@ const App = () => {
     });
   }, []);
 
-  const setTopic = () => {
-    socketRef.current.emit('set topic', debateClaim);
+  const sendTopic = () => {
+    socketRef.current.emit('set topic', topic);
   };
 
   //todo: send question cards
@@ -116,6 +129,10 @@ const App = () => {
       setYourUnsentArgument('');
     }
   }
+
+  const handleStartGame = () => {
+    setShowLogin(false);
+  };
 
   function setName(name) {
     setUserName(name);
@@ -191,7 +208,7 @@ const App = () => {
   };
 
   const handleDebateField = (e) => {
-    setDebateClaim(e.target.value);
+    setTopic(e.target.value);
   };
 
   const nextRound = () => {
@@ -200,6 +217,20 @@ const App = () => {
 
   return (
     <>
+      {showLogin ? (
+        <LoginModal
+          aff={game.affirmativeName}
+          neg={game.negativeName}
+          judge={game.judgeName}
+          handleRadioChange={handleRadioChange}
+          handleSetUser={handleSetUser}
+          handleNameChange={handleNameChange}
+          handleStartGame={handleStartGame}
+          gameReady={gameReady}
+          topic={topic}
+        />
+      ) : null}
+
       <div
         class={
           role == 'judge' ? 'grid-container-judge' : 'grid-container-player'
@@ -212,25 +243,14 @@ const App = () => {
             <sup>
               <i>claim: </i>
             </sup>
-            {debateClaim}
+            {topic}
           </h1>
           <h3>Round hey {game.round}</h3>
         </div>
         <div class="chat">
-          <textarea
-            id="cardform"
-            className="form-textarea"
-            onChange={handleDebateField}
-          />{' '}
-          <button onClick={setTopic}>set claim</button>
-          <LoginModal
-            aff={game.affirmativeName}
-            neg={game.negativeName}
-            judge={game.judgeName}
-            handleRadioChange={handleRadioChange}
-            handleSetUser={handleSetUser}
-            handleNameChange={handleNameChange}
-          />
+          <p>spectator1: bruh</p>
+          <p>spectator2: bruh</p>
+          <p>spectator3: bruh</p>
         </div>
         {role == 'affirmative' || role == 'negative' ? (
           <>
