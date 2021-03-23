@@ -16,14 +16,20 @@ const LoginModal = (props) => {
 
   return (
     <>
-      <div className="login-modal">
-        <div>
-          <h2>KNOWLEDGE DECKS</h2>
 
-          <h3>
-            <sup>Thema:</sup>
-            {props.topic}
-          </h3>
+      <div className="login-modal">
+      <div>
+        <div>
+          <div className="neo-box-outward">
+              <h2>KNOWLEDGE DECKS&trade;</h2>
+              
+            <h3>
+             <sup>Thema:</sup>
+              {props.topic}
+            </h3>
+          </div>
+
+          <div className="neo-box-inward"> 
           <form>
             <div class="form-group">
               <label>
@@ -36,7 +42,7 @@ const LoginModal = (props) => {
                   maxlength="10"
                   required="required"
                   autocomplete="off"
-                />
+                  />
               </label>{' '}
             </div>
 
@@ -52,7 +58,7 @@ const LoginModal = (props) => {
                     name="role"
                     value="affirmative"
                     onChange={props.handleRadioChange}
-                  />{' '}
+                    />{' '}
                 </label>
               </div>
 
@@ -65,7 +71,7 @@ const LoginModal = (props) => {
                     name="role"
                     value="negative"
                     onChange={props.handleRadioChange}
-                  />{' '}
+                    />{' '}
                 </label>
               </div>
 
@@ -78,7 +84,7 @@ const LoginModal = (props) => {
                     name="role"
                     value="judge"
                     onChange={props.handleRadioChange}
-                  />{' '}
+                    />{' '}
                 </label>
               </div>
 
@@ -104,10 +110,18 @@ const LoginModal = (props) => {
                   name="set"
                   value="set"
                   onClick={handleSubmitBtn}
-                />
+                  />
               ) : null}
             </div>
           </form>
+            </div>
+
+          <div className="neo-box-inward"> 
+            <h2>verbundene Spieler:</h2>
+            <p>PRO: {props.aff}</p>
+            <p>CONTRA: {props.neg}</p>
+            <p>RICHTER: {props.judge}</p>
+          </div>
 
           {props.gameReady ? (
             <button className="BUTTON_START" onClick={props.handleStartGame}>
@@ -124,11 +138,8 @@ const LoginModal = (props) => {
               </div>
             </>
           )}
-          <h2>connected players:</h2>
-          <p>AFF: {props.aff}</p>
-          <p>NEG: {props.neg}</p>
-          <p>Judge: {props.judge}</p>
         </div>
+      </div>
       </div>
     </>
   );

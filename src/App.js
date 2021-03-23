@@ -19,9 +19,9 @@ import soundSlap from './sounds/smol.wav';
 import soundAirhorn from './sounds/airhorn.wav';
 import soundBigHammer from './sounds/big-hammer.wav';
 
-const ENDPOINT = 'http://127.0.0.1:4001';
-const herokuENDPOINT = 'https://cardgame-server-master.herokuapp.com:4001';
-const piENDPOINT = 'http://192.168.2.199:4001';
+const ENDPOINT = 'http://127.0.0.1:4000';
+const herokuENDPOINT = 'https://cardgame-server-master.herokuapp.com:4000';
+const piENDPOINT = 'http://192.168.56.1:4000';
 
 const App = () => {
   const [yourID, setYourID] = useState();
@@ -37,6 +37,7 @@ const App = () => {
   const [topic, setTopic] = useState('ÖPNV sollte kostenlos sein');
   const [game, setGame] = useState({});
   const [showLogin, setShowLogin] = useState(true);
+  const [showFinal, setShowFinal]=useState(false)
 
   const [chatList, setChatList] = useState([]);
 
@@ -173,6 +174,7 @@ const App = () => {
 
   function closeModal() {
     setShowRuling(false);
+    setShowFinal(false);
   }
   //=============================================
   // sound triggers
@@ -215,6 +217,10 @@ const App = () => {
   const nextRound = () => {
     socketRef.current.emit('next round');
   };
+  const finishGame =(e)=>{
+  setShowFinal(true)
+    socketRef.current.emit('end game');
+  }
 
   const sendChatMsg = (msg) => {
     const msgObj = {
@@ -226,6 +232,12 @@ const App = () => {
 
   return (
     <>
+
+    {showFinal?
+    <Modal />
+    :null  
+  }
+
       {showLogin ? (
         <LoginModal
           aff={game.affirmativeName}
@@ -248,21 +260,22 @@ const App = () => {
         tabIndex={0}
       >
         <div class="title-claim">
-          <h1 className="claim-header">
+          <h1 className="neo-box-outward">
             <sup>
-              <i>claim: </i>
+              <i>Thema: </i>
             </sup>
             {topic}
           </h1>
-          <h3>Runde {game.round}</h3>
-          <h4>
+          <h3>Runde {game.round}
+          - 
             {game.round % 2 == 1
               ? 'pro spielt als erstes'
               : 'contra spielt als erstes'}
-          </h4>
+          
+              </h3>
         </div>
         <div class="chat">
-          <Chat sendChatMsg={sendChatMsg} chatList={chatList} />
+          <Chat sendChatMsg={sendChatMsg} chatList={chatList} spectatorList={game.spectatorID} />
         </div>
         {role == 'affirmative' ? (
           <>
@@ -296,16 +309,17 @@ const App = () => {
               onChange={handleChange}
               handleCardType={handleCardType}
               handleSubmit={sendMessage}
+              role={role}
             />
           )}
 
           {role == 'judge' ? (
             <>
-              <button onClick={playGavel}>gavel</button>
+              <button onClick={playGavel}>Hammer</button>
               {judgeCanAdvance ? (
-                <button onClick={nextRound}>next round</button>
+                <button onClick={nextRound}>nächste Runde</button>
               ) : null}
-              <button>finish game</button>
+              <button onClick={finishGame}>Spiel beenden</button>
             </>
           ) : null}
           {role == 'spectator' ? (
@@ -329,7 +343,7 @@ const App = () => {
 
       <Modal
         showModal={showRuling}
-        verdict={judgeMessage}
+        verdict={showFinal}
         closeModal={closeModal}
       />
     </>

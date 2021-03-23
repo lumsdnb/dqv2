@@ -1,18 +1,20 @@
 .judge-ruling {
   display:none;
   position: fixed;
-    width: 700px;
-    height: 400px;
-    margin: 5% auto;
-    padding: 10px;
-    border: 5px solid rgba(167, 166, 160, 0.8);
-    background-color:rgba(167, 166, 160, 0.8);
+    width: 70vw;
+    height: 70vh;
+        background-color:rgba(167, 166, 160, 0.8);
     border-radius: .6rem;
     box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.41);
-    font-size: 300%;
+    font-size: 200%;
   user-select: none;
   overflow: hidden;
   text-align: center;
+  border-radius: 8px;
+border-radius: 8px;
+background: #bdffff;
+box-shadow:  7px 7px 14px #b4f2f2,
+             -7px -7px 14px #c6ffff;
 }
 
 .judge-ruling button {

@@ -22,6 +22,8 @@ const Chat = (props) => {
   return (
     <>
       <div className="chatmessages">
+        <h4>users:</h4>
+        <p>{props.spectatorList}</p>
         <h4>user msgs</h4>
 
         {chatList}

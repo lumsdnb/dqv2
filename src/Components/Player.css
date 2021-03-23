@@ -1,10 +1,12 @@
 .player {
   display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 .player-text {
   word-wrap: break-word;
-  padding-right: 1rem;
-  padding-left: 3rem;
+  padding-right: .6rem;
+  padding-left: 2rem;
   max-width: fit-content;
   max-height: fit-content;
   border-radius: 0.3rem;
@@ -18,9 +20,9 @@
 .player-img {
   position: relative;
   border-radius: 50%;
-  width: 7rem;
-  height: 7rem;
-  left: 2.5rem;
+  width: 4rem;
+  height: 4rem;
+  left: 1.5rem;
 }
 
 .player h3 {

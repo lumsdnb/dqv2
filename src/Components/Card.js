@@ -32,7 +32,7 @@ const Card = (props) => {
         <p className="card-body">{props.claim}</p>
         <div className="card-bottom">
           <progress value={'50'} max="100"></progress>
-          {props.userRole == 'judge' ? (
+          {props.userRole == 'judge' && props.userRole =="spectator" ? (
             <div className="rate-card">
               {cardScore == 0 ? (
                 <>

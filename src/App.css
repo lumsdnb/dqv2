@@ -7,7 +7,10 @@
   height: 100vh;
   margin: 0.3rem 5vw;
   background-color: aliceblue;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 12px;
+  background: #bfd3da;
+  box-shadow: inset 7px 7px 14px #a2b3b9,
+            inset -7px -7px 14px #dcf3fb;
 }
 h1 {
   background-color: #282c34;
@@ -19,7 +22,15 @@ h1 {
 }
 
 button {
-  height: 3rem;
+  padding: .5rem;
+  margin: .3rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 110%;
+}
+
+button:hover{
+  background: darkgrey;
 }
 
 .grid-container-player {
@@ -87,11 +98,33 @@ button {
 
 .toolbox {
   grid-area: toolbox;
-  padding: 0.2rem;
-  min-height: 12rem;
-  background-color: #bdf7b7;
-  border-radius: 0.2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
+    padding: 0.2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    border-radius: 8px;
+background: linear-gradient(145deg, #575658, #49484a);
+box-shadow:  8px 8px 20px #454446,
+             -8px -8px 20px #5d5c5e;
+}
+
+.neo-box-outward {
+  padding: 2rem;
+  margin: .6rem;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #cce2e9, #acbec4);
+  box-shadow:  7px 7px 14px #a2b3b9,
+             -7px -7px 14px #dcf3fb;
+  color: black;
+}
+
+.neo-box-inward {
+  padding: 2rem;
+  margin: .6rem;
+  border-radius: 12px;
+background: #bfd3da;
+box-shadow: inset 7px 7px 14px #a2b3b9,
+            inset -7px -7px 14px #dcf3fb;
+  padding: .3rem;
 }

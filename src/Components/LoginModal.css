@@ -1,3 +1,10 @@
+sup{
+  padding: 2rem;
+  font-style: italic;
+  color: #4d4d4d;
+}
+
+
 .login-modal {
   display: flex;
   justify-content: center;
@@ -15,7 +22,7 @@
   text-align: center;
   text-align: center;
   background: rgb(134, 147, 171);
-  background: linear-gradient(90deg, #3eadcf 0%, #abe9cd 100%);
+  background: linear-gradient(90deg, #bfd3da 0%, #bce2d1 100%);
   padding: 2rem;
   z-index: 999;
 }

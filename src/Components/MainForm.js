@@ -17,6 +17,7 @@ const MainForm = (props) => {
   return (
     <form className="main-form" onSubmit={handleSubmit}>
       {' '}
+      {props.role==="judge"?null:
       <div class="form-radios">
         <input
           class="form-check-input"
@@ -47,6 +48,7 @@ const MainForm = (props) => {
           question
         </label>
       </div>
+      }
       <label className="form-label" for="cardform">
         {props.role === 'judge' ? 'Your ruling' : 'Your Argument'}
         <textarea
@@ -64,7 +66,7 @@ const MainForm = (props) => {
           />
         ) : null}
       </label>{' '}
-      <input type="submit" className="form-btn" value="Place card" />
+      <input type="submit" className="form-btn" value={props.role == "judge" ? "Urteil fällen" : "Karte platzieren"} />
     </form>
   );
 };
