@@ -38,6 +38,8 @@ const App = () => {
   const [game, setGame] = useState({});
   const [showLogin, setShowLogin] = useState(true);
 
+  const [chatList, setChatList] = useState([]);
+
   const [serverMessage, setServerMessage] = useState('');
 
   const [userList, setUserList] = useState([]);
@@ -51,10 +53,6 @@ const App = () => {
   const [gameReady, setGameReady] = useState('');
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
-  //todo: implement card array )doesnt work atm
-
-  //const [messages, setMessages] = useState([]);
-  //setaffirmativeMessages((oldMsgs) => [...oldMsgs, message]);
 
   function onKeyPressed(e) {
     console.log(e.key);
@@ -101,6 +99,9 @@ const App = () => {
       setCardList(gameObj.cardList);
       setGame(gameObj);
       console.log(game);
+    });
+    socketRef.current.on('chat messages', (msgList) => {
+      setChatList(msgList);
     });
     socketRef.current.on('judge ruling', (ruling) => {
       setJudgeMessage(ruling);
@@ -215,6 +216,14 @@ const App = () => {
     socketRef.current.emit('next round');
   };
 
+  const sendChatMsg = (msg) => {
+    const msgObj = {
+      name: userName,
+      body: msg,
+    };
+    socketRef.current.emit('chat message', msgObj);
+  };
+
   return (
     <>
       {showLogin ? (
@@ -245,27 +254,40 @@ const App = () => {
             </sup>
             {topic}
           </h1>
-          <h3>Round hey {game.round}</h3>
+          <h3>Runde {game.round}</h3>
+          <h4>
+            {game.round % 2 == 1
+              ? 'pro spielt als erstes'
+              : 'contra spielt als erstes'}
+          </h4>
         </div>
         <div class="chat">
-          <p>spectator1: bruh</p>
-          <p>spectator2: bruh</p>
-          <p>spectator3: bruh</p>
+          <Chat sendChatMsg={sendChatMsg} chatList={chatList} />
         </div>
-        {role == 'affirmative' || role == 'negative' ? (
+        {role == 'affirmative' ? (
           <>
             <div className="player1">
               <Player name={userName} role={role} />
             </div>
             <div className="player2">
-              <Player name="player2" role="negative" />
+              <Player name={game.NegativeName} role="contra" />
+            </div>
+          </>
+        ) : null}
+        {role == 'negative' ? (
+          <>
+            <div className="player1">
+              <Player name={userName} role={role} />
+            </div>
+            <div className="player2">
+              <Player name={game.affirmativeName} role="pro" />
             </div>
           </>
         ) : null}
         {role == 'judge' ? (
           <div class="players">
-            <Player name={game.affirmativeName} role={'affirmative'} />
-            <Player name={game.negativeName} role="negative" />
+            <Player name={game.affirmativeName} role={'pro'} />
+            <Player name={game.negativeName} role="contra" />
           </div>
         ) : null}
         <div class="toolbox">
@@ -298,7 +320,7 @@ const App = () => {
           ) : null}
         </div>
 
-        <CardTable cardList={cardList} userRole={role} />
+        <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />
 
         <div class="judge">
           <Player name={game.judgeName} role="judge" />

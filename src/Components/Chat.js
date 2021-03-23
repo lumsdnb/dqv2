@@ -1,54 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Chat.css';
 const Chat = (props) => {
-  function handleRadioChange(event) {
+  const [currentMessage, setCurrentMessage] = useState('');
+
+  function handleChatMsg(e) {
     // invoke the callback with the new value
-    props.onChange(event.target.value);
+    setCurrentMessage(e.target.value);
   }
+
+  function handleChatSubmit(e) {
+    e.preventDefault();
+    props.sendChatMsg(currentMessage);
+  }
+
+  const chatList = props.chatList.map((msg) => {
+    <p>
+      name: {msg.name} {msg.body}
+    </p>;
+  });
+
   return (
     <>
       <div className="chatmessages">
-        <h4>user type</h4>
-        <div>
-          <input
-            type="radio"
-            id="usertype"
-            name="role"
-            value="affirmative"
-            onChange={props.handleRadioChange}
-          />
-          <label for="affirmative">affirmative</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="usertype"
-            name="role"
-            value="negative"
-            onChange={props.handleRadioChange}
-          />
-          <label for="negative">negative</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="usertype"
-            name="role"
-            value="judge"
-            onChange={props.handleRadioChange}
-          />
-          <label for="judge">judge</label>
-        </div>
+        <h4>user msgs</h4>
 
-        <p>X DOUBT</p>
-        <p>X DOUBT</p>
-        <p>X DOUBT</p>
-        <p>X DOUBT</p>
-        <p>wtf lol</p>
-        <p>X DOUBT</p>
-        <p>i dont thing those two know what they are talking about</p>
-        <p>X DOUBT</p>
+        {chatList}
       </div>
+      <form onSubmit={handleChatSubmit}>
+        <input type="text" onChange={handleChatMsg} />
+        <input type="submit" className="form-btn" value="senden" />
+      </form>
     </>
   );
 };

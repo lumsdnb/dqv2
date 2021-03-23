@@ -9,7 +9,9 @@ const MainForm = (props) => {
   function handleCardSource(e) {}
   function handleSubmit(e) {
     e.preventDefault();
-    props.handleSubmit(formState);
+    if (e.target.textContent) {
+      props.handleSubmit(formState);
+    }
   }
 
   return (

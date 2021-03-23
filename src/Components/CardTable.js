@@ -4,16 +4,23 @@ import './CardTable.css';
 
 const CardTable = (props) => {
   //todo: scroll to newest card
+  const handleRating = (i, rating) => {
+    props.rateCard(i, rating);
+  };
 
-  const listOfCards = props.cardList.map((c) => (
+  const listOfCards = props.cardList.map((c, index) => (
     <Card
       claim={c.body}
+      index={index}
       role={c.role}
       type={c.type}
       userRole={props.userRole}
       spectatorRating={c.spectatorRating}
+      judgeRating={c.judgeRating}
+      rateCard={handleRating}
     />
   ));
+
   return (
     <>
       <div className="card-table">{listOfCards}</div>

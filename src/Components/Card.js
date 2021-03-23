@@ -11,11 +11,11 @@ const Card = (props) => {
 
   const upvoteCard = () => {
     console.log('updoot');
-    setCardScore(1);
+    props.rateCard(props.index, 1);
   };
   const downvoteCard = () => {
     console.log('downvote');
-    setCardScore(-1);
+    props.rateCard(props.index, -1);
   };
 
   return (
@@ -44,6 +44,8 @@ const Card = (props) => {
               )}
             </div>
           ) : null}
+          <h5>spectator rating: {props.spectatorRating}</h5>
+          <h5>judge rating: {props.judgeRating}</h5>
         </div>
       </div>
     </>
