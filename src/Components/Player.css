@@ -5,13 +5,15 @@
 }
 .player-text {
   word-wrap: break-word;
-  padding-right: .6rem;
+  padding-right: 1rem;
+  line-height: 50%;
   padding-left: 2rem;
   max-width: fit-content;
   max-height: fit-content;
   border-radius: 0.3rem;
   align-items: center;
   user-select: none;
+  font-size: 70%;
   box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
   -webkit-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
   -moz-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);

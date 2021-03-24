@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import useFitText from 'use-fit-text';
 
+
+import { AiOutlineStar } from 'react-icons/ai';
+import { BiUpvote, BiDownvote } from 'react-icons/bi';
+
 import './Card.css';
 
 const Card = (props) => {
@@ -32,21 +36,24 @@ const Card = (props) => {
         <p className="card-body">{props.claim}</p>
         <div className="card-bottom">
           <progress value={'50'} max="100"></progress>
-          {props.userRole == 'judge' && props.userRole =="spectator" ? (
+          {props.userRole == 'judge' || props.userRole =="spectator" ? (
             <div className="rate-card">
               {cardScore == 0 ? (
                 <>
-                  <button onClick={upvoteCard}>+</button>
-                  <button onClick={downvoteCard}>-</button>
+                  
+                  <button onClick={upvoteCard}><BiUpvote /></button>
+                  <button onClick={downvoteCard}><BiDownvote /></button>
                 </>
               ) : (
                 <h4>score: {cardScore}</h4>
               )}
             </div>
           ) : null}
-          <h5>spectator rating: {props.spectatorRating}</h5>
-          <h5>judge rating: {props.judgeRating}</h5>
+          <AiOutlineStar/>
+          
         </div>
+          <h6>spectator rating: {props.spectatorRating}</h6>
+          <h6>judge rating: {props.judgeRating}</h6>
       </div>
     </>
   );
