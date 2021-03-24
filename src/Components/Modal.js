@@ -9,7 +9,7 @@ const Modal = (props) => {
         style={{ display: props.showModal ? 'block' : 'none' }}
       >
         <h3>verdict:</h3>
-        <p>{props.verdict}</p>
+        <p>{props.body}</p>
         <button onClick={props.closeModal}>ok</button>
         <button onClick={props.closeModal}>ok</button>
       </div>
