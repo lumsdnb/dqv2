@@ -3,12 +3,15 @@ import io from 'socket.io-client';
 
 import CardTable from './Components/CardTable.js';
 import Player from './Components/Player.js';
-//import MainForm from './Components/MainForm.js';
+import MainForm from './Components/MainForm.js';
 import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
 import LoginModal from './Components/LoginModal.js';
-import MainForm from './Components/MainForm.js';
-import PreparedDeck from "./Components/PreparedDeck.js"
+import VotingModal from './Components/VotingModal.js';
+import FinalModal from './Components/FinalModal.js';
+
+//todo: actually use this
+import PreparedDeck from './Components/PreparedDeck.js';
 
 import './App.css';
 import './Components/MainForm.css';
@@ -38,8 +41,9 @@ const App = () => {
   const [topic, setTopic] = useState('ÖPNV sollte kostenlos sein');
   const [game, setGame] = useState({});
   const [showLogin, setShowLogin] = useState(true);
-  const [showFinal, setShowFinal]=useState(false)
-  const [preparedDeck, setpreparedDeck]=useState([])
+  const [showVoting, setShowVoting] = useState(false);
+  const [showFinal, setShowFinal] = useState(false);
+  const [preparedDeck, setpreparedDeck] = useState([]);
 
   const [chatList, setChatList] = useState([]);
 
@@ -54,6 +58,7 @@ const App = () => {
   const [newCardType, setNewCardType] = useState();
 
   const [gameReady, setGameReady] = useState('');
+  const [doneVoting, setDoneVoting] = useState(false);
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
@@ -102,7 +107,7 @@ const App = () => {
       setCardList(gameObj.cardList);
       setGame(gameObj);
       console.log(game);
-      setpreparedDeck(gameObj.preparedDeck)
+      setpreparedDeck(gameObj.preparedDeck);
     });
     socketRef.current.on('chat messages', (msgList) => {
       setChatList(msgList);
@@ -110,6 +115,9 @@ const App = () => {
     socketRef.current.on('judge ruling', (ruling) => {
       setJudgeMessage(ruling);
       setShowRuling(true);
+    });
+    socketRef.current.on('please vote', () => {
+      setShowVoting(true);
     });
   }, []);
 
@@ -159,6 +167,16 @@ const App = () => {
     setNewCardType(e.target.value);
   }
 
+  const voteFor = (e) => {
+    const voteObj = {
+      role: role,
+      vote: e,
+    };
+    socketRef.current.emit('send final vote', voteObj);
+    closeModal();
+    setShowFinal(true);
+  };
+
   function handleSetUser(e) {
     const messageObject = {
       name: userName,
@@ -179,6 +197,7 @@ const App = () => {
   function closeModal() {
     setShowRuling(false);
     setShowFinal(false);
+    setShowVoting(false);
   }
   //=============================================
   // sound triggers
@@ -219,12 +238,14 @@ const App = () => {
   };
 
   const nextRound = () => {
-    socketRef.current.emit('next round');
+    if (game.round <= 3) socketRef.current.emit('next round');
+    if (game.round >= 3) socketRef.current.emit('vote');
   };
-  const finishGame =(e)=>{
-  setShowFinal(true)
+  const finishGame = (e) => {
+    closeModal();
+    setShowFinal(true);
     socketRef.current.emit('end game');
-  }
+  };
 
   const sendChatMsg = (msg) => {
     const msgObj = {
@@ -236,12 +257,18 @@ const App = () => {
 
   return (
     <>
-
-    {showFinal?
-    <Modal />
-    :null  
-  }
-
+      {showVoting ? (
+        <VotingModal
+          aff={game.affirmativeName}
+          neg={game.negativeName}
+          topic={topic}
+          voteFor={voteFor}
+          role={role}
+        />
+      ) : null}
+      {showFinal ? (
+        <FinalModal votingFinished={doneVoting} topic={topic} role={role} />
+      ) : null}
       {showLogin ? (
         <LoginModal
           aff={game.affirmativeName}
@@ -253,7 +280,6 @@ const App = () => {
           handleStartGame={handleStartGame}
           gameReady={gameReady}
           topic={topic}
-          
         />
       ) : null}
 
@@ -271,16 +297,19 @@ const App = () => {
             </sup>
             {topic}
           </h1>
-          <h3>Runde {game.round}
-          - 
+          <h3>
+            Runde {game.round} von 4 -
             {game.round % 2 == 1
               ? 'pro spielt als erstes'
               : 'contra spielt als erstes'}
-          
-              </h3>
+          </h3>
         </div>
         <div class="chat">
-          <Chat sendChatMsg={sendChatMsg} chatList={chatList} spectatorList={game.spectatorID} />
+          <Chat
+            sendChatMsg={sendChatMsg}
+            chatList={chatList}
+            spectatorList={game.spectatorID}
+          />
         </div>
         {role == 'affirmative' ? (
           <>
@@ -317,8 +346,9 @@ const App = () => {
               role={role}
             />
           )}
-          {role=="affirmative"||role=="negative"?
-            <PreparedDeck cardList={preparedDeck}/>:null}
+          {role == 'affirmative' || role == 'negative' ? (
+            <PreparedDeck cardList={preparedDeck} />
+          ) : null}
 
           {role == 'judge' ? (
             <>
@@ -349,6 +379,7 @@ const App = () => {
       </div>
 
       <Modal
+        title="verdict:"
         showModal={showRuling}
         body={judgeMessage}
         closeModal={closeModal}

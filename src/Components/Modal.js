@@ -1,5 +1,5 @@
 import React from 'react';
-import './Verdict.css';
+import './Modal.css';
 
 const Modal = (props) => {
   return (
@@ -8,7 +8,7 @@ const Modal = (props) => {
         className="judge-ruling"
         style={{ display: props.showModal ? 'block' : 'none' }}
       >
-        <h3>verdict:</h3>
+        <h3>{props.title}</h3>
         <p>{props.body}</p>
         <button onClick={props.closeModal}>ok</button>
         <button onClick={props.closeModal}>ok</button>

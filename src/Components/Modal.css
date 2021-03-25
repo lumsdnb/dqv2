@@ -1,11 +1,32 @@
-sup{
+sup {
   padding: 2rem;
   font-style: italic;
   color: #4d4d4d;
 }
 
-
 .login-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding: 10rem;
+  border: 5px solid rgba(167, 166, 160, 0.8);
+  border-radius: 0.6rem;
+  box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.41);
+  font-size: 100%;
+  user-select: none;
+  overflow: hidden;
+  text-align: center;
+  text-align: center;
+  background: rgb(134, 147, 171);
+  background: linear-gradient(90deg, #bfd3da 0%, #bce2d1 100%);
+  padding: 2rem;
+  z-index: 999;
+}
+
+.voting-modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,6 +99,42 @@ sup{
   border-radius: 20px;
   text-decoration: none;
 }
+
+.judge-ruling {
+  display: none;
+  position: fixed;
+  width: 70vw;
+  height: 70vh;
+  background-color: rgba(167, 166, 160, 0.8);
+  border-radius: 0.6rem;
+  box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.41);
+  font-size: 200%;
+  user-select: none;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 8px;
+  border-radius: 8px;
+  background: #bdffff;
+  box-shadow: 7px 7px 14px #b4f2f2, -7px -7px 14px #c6ffff;
+}
+
+.judge-ruling button {
+  padding: 1rem;
+  margin: 1.5rem;
+}
+.judge-ruling h2 {
+  text-align: left;
+}
+
+.three-columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-column-right {
+}
+
+/* ------ animated loading spinner ------ */
 
 .spinner-ellipsis {
   display: inline-block;

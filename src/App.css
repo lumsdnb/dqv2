@@ -9,8 +9,7 @@
   background-color: aliceblue;
   border-radius: 12px;
   background: #bfd3da;
-  box-shadow: inset 7px 7px 14px #a2b3b9,
-            inset -7px -7px 14px #dcf3fb;
+  box-shadow: inset 7px 7px 14px #a2b3b9, inset -7px -7px 14px #dcf3fb;
 }
 h1 {
   background-color: #282c34;
@@ -22,14 +21,15 @@ h1 {
 }
 
 button {
-  padding: .5rem;
-  margin: .3rem;
+  padding: 0.5rem;
+  margin: 0.3rem;
   border: none;
   border-radius: 0.5rem;
   font-size: 110%;
+  background: #ccc;
 }
 
-button:hover{
+button:hover {
   background: darkgrey;
 }
 
@@ -98,33 +98,40 @@ button:hover{
 
 .toolbox {
   grid-area: toolbox;
-    padding: 0.2rem;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    border-radius: 8px;
-background: linear-gradient(145deg, #575658, #49484a);
-box-shadow:  8px 8px 20px #454446,
-             -8px -8px 20px #5d5c5e;
+  padding: 0.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #575658, #49484a);
+  box-shadow: 8px 8px 20px #454446, -8px -8px 20px #5d5c5e;
 }
 
 .neo-box-outward {
   padding: 2rem;
-  margin: .6rem;
+  margin: 0.6rem;
   border-radius: 12px;
   background: linear-gradient(145deg, #cce2e9, #acbec4);
-  box-shadow:  7px 7px 14px #a2b3b9,
-             -7px -7px 14px #dcf3fb;
+  box-shadow: 7px 7px 14px #a2b3b9, -7px -7px 14px #dcf3fb;
   color: black;
 }
 
 .neo-box-inward {
   padding: 2rem;
-  margin: .6rem;
+  margin: 0.6rem;
   border-radius: 12px;
-background: #bfd3da;
-box-shadow: inset 7px 7px 14px #a2b3b9,
-            inset -7px -7px 14px #dcf3fb;
-  padding: .3rem;
+  background: #bfd3da;
+  box-shadow: inset 7px 7px 14px #a2b3b9, inset -7px -7px 14px #dcf3fb;
+  padding: 0.3rem;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.big-icon {
+  transform: scale(2);
 }
