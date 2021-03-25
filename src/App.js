@@ -58,7 +58,6 @@ const App = () => {
   const [newCardType, setNewCardType] = useState();
 
   const [gameReady, setGameReady] = useState('');
-  const [doneVoting, setDoneVoting] = useState(false);
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
@@ -117,6 +116,29 @@ const App = () => {
     });
     socketRef.current.on('chat messages', (msgList) => {
       setChatList(msgList);
+    });
+
+    socketRef.current.on('emit sound', (sound) => {
+      switch (sound) {
+        case 'airhorn':
+          playAirhorn();
+          socketRef.current.emit('emit sound', 'airhorn');
+          break;
+        case 'slap':
+          playSlap();
+          socketRef.current.emit('emit sound', 'slap');
+          break;
+        case 'gavel':
+          playGavel();
+          socketRef.current.emit('emit sound', 'gavel');
+          break;
+        case 'woo':
+          playWoo();
+          socketRef.current.emit('emit sound', 'woo');
+          break;
+        default:
+          break;
+      }
     });
 
     socketRef.current.on('judge ruling', (ruling) => {
@@ -279,7 +301,6 @@ const App = () => {
       ) : null}
       {showFinal ? (
         <FinalModal
-          votingFinished={doneVoting}
           topic={topic}
           role={role}
           game={game}
@@ -335,7 +356,7 @@ const App = () => {
               <Player name={userName} role={role} />
             </div>
             <div className="player2">
-              <Player name={game.NegativeName} role="contra" />
+              <Player name={game.negativeName} role="contra" />
             </div>
           </>
         ) : null}
@@ -365,7 +386,7 @@ const App = () => {
             />
           )}
           {role == 'affirmative' || role == 'negative' ? (
-            <PreparedDeck cardList={preparedDeck} />
+            <PreparedDeck cardList={game.preparedDeck} />
           ) : null}
 
           {role == 'judge' ? (
