@@ -26,7 +26,7 @@ const LoginModal = (props) => {
                 <sup>Thema:</sup>
                 {props.topic}
               </h3>
-              <button onClick={props.resetGame}>reset game</button>
+              <button onClick={props.resetGame}>Spiel zurücksetzen</button>
             </div>
 
             <div className="neo-box-inward">
@@ -125,7 +125,7 @@ const LoginModal = (props) => {
 
             {props.gameReady ? (
               <button className="BUTTON_START" onClick={props.handleStartGame}>
-                start game!
+                Spiel starten!
               </button>
             ) : (
               <>

@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import './Modal.css';
 const FinalModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
+  const doneVoting = () => {
+    if (
+      props.finalVotes.aff &&
+      props.finalVotes.neg &&
+      props.finalVotes.judge
+    ) {
+      return true;
+    }
+  };
 
   function handleSubmitBtn(event) {
     event.preventDefault();
@@ -40,14 +49,17 @@ const FinalModal = (props) => {
                 {props.game.judgeName} : {props.finalVotes.judge}
               </h3>
             </div>
-
-            <p>Warte auf Ergebnisse...</p>
-            <div class="spinner-ellipsis">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            {doneVoting ? null : (
+              <div className="neo-box-outward">
+                <p>Warte auf Ergebnisse...</p>
+                <div class="spinner-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

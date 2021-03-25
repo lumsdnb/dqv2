@@ -49,11 +49,11 @@ const VotingModal = (props) => {
       <div className="voting-modal">
         <div className="three-columns">
           <div className="left-column">
-            <div className="neo-box-inward">
+            <div className="card-smol">
               <h3>Argument 1</h3>
               {round1}
             </div>
-            <div className="neo-box-inward">
+            <div className="card-smol">
               <h3>Argument 3</h3>
               {round3}
             </div>
@@ -116,11 +116,11 @@ const VotingModal = (props) => {
             </div>
           </div>
           <div className="right-column">
-            <div className="neo-box-inward">
+            <div className="card-smol">
               <h3>Argument 2</h3>
               {round2}
             </div>
-            <div className="neo-box-inward">
+            <div className="card-smol">
               <h3>Argument 4</h3>
               {round4}
             </div>
