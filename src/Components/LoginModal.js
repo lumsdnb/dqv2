@@ -26,6 +26,7 @@ const LoginModal = (props) => {
                 <sup>Thema:</sup>
                 {props.topic}
               </h3>
+              <button onClick={props.resetGame}>reset game</button>
             </div>
 
             <div className="neo-box-inward">

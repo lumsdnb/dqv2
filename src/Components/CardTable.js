@@ -10,6 +10,7 @@ const CardTable = (props) => {
 
   const listOfCards = props.cardList.map((c, index) => (
     <Card
+      key={c.index}
       claim={c.body}
       index={index}
       role={c.role}

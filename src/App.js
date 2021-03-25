@@ -62,6 +62,8 @@ const App = () => {
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
+  const [finalVotes, setFinalVotes] = useState([]);
+
   function onKeyPressed(e) {
     console.log(e.key);
     if (role == 'spectator') {
@@ -91,6 +93,11 @@ const App = () => {
     socketRef.current.on('topic', (topic) => {
       setTopic(topic);
     });
+
+    socketRef.current.on('final votes', (voot) => {
+      setFinalVotes(voot);
+    });
+
     socketRef.current.on('message', (cards) => {
       setCardList(cards);
     });
@@ -106,12 +113,12 @@ const App = () => {
       setJudgeID(gameObj.judgeID);
       setCardList(gameObj.cardList);
       setGame(gameObj);
-      console.log(game);
       setpreparedDeck(gameObj.preparedDeck);
     });
     socketRef.current.on('chat messages', (msgList) => {
       setChatList(msgList);
     });
+
     socketRef.current.on('judge ruling', (ruling) => {
       setJudgeMessage(ruling);
       setShowRuling(true);
@@ -238,13 +245,16 @@ const App = () => {
   };
 
   const nextRound = () => {
-    if (game.round <= 3) socketRef.current.emit('next round');
-    if (game.round >= 3) socketRef.current.emit('vote');
+    if (game.round <= 4) socketRef.current.emit('next round');
   };
   const finishGame = (e) => {
     closeModal();
     setShowFinal(true);
     socketRef.current.emit('end game');
+  };
+
+  const resetGame = () => {
+    socketRef.current.emit('reset');
   };
 
   const sendChatMsg = (msg) => {
@@ -264,10 +274,17 @@ const App = () => {
           topic={topic}
           voteFor={voteFor}
           role={role}
+          usedCards={game.pastRounds}
         />
       ) : null}
       {showFinal ? (
-        <FinalModal votingFinished={doneVoting} topic={topic} role={role} />
+        <FinalModal
+          votingFinished={doneVoting}
+          topic={topic}
+          role={role}
+          game={game}
+          finalVotes={finalVotes}
+        />
       ) : null}
       {showLogin ? (
         <LoginModal
@@ -280,6 +297,7 @@ const App = () => {
           handleStartGame={handleStartGame}
           gameReady={gameReady}
           topic={topic}
+          resetGame={resetGame}
         />
       ) : null}
 
@@ -356,7 +374,6 @@ const App = () => {
               {judgeCanAdvance ? (
                 <button onClick={nextRound}>nächste Runde</button>
               ) : null}
-              <button onClick={finishGame}>Spiel beenden</button>
             </>
           ) : null}
           {role == 'spectator' ? (
