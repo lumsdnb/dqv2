@@ -98,6 +98,7 @@ sup {
   -moz-border-radius: 20px;
   border-radius: 20px;
   text-decoration: none;
+  box-sizing: border-box;
 }
 
 .judge-ruling {

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './Modal.css';
 const LoginModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
+  const [userHasJoined, setUserHasJoined] = useState(false);
 
   function handleSubmitBtn(event) {
     event.preventDefault();
+    setUserHasJoined(false);
     props.handleSetUser(event.target.value);
   }
 
@@ -29,92 +31,94 @@ const LoginModal = (props) => {
               <button onClick={props.resetGame}>Spiel zurücksetzen</button>
             </div>
 
-            <div className="neo-box-inward">
-              <form>
-                <div class="form-group">
-                  <label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="name"
-                      placeholder="your name"
-                      onChange={handleName}
-                      maxlength="10"
-                      required="required"
-                      autocomplete="off"
-                    />
-                  </label>{' '}
-                </div>
-
-                <div class="form-group">
-                  <label>Wähle deine Rolle:</label>
-
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      Pro
+            {userHasJoined ? null : (
+              <div className="neo-box-inward">
+                <form>
+                  <div class="form-group">
+                    <label>
                       <input
-                        class="form-check-input"
-                        type="radio"
-                        name="role"
-                        value="affirmative"
-                        onChange={props.handleRadioChange}
-                      />{' '}
-                    </label>
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        placeholder="your name"
+                        onChange={handleName}
+                        maxlength="10"
+                        required="required"
+                        autocomplete="off"
+                      />
+                    </label>{' '}
                   </div>
 
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      Contra
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="role"
-                        value="negative"
-                        onChange={props.handleRadioChange}
-                      />{' '}
-                    </label>
+                  <div class="form-group">
+                    <label>Wähle deine Rolle:</label>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        Pro
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="role"
+                          value="affirmative"
+                          onChange={props.handleRadioChange}
+                        />{' '}
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        Contra
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="role"
+                          value="negative"
+                          onChange={props.handleRadioChange}
+                        />{' '}
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        Richter
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="role"
+                          value="judge"
+                          onChange={props.handleRadioChange}
+                        />{' '}
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        Zuschauer
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="role"
+                          value="spectator"
+                          onChange={props.handleRadioChange}
+                        />{' '}
+                      </label>
+                    </div>
                   </div>
 
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      Richter
+                  <div class="form-group">
+                    {showBtn ? (
                       <input
-                        class="form-check-input"
-                        type="radio"
-                        name="role"
-                        value="judge"
-                        onChange={props.handleRadioChange}
-                      />{' '}
-                    </label>
+                        type="submit"
+                        class="btn btn-primary"
+                        name="set"
+                        value="set"
+                        onClick={handleSubmitBtn}
+                      />
+                    ) : null}
                   </div>
-
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      Zuschauer
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="role"
-                        value="spectator"
-                        onChange={props.handleRadioChange}
-                      />{' '}
-                    </label>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  {showBtn ? (
-                    <input
-                      type="submit"
-                      class="btn btn-primary"
-                      name="set"
-                      value="set"
-                      onClick={handleSubmitBtn}
-                    />
-                  ) : null}
-                </div>
-              </form>
-            </div>
+                </form>
+              </div>
+            )}
 
             <div className="neo-box-inward">
               <h2>verbundene Spieler:</h2>

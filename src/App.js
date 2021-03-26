@@ -36,6 +36,7 @@ const App = () => {
   const [judgeID, setJudgeID] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
+  const [finalRuling, setFinalRuling] = useState('');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
   const [topic, setTopic] = useState('ÖPNV sollte kostenlos sein');
@@ -43,7 +44,9 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
   const [showFinal, setShowFinal] = useState(false);
+
   const [preparedDeck, setpreparedDeck] = useState([]);
+  const [showCardDeck, setShowCardDeck] = useState(false);
 
   const [chatList, setChatList] = useState([]);
 
@@ -140,6 +143,9 @@ const App = () => {
           break;
       }
     });
+    socketRef.current.on('final ruling', (e) => {
+      setFinalRuling(e);
+    });
 
     socketRef.current.on('judge ruling', (ruling) => {
       setJudgeMessage(ruling);
@@ -174,6 +180,17 @@ const App = () => {
 
   const handleStartGame = () => {
     setShowLogin(false);
+  };
+
+  const ShowDeck = () => {
+    setShowCardDeck(true);
+  };
+  const hideDeck = () => {
+    setShowCardDeck(false);
+  };
+
+  const handleFinalRuling = (e) => {
+    socketRef.current.emit('final ruling', e);
   };
 
   function setName(name) {
@@ -297,6 +314,7 @@ const App = () => {
           voteFor={voteFor}
           role={role}
           usedCards={game.pastRounds}
+          handleRuling={handleFinalRuling}
         />
       ) : null}
       {showFinal ? (
@@ -320,6 +338,10 @@ const App = () => {
           topic={topic}
           resetGame={resetGame}
         />
+      ) : null}
+
+      {showCardDeck ? (
+        <PreparedDeck cardList={game.preparedDeck} hideDeck={hideDeck} />
       ) : null}
 
       <div
@@ -386,7 +408,7 @@ const App = () => {
             />
           )}
           {role == 'affirmative' || role == 'negative' ? (
-            <PreparedDeck cardList={game.preparedDeck} />
+            <button onClick={ShowDeck}>deck öffnen</button>
           ) : null}
 
           {role == 'judge' ? (

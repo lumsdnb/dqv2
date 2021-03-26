@@ -14,6 +14,10 @@ const VotingModal = (props) => {
     props.handleSetUser(event.target.value);
   }
 
+  const handleRuling = (e) => {
+    props.handleRuling(e);
+  };
+
   function selectVote(e) {
     setCanVote(false);
     setYourWinner(e);
@@ -106,7 +110,7 @@ const VotingModal = (props) => {
                 {props.role == 'judge' ? (
                   <>
                     <h4>dein Urteil:</h4>
-                    <textarea />
+                    <textarea onChange={handleRuling} />
                   </>
                 ) : null}
                 {yourWinner != 'unset' ? (
