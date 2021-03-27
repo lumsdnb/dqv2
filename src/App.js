@@ -31,9 +31,6 @@ const App = () => {
   const [yourID, setYourID] = useState();
   const [userName, setUserName] = useState('');
   const [role, setRole] = useState();
-  const [affirmativeID, setAffirmativeID] = useState('');
-  const [NegativeID, setNegativeID] = useState('');
-  const [judgeID, setJudgeID] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [finalRuling, setFinalRuling] = useState('');
@@ -110,11 +107,8 @@ const App = () => {
     });
 
     socketRef.current.on('game', (gameObj) => {
-      setAffirmativeID(gameObj.affirmativeID);
-      setNegativeID(gameObj.NegativeID);
-      setJudgeID(gameObj.judgeID);
-      setCardList(gameObj.cardList);
       setGame(gameObj);
+      setCardList(gameObj.cardList);
       setpreparedDeck(gameObj.preparedDeck);
     });
     socketRef.current.on('chat messages', (msgList) => {
@@ -179,6 +173,15 @@ const App = () => {
   }
 
   const handleStartGame = () => {
+    if (yourID == game.affirmativeID) {
+      setRole('affirmative');
+    }
+    if (yourID == game.negativeID) {
+      setRole('negative');
+    }
+    if (yourID == game.judgeID) {
+      setRole('judge');
+    }
     setShowLogin(false);
   };
 
@@ -327,9 +330,7 @@ const App = () => {
       ) : null}
       {showLogin ? (
         <LoginModal
-          aff={game.affirmativeName}
-          neg={game.negativeName}
-          judge={game.judgeName}
+          game={game}
           handleRadioChange={handleRadioChange}
           handleSetUser={handleSetUser}
           handleNameChange={handleNameChange}

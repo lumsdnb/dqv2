@@ -40,7 +40,7 @@ const LoginModal = (props) => {
                         type="text"
                         class="form-control"
                         name="name"
-                        placeholder="your name"
+                        placeholder="dein Name"
                         onChange={handleName}
                         maxlength="10"
                         required="required"
@@ -54,25 +54,12 @@ const LoginModal = (props) => {
 
                     <div class="form-check">
                       <label class="form-check-label">
-                        Pro
+                        Debattierer
                         <input
                           class="form-check-input"
                           type="radio"
                           name="role"
-                          value="affirmative"
-                          onChange={props.handleRadioChange}
-                        />{' '}
-                      </label>
-                    </div>
-
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        Contra
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          name="role"
-                          value="negative"
+                          value="debater"
                           onChange={props.handleRadioChange}
                         />{' '}
                       </label>
@@ -122,9 +109,9 @@ const LoginModal = (props) => {
 
             <div className="neo-box-inward">
               <h2>verbundene Spieler:</h2>
-              <p>PRO: {props.aff}</p>
-              <p>CONTRA: {props.neg}</p>
-              <p>RICHTER: {props.judge}</p>
+              <p>Spieler 1: {props.game.debater1Name}</p>
+              <p>Spieler 2: {props.game.debater2Name}</p>
+              <p>RICHTER: {props.game.judgeName}</p>
             </div>
 
             {props.gameReady ? (
