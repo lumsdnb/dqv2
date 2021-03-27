@@ -24,7 +24,7 @@ import soundAirhorn from './sounds/airhorn.wav';
 import soundBigHammer from './sounds/big-hammer.wav';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
-const productionENDPOINT = 'https://wizardly-jones-f32119.netlify.app:4000';
+const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:4000';
 const piENDPOINT = 'http://192.168.178.44:4000';
 
 const App = () => {
@@ -85,7 +85,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(localENDPOINT);
+productionENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
