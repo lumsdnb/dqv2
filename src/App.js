@@ -10,7 +10,9 @@ import LoginModal from './Components/LoginModal.js';
 import VotingModal from './Components/VotingModal.js';
 import FinalModal from './Components/FinalModal.js';
 
-//todo: actually use this
+import { GiBangingGavel } from 'react-icons/gi'
+import { RiSwordFill } from 'react-icons/ri'
+
 import PreparedDeck from './Components/PreparedDeck.js';
 
 import './App.css';
@@ -372,6 +374,8 @@ const App = () => {
             chatList={chatList}
             spectatorList={game.spectatorID}
           />
+        <GiBangingGavel/>
+        <RiSwordFill/>
         </div>
         {role == 'affirmative' ? (
           <>
