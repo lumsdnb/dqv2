@@ -402,6 +402,7 @@ const App = () => {
         <div class="toolbox">
           {role == 'spectator' ? null : (
             <MainForm
+            
               onChange={handleChange}
               handleCardType={handleCardType}
               handleSubmit={sendMessage}

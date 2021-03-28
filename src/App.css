@@ -40,8 +40,8 @@ button:hover {
 
 .grid-container-judge {
   display: grid;
-  grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
-  grid-template-rows: 0.1fr 1.5fr 0.8fr;
+  grid-template-columns: 10vw 10vw  50vw 30vw;
+  grid-template-rows: 20vh 50vh 30vh;
   gap: 0px 0px;
   grid-template-areas:
     'chat title-claim title-claim players'
@@ -51,8 +51,8 @@ button:hover {
 
 .grid-container-spectator {
   display: grid;
-  grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
-  grid-template-rows: 0.1fr 1.5fr 0.8fr;
+  grid-template-columns: 10vw 10vw  50vw 30vw;
+  grid-template-rows: 20vh 50vh 30vh;
   gap: 0px 0px;
   grid-template-areas:
     'title-claim title-claim judge players'
