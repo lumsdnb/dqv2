@@ -34,11 +34,11 @@ const LoginModal = (props) => {
             {userHasJoined ? null : (
               <div className="neo-box-inward">
                 <form>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>
                       <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         name="name"
                         placeholder="dein Name"
                         onChange={handleName}
@@ -49,14 +49,14 @@ const LoginModal = (props) => {
                     </label>{' '}
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     <label>Wähle deine Rolle:</label>
 
-                    <div class="form-check">
-                      <label class="form-check-label">
+                    <div className="form-check">
+                      <label className="form-check-label">
                         Debattierer
                         <input
-                          class="form-check-input"
+                          className="form-check-input"
                           type="radio"
                           name="role"
                           value="debater"
@@ -65,11 +65,11 @@ const LoginModal = (props) => {
                       </label>
                     </div>
 
-                    <div class="form-check">
-                      <label class="form-check-label">
+                    <div className="form-check">
+                      <label className="form-check-label">
                         Richter
                         <input
-                          class="form-check-input"
+                          className="form-check-input"
                           type="radio"
                           name="role"
                           value="judge"
@@ -78,11 +78,11 @@ const LoginModal = (props) => {
                       </label>
                     </div>
 
-                    <div class="form-check">
-                      <label class="form-check-label">
+                    <div className="form-check">
+                      <label className="form-check-label">
                         Zuschauer
                         <input
-                          class="form-check-input"
+                          className="form-check-input"
                           type="radio"
                           name="role"
                           value="spectator"
@@ -92,11 +92,11 @@ const LoginModal = (props) => {
                     </div>
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     {showBtn ? (
                       <input
                         type="submit"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         name="set"
                         value="set"
                         onClick={handleSubmitBtn}
@@ -121,7 +121,7 @@ const LoginModal = (props) => {
             ) : (
               <>
                 <p>Warte auf weitere Spieler...</p>
-                <div class="spinner-ellipsis">
+                <div className="spinner-ellipsis">
                   <div></div>
                   <div></div>
                   <div></div>
