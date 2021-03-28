@@ -1,23 +1,11 @@
 #root {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+
   width: 100vw;
   height: 100vh;
-  margin: 0.3rem 5vw;
-  background-color: aliceblue;
+  margin: 0;
   border-radius: 12px;
   background: #bfd3da;
   box-shadow: inset 7px 7px 14px #a2b3b9, inset -7px -7px 14px #dcf3fb;
-}
-h1 {
-  background-color: #282c34;
-  color: white;
-  padding: 1rem;
-  margin: 1rem;
-  text-align: center;
-  border-radius: 0.3rem;
 }
 
 .resize {
@@ -41,8 +29,8 @@ button:hover {
 
 .grid-container-player {
   display: grid;
-  grid-template-columns: 0.5fr 1.2fr 1.2fr 0.8fr;
-  grid-template-rows: 0.1fr 1.5fr 0.8fr;
+  grid-template-columns: 10vw 10vw  50vw 30vw;
+  grid-template-rows: 20vh 50vh 30vh;
   gap: 0px 0px;
   grid-template-areas:
     'chat title-claim title-claim judge'
@@ -91,7 +79,7 @@ button:hover {
 
 .title-claim {
   grid-area: title-claim;
-  justify-content: center;
+  text-align: center;
 }
 
 .card-table {
@@ -104,7 +92,7 @@ button:hover {
 
 .toolbox {
   grid-area: toolbox;
-  padding: 0.2rem;
+  padding: 0.5rem;
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -115,7 +103,7 @@ button:hover {
 }
 
 .neo-box-outward {
-  padding: 2rem;
+  padding: 0;
   margin: 0.6rem;
   border-radius: 12px;
   background: linear-gradient(145deg, #cce2e9, #acbec4);

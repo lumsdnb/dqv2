@@ -85,7 +85,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -352,19 +352,19 @@ const App = () => {
         onKeyDown={onKeyPressed}
         tabIndex={0}
       >
-        <div class="title-claim">
-          <h1 className="neo-box-outward">
+        <div className="title-claim neo-box-outward">
+          <h1>
             <sup>
               <i>Thema: </i>
             </sup>
             {topic}
           </h1>
-          <h3>
+          <h5>
             Runde {game.round} von 4 -
             {game.round % 2 == 1
               ? 'pro spielt als erstes'
               : 'contra spielt als erstes'}
-          </h3>
+          </h5>
         </div>
         <div class="chat">
           <Chat

@@ -1,18 +1,14 @@
 .main-form {
   color: whitesmoke;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  padding: 2rem;
 }
 
 .form-label {
   padding: 0.1rem;
   text-align: center;
   user-select: none;
-}
-
-input {
 }
 
 textarea {

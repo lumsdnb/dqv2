@@ -13,11 +13,11 @@ const Chat = (props) => {
     props.sendChatMsg(currentMessage);
   }
 
-  const chatList = props.chatList.map((msg) => {
+  const chatMessages = props.chatList.map((msg, index) => (
     <p>
       name: {msg.name} {msg.body}
-    </p>;
-  });
+    </p>
+  ));
 
   return (
     <>
@@ -25,8 +25,8 @@ const Chat = (props) => {
         <h4>users:</h4>
         <p>{props.spectatorList}</p>
         <h4>user msgs</h4>
-
-        {chatList}
+      
+        {chatMessages}
       </div>
       <form onSubmit={handleChatSubmit}>
         <input type="text" onChange={handleChatMsg} />

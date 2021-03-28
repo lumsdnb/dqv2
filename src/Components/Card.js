@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useFitText from 'use-fit-text';
 
 import { AiOutlineStar } from 'react-icons/ai';
-import { BiUpvote, BiDownvote } from 'react-icons/bi';
+import { TiThumbsUp, TiThumbsDown } from 'react-icons/ti';
 
 import './Card.css';
 
@@ -39,28 +39,23 @@ const Card = (props) => {
             {props.userRole == 'judge' || props.userRole == 'spectator' ? (
               <div className="rate-card">
                 {cardScore == 0 ? (
-                  <>
+                  <div style={{textAlign: "center"}}>
                     <button onClick={upvoteCard}>
-                      <BiUpvote />
+                      <TiThumbsUp />
                     </button>
                     <button onClick={downvoteCard}>
-                      <BiDownvote />
+                      <TiThumbsDown />
                     </button>
-                  </>
+                  </div>
                 ) : (
                   <h4>score: {cardScore}</h4>
                 )}
               </div>
             ) : null}
-            <AiOutlineStar />
+            
           </div>
         )}
-        {props.size == 'smol' ? null : (
-          <>
-            <h6>spectator rating: {props.spectatorRating}</h6>
-            <h6>judge rating: {props.judgeRating}</h6>
-          </>
-        )}
+        
       </div>
     </>
   );

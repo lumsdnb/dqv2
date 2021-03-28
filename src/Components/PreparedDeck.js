@@ -76,8 +76,8 @@ const PreparedDeck = (props) => {
 
   return (
     <div className="modal-outer">
-      <button onClick={props.hideDeck}>X</button>
       <div className="prepared-deck">{listOfCards}</div>
+      <button onClick={props.hideDeck}>X</button>
     </div>
   );
 };
