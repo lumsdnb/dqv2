@@ -29,8 +29,8 @@ button:hover {
 
 .grid-container-player {
   display: grid;
-  grid-template-columns: 10vw 10vw  50vw 30vw;
-  grid-template-rows: 20vh 50vh 30vh;
+  grid-template-columns: 15vw 5vw  60vw 20vw;
+  grid-template-rows: 15vh 55vh 30vh;
   gap: 0px 0px;
   grid-template-areas:
     'chat title-claim title-claim judge'
