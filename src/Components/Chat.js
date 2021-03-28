@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css';
+import { RiCodeSFill } from 'react-icons/ri';
 const Chat = (props) => {
   const [currentMessage, setCurrentMessage] = useState('');
 
   const messagesEndRef = useRef(null)
 
   function handleChatMsg(e) {
-    // invoke the callback with the new value
     setCurrentMessage(e.target.value);
   }
   
   const chatMessages = props.chatList.map((msg, index) => (
     <p>
-      name: {msg.name} {msg.body}
+      <i> {msg.name}</i> {msg.body}
     </p>
   ));
 
@@ -26,17 +26,18 @@ const Chat = (props) => {
 
   function handleChatSubmit(e) {
     e.preventDefault();
-    props.sendChatMsg(currentMessage);
+    if (currentMessage){
+      props.sendChatMsg(currentMessage);
+    }
   }
-
 
   return (
     <>
-      <div className="chatmessages">
+    <div className="chat-top">
         <h4>users:</h4>
         <p>{props.spectatorList}</p>
-        <h4>user msgs</h4>
-      
+    </div>
+      <div className="chatmessages">
         {chatMessages}
         <div ref={messagesEndRef} />
       </div>
