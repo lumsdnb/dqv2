@@ -14,7 +14,18 @@ const MainForm = (props) => {
     }
   }
 
+  const isItyourTurn = ()=>{
+    //even number, list empty, role is affirmative
+    if (props.game.round % 2 == 1 && props.role =="affirmative" && props.game.cardList==""){
+      return true
+    }
+    if(props.game.round%2!=1&&props.role=="negative"&&props.game.cardList==""){
+      return true
+    }
+  }
+
   return (
+    //disable form when its not your turn
     <form className="main-form" onSubmit={handleSubmit}>
       {' '}
       {props.role === 'judge' ? null : (
@@ -36,6 +47,7 @@ const MainForm = (props) => {
               name="card_type"
               value="fact"
               onChange={props.handleCardType}
+              
             />
             Fakt
           </label>
@@ -46,6 +58,7 @@ const MainForm = (props) => {
               name="card_type"
               value="question"
               onChange={props.handleCardType}
+              
             />
             Frage
           </label>
@@ -57,6 +70,7 @@ const MainForm = (props) => {
           id="cardform"
           className="form-textarea"
           onChange={handleChange}
+          
         />
       </label>
       <label className="form-label" for="cardform">
@@ -68,10 +82,12 @@ const MainForm = (props) => {
           />
         ) : null}
       </label>{' '}
+      {props.role=="judge"?null:<button onClick={props.showDeck}>deck öffnen</button>}
       <input
         type="submit"
         className="form-btn"
         value={props.role == 'judge' ? 'Urteil fällen' : 'Karte platzieren'}
+        
       />
     </form>
   );
