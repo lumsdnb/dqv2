@@ -14,7 +14,8 @@ const CardTable = (props) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth",  })
   }
 
-  const listOfCards = props.cardList.map((c, index) => (
+  const listOfCards = props.cardList.map((c, index) => {
+    if(index!=0) return(
     <Card
       key={c.index}
       claim={c.body}
@@ -26,7 +27,24 @@ const CardTable = (props) => {
       judgeRating={c.judgeRating}
       rateCard={handleRating}
     />
-  ));
+  )});
+
+  //might wanna refactor this..
+  const firstCard = props.cardList.map((c, index) => {
+    if (index == 0) return (
+      <Card
+        key={c.index}
+        claim={c.body}
+        index={index}
+        role={c.role}
+        type={c.type}
+        userRole={props.userRole}
+        spectatorRating={c.spectatorRating}
+        judgeRating={c.judgeRating}
+        rateCard={handleRating}
+      />
+    )
+  });
   useEffect(() => {
     scrollToBottom()
   }, [listOfCards]);
@@ -35,8 +53,15 @@ const CardTable = (props) => {
 
   return (
     <>
-      <div className="card-table">{listOfCards}
-        <div ref={messagesEndRef} /></div>
+      <div className="card-table">
+        <div className="first-card">
+          {firstCard}
+        </div>
+        <div className="scrolling-cards">
+          {listOfCards}
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
     </>
   );
 };
