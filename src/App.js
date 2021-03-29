@@ -18,6 +18,8 @@ import PreparedDeck from './Components/PreparedDeck.js';
 import './App.css';
 import './Components/MainForm.css';
 
+import crowd from './images/crowd.png';
+
 import useSound from 'use-sound';
 import soundGavel from './sounds/gavel-2.mp3';
 import soundWoo from './sounds/woo.wav';
@@ -325,103 +327,111 @@ const App = () => {
           resetGame={resetGame}
         />
       ) : null}
-
       {showCardDeck ? (
         <PreparedDeck cardList={game.preparedDeck} hideDeck={hideDeck} />
       ) : null}
-
-      <div
-        class={
-          role == 'judge' ? 'grid-container-judge' : 'grid-container-player'
-        }
-      >
-        <div className="title-claim neo-box-outward">
-          <h1>
-            <sup>
-              <i>Thema: </i>
-            </sup>
-            {topic}
-          </h1>
-          <h5>
-            Runde {game.round} von 4 -
-            {game.round % 2 == 1
-              ? `${game.affirmativeName} spielt als erstes`
-              : `${game.negativeName} spielt als erstes`}
-          </h5>
+      <div class="grid-container">
+        <div className="opponents">
+          {role == 'affirmative' ? (
+            <>
+                <Player name={game.judgeName} role="Richter" />
+              <Player name={game.negativeName} role={role} />
+            </>
+          ) : null}
+          {role == 'negative' ? (
+            <>
+                <Player name={game.judgeName} role="Richter" />
+                <Player name={game.affirmativeName} role="pro" />
+            </>
+          ) : null}
+          {role == 'judge' ? (
+            <>
+              <Player name={game.affirmativeName} role={'pro'} />
+              <Player name={game.negativeName} role="contra" />
+            </>
+          ) : null}
+          {role == 'spectator' ? (
+            <>
+              <Player name={game.judgeName} role="Richter" />
+              <Player name={game.affirmativeName} role={'pro'} />
+              <Player name={game.negativeName} role="contra" />
+            </>
+          ) : null}
         </div>
-        <div class="chat">
+        <div className="chat">
           <Chat
             sendChatMsg={sendChatMsg}
             chatList={chatList}
             spectatorList={game.spectatorID}
           />
-        
-        <RiSwordFill/>
+          <RiSwordFill />
         </div>
-        {role == 'affirmative' ? (
-          <>
-            <div className="player1">
-              <Player name={userName} role={role} />
-            </div>
-            <div className="player2">
-              <Player name={game.negativeName} role="contra" />
-            </div>
-          </>
-        ) : null}
-        {role == 'negative' ? (
-          <>
-            <div className="player1">
-              <Player name={userName} role={role} />
-            </div>
-            <div className="player2">
-              <Player name={game.affirmativeName} role="pro" />
-            </div>
-          </>
-        ) : null}
-        {role == 'judge' ? (
-          <div class="players">
-            <Player name={game.affirmativeName} role={'pro'} />
-            <Player name={game.negativeName} role="contra" />
-          </div>
-        ) : null}
-        <div class="toolbox">
-          {role == 'spectator' ? null : (
-            <MainForm
-              game={game}
-              onChange={handleChange}
-              handleCardType={handleCardType}
-              handleSubmit={sendMessage}
-              role={role}
-              showDeck={showDeck}
-            />
-          )}
+        <div className="player1">
+          {role == 'affirmative' ? (
+              <Player name={game.affirmativeName} role={role} />
+          ) : null}
+          {role == 'negative' ? (
+            <Player name={game.negativeName} role={role} />
+          ) : null}
           {role == 'judge' ? (
-            <>
-              <button className="gavel-btn" onClick={playGavel}><GiBangingGavel /></button>
-              {judgeCanAdvance ? (
-                <button onClick={nextRound}>nächste Runde</button>
-              ) : null}
-            </>
+            <Player name={game.judgeName} role={role} />
           ) : null}
-          {role == 'spectator' ? (
-            <>
-              <div onKeyPress={handleSoundKeys}>
-                <button onClick={playWoo}>woo</button>
-                <button onClick={playSlap}>slap</button>
-                <button onClick={playAirhorn}>airhorn</button>
-                <button>throw tomato?</button>
-              </div>
-            </>
-          ) : null}
+          
         </div>
+        <div className="title neo-box-outward">
+        
+            <h1>
+              <sup>
+                <i>Thema: </i>
+              </sup>
+              {topic}
+            </h1>
+            <h5>
+              Runde {game.round} von 4 -
+            {game.round % 2 == 1
+                ? `${game.affirmativeName} spielt als erstes`
+                : `${game.negativeName} spielt als erstes`}
+            </h5>
+        
 
-        <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />
-
-        <div class="judge">
-          <Player name={game.judgeName} role="judge" />
+        </div>
+        <div className="card-table">
+          <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />
+        </div>
+        <div className="crowd">
+          <img src={crowd} alt="crowd cheering"></img>
+        </div>
+        <div className="card-deck"><button onClick={showDeck}>deck öffnen</button></div>
+        <div className="navbar">about us</div>
+        <div className="toolbox">
+            {role == 'spectator' ? (
+              <>
+                <div onKeyPress={handleSoundKeys}>
+                  <button onClick={playWoo}>woo</button>
+                  <button onClick={playSlap}>slap</button>
+                  <button onClick={playAirhorn}>airhorn</button>
+                  <button>throw tomato?</button>
+                </div>
+              </>
+            ) : (
+                <MainForm
+                  game={game}
+                  onChange={handleChange}
+                  handleCardType={handleCardType}
+                  handleSubmit={sendMessage}
+                  role={role}
+                />
+              )}
+            {role == 'judge' ? (
+              <>
+                <button className="gavel-btn" onClick={playGavel}><GiBangingGavel /></button>
+                {judgeCanAdvance ? (
+                  <button onClick={nextRound}>nächste Runde</button>
+                ) : null}
+              </>
+            ) : null}
         </div>
       </div>
-
       <Modal
         title="verdict:"
         showModal={showRuling}

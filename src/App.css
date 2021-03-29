@@ -1,8 +1,7 @@
 #root {
-
   width: 100vw;
   height: 100vh;
-  margin: 0;
+  margin: 0 2rem;
   border-radius: 12px;
   background: #bfd3da;
   box-shadow: inset 7px 7px 14px #a2b3b9, inset -7px -7px 14px #dcf3fb;
@@ -27,68 +26,60 @@ button:hover {
   box-sizing: border-box;
 }
 
-.grid-container-player {
+.grid-container {
   display: grid;
-  grid-template-columns: 15vw 5vw  60vw 20vw;
-  grid-template-rows: 15vh 55vh 30vh;
-  gap: 0px 0px;
+  grid-template-columns: .6fr 1fr 1fr 0.4fr;
+  grid-template-rows: 0.6fr 0.2fr 2.3fr 0.9fr;
+  gap: 2rem 2rem;
   grid-template-areas:
-    'chat title-claim title-claim judge'
-    'chat card-table card-table card-table'
-    'player1 toolbox toolbox player2';
+    "opponents title title navbar"
+    "opponents card-table card-table toolbox"
+    "chat card-table card-table toolbox"
+    "player1 crowd crowd card-deck";
 }
 
-.grid-container-judge {
-  display: grid;
-  grid-template-columns: 10vw 10vw  50vw 30vw;
-  grid-template-rows: 20vh 50vh 30vh;
-  gap: 0px 0px;
-  grid-template-areas:
-    'chat title-claim title-claim players'
-    'chat card-table card-table .'
-    'judge toolbox toolbox .';
+.opponents { grid-area: opponents; 
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
 }
-
-.grid-container-spectator {
-  display: grid;
-  grid-template-columns: 10vw 10vw  50vw 30vw;
-  grid-template-rows: 20vh 50vh 30vh;
-  gap: 0px 0px;
-  grid-template-areas:
-    'title-claim title-claim judge players'
-    'card-table card-table card-table .'
-    'chat chat chat .';
+.chat { grid-area: chat; 
 }
-
-.chat {
-  grid-area: chat;
+.player1 { grid-area: player1; 
+display: flex;
+justify-content: center;
+align-items: center;
 }
-
-.players {
-  grid-area: players;
-  display: flex;
+.title { grid-area: title; 
+text-align: center;
 }
-
-.player1 {
-  grid-area: player1;
+.card-table { 
+  grid-area: card-table; 
 }
-
-.player2 {
-  grid-area: player2;
-}
-
-.title-claim {
-  grid-area: title-claim;
-  text-align: center;
-}
-
-.card-table {
-  grid-area: card-table;
-}
-
-.judge {
-  grid-area: judge;
-}
+.crowd {
+   grid-area: crowd; 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+.card-deck {
+   grid-area: card-deck; 
+  }
+.navbar {
+  padding: 1rem;
+  color: white;
+  height: fit-content;
+  background-color: rgb(61, 61, 61);
+  border-radius: 0 0 0 1rem;
+   grid-area: navbar; 
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+  }
+.toolbox {
+   grid-area: toolbox; 
+  }
 
 .toolbox {
   grid-area: toolbox;

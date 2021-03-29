@@ -82,7 +82,6 @@ const MainForm = (props) => {
           />
         ) : null}
       </label>{' '}
-      {props.role=="judge"?null:<button onClick={props.showDeck}>deck öffnen</button>}
       <input
         type="submit"
         className="form-btn"

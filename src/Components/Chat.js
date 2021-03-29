@@ -32,20 +32,20 @@ const Chat = (props) => {
   }
 
   return (
-    <>
+    <div className="chat-outer">
     <div className="chat-top">
-        <h4>users:</h4>
+        <h4>Chat</h4>
         <p>{props.spectatorList}</p>
     </div>
       <div className="chatmessages">
         {chatMessages}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={handleChatSubmit}>
-        <input type="text" onChange={handleChatMsg} />
+      <form className="chat-controls" onSubmit={handleChatSubmit}>
+        <input className="chat-input" type="text" onChange={handleChatMsg} />
         <input type="submit" className="form-btn" value="senden" />
       </form>
-    </>
+    </div>
   );
 };
 

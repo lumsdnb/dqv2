@@ -1,10 +1,30 @@
+.chat-outer {
+  border-radius: .4rem;
+  background-color: #e2e2e2;
+  height: 100%;
+  border-radius: 1rem;
+  box-shadow: inset 3px 3px 9px #b3b3b3, inset -3px -3px 9px #dfdfdf;
+}
 .chatmessages {
-  text-align: center;
-  background-color: #bbb6df;
-  padding: 1rem;
+  text-align: left;
+  padding: 1rem 2rem;
   height: 70%;
   overflow-y: scroll;
 }
 .chat-top{
   height: 5%;
+}
+
+.chat-controls{
+  bottom: 0;
+  width: 100%;
+}
+
+.chat-input{
+  height: 2rem;
+  border-radius: 3rem 0 0 3rem;
+}
+button{
+  padding-left: 0;
+  margin-left: 0;
 }
