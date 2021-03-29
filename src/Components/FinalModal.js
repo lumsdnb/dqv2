@@ -29,7 +29,7 @@ const FinalModal = (props) => {
         <div>
           <div>
             <div className="neo-box-outward">
-              <h2>ENDE</h2>
+              <h2>RUNDENENDE</h2>
 
               <h3>
                 <sup>Thema:</sup>
@@ -38,17 +38,22 @@ const FinalModal = (props) => {
             </div>
 
             <div className="neo-box-inward">
-              <h2>Ergebnis:</h2>
-              <h3>
+              <h3>Ergebnis:</h3>
+              <h5>
                 {props.game.affirmativeName} : {props.finalVotes.aff}
-              </h3>
-              <h3>
+              </h5>
+              <h5>
                 {props.game.negativeName} : {props.finalVotes.neg}
-              </h3>
-              <h3>
+              </h5>
+              <h5>
                 {props.game.judgeName} : {props.finalVotes.judge}
-              </h3>
+              </h5>
             </div>
+
+          <div className="neo-box-inward">
+              Richter sagt: {props.finalRuling}
+          </div>
+
             {doneVoting ? null : (
               <div className="neo-box-outward">
                 <p>Warte auf Ergebnisse...</p>

@@ -26,6 +26,42 @@ button:hover {
   box-sizing: border-box;
 }
 
+.app {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.timer {
+  position: absolute;
+  top: 5rem;
+  right: 10rem;
+  font-size: 1rem;
+  padding: 2rem;
+  z-index: 20;
+  font-weight: 900;
+  font-size: 4rem;
+  background-color: cadetblue;
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(20deg);
+}
+.timer button {
+  font-size: 1rem;
+  transform: scale(0.5);
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: .6fr 1fr 1fr 0.4fr;
@@ -44,7 +80,12 @@ flex-direction: column;
 justify-content: space-around;
 align-items: center;
 }
-.chat { grid-area: chat; 
+.chat { 
+  grid-area: chat; 
+  
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
 }
 .player1 { grid-area: player1; 
 display: flex;
@@ -65,6 +106,9 @@ text-align: center;
   }
 .card-deck {
    grid-area: card-deck; 
+   position: absolute;
+   bottom: 0;
+   right: 0;
   }
 .navbar {
   padding: 1rem;
@@ -94,7 +138,7 @@ text-align: center;
 }
 
 .neo-box-outward {
-  padding: 0;
+  padding: 0.7rem;
   margin: 0.6rem;
   border-radius: 12px;
   background: linear-gradient(145deg, #cce2e9, #acbec4);
@@ -123,4 +167,13 @@ text-align: center;
 
 .gavel-btn{
   font-size: 300%;
+}
+
+.deck-btn{
+  background-color: #ffffff00;
+}
+
+.deck-btn:hover{
+  background-color: #ffffff00;
+  transform: scale(1.1);
 }

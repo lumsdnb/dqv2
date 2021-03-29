@@ -42,7 +42,7 @@ const LoginModal = (props) => {
                         name="name"
                         placeholder="dein Name"
                         onChange={handleName}
-                        maxlength="10"
+                        maxlength="30"
                         required="required"
                         autocomplete="off"
                       />

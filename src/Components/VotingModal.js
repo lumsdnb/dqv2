@@ -8,6 +8,8 @@ import Player from './Player.js';
 const VotingModal = (props) => {
   const [canVote, setCanVote] = useState(true);
   const [yourWinner, setYourWinner] = useState('unset');
+  const [ruling, setRuling]=useState("")
+
 
   function handleSubmitBtn(event) {
     event.preventDefault();
@@ -15,8 +17,12 @@ const VotingModal = (props) => {
   }
 
   const handleRuling = (e) => {
-    props.handleRuling(e);
+    setRuling(e.target.value)
   };
+  
+  const sendRuling = ()=>{
+    props.sendRuling(ruling);
+  }
 
   function selectVote(e) {
     setCanVote(false);
@@ -24,8 +30,12 @@ const VotingModal = (props) => {
   }
 
   const sendVote = () => {
+    if (props.role == "judge") {
+      sendRuling()
+    }
     props.voteFor(yourWinner);
   };
+
 
   const round1 = props.usedCards[0].map((c, index) => (
     <div key={index} className="voting-cards-inner">
@@ -55,11 +65,11 @@ const VotingModal = (props) => {
           <div className="left-column">
             <div className="card-smol">
               <h3>Argument 1</h3>
-              {round1}
+              {props.usedCards[0].body}
             </div>
             <div className="card-smol">
               <h3>Argument 3</h3>
-              {round3}
+              {props.usedCards[2].body}
             </div>
           </div>
           <div className="center-column">
@@ -122,11 +132,11 @@ const VotingModal = (props) => {
           <div className="right-column">
             <div className="card-smol">
               <h3>Argument 2</h3>
-              {round2}
+              {props.usedCards[1].body}
             </div>
             <div className="card-smol">
               <h3>Argument 4</h3>
-              {round4}
+              {props.usedCards[3].body}
             </div>
           </div>
         </div>

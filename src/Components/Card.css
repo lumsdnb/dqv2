@@ -6,7 +6,7 @@
   min-width: 9rem;
   max-width: 9rem;
   width: fit-content;
-  background-color: #bbb;
+  background-image: url(/src/images/card-tex.png);
   border-radius: 0.4rem;
   user-select: none;
   overflow-wrap: break-word;

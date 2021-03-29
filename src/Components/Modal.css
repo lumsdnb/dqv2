@@ -11,6 +11,7 @@ sup {
   position: fixed;
   width: 100vw;
   height: 100vh;
+  padding-left: 2rem;
   padding: 10rem;
   border: 5px solid rgba(167, 166, 160, 0.8);
   border-radius: 0.6rem;
@@ -18,8 +19,7 @@ sup {
   font-size: 100%;
   user-select: none;
   overflow: hidden;
-  text-align: center;
-  text-align: center;
+  text-align: left;
   background: rgb(134, 147, 171);
   background: linear-gradient(90deg, #bfd3da 0%, #bce2d1 100%);
   padding: 2rem;
@@ -34,10 +34,7 @@ sup {
   width: 100vw;
   height: 100vh;
   padding: 10rem;
-  border: 5px solid rgba(167, 166, 160, 0.8);
   border-radius: 0.6rem;
-  box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.41);
-  font-size: 100%;
   user-select: none;
   overflow: hidden;
   text-align: center;
@@ -45,7 +42,7 @@ sup {
   background: rgb(134, 147, 171);
   background: linear-gradient(90deg, #bfd3da 0%, #bce2d1 100%);
   padding: 2rem;
-  z-index: 999;
+  z-index: 9;
 }
 
 .form-group {

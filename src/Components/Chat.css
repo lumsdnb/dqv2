@@ -10,7 +10,15 @@
   padding: 1rem 2rem;
   height: 70%;
   overflow-y: scroll;
+  scrollbar-width: thin;
+  word-wrap: break-word;
+  width: auto;
 }
+
+i {
+  color: rgb(63, 47, 121);
+}
+
 .chat-top{
   height: 5%;
 }

@@ -12,7 +12,7 @@ const Chat = (props) => {
   
   const chatMessages = props.chatList.map((msg, index) => (
     <p>
-      <i> {msg.name}</i> {msg.body}
+      <i> {msg.name}</i>: {msg.body}
     </p>
   ));
 

@@ -1,46 +1,48 @@
-import React, { useState, useEffect, useRef } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useEffect, useRef } from "react";
+import io from "socket.io-client";
 
-import CardTable from './Components/CardTable.js';
-import Player from './Components/Player.js';
-import MainForm from './Components/MainForm.js';
-import Chat from './Components/Chat.js';
-import Modal from './Components/Modal.js';
-import LoginModal from './Components/LoginModal.js';
-import VotingModal from './Components/VotingModal.js';
-import FinalModal from './Components/FinalModal.js';
+import CardTable from "./Components/CardTable.js";
+import Player from "./Components/Player.js";
+import MainForm from "./Components/MainForm.js";
+import Chat from "./Components/Chat.js";
+import Modal from "./Components/Modal.js";
+import LoginModal from "./Components/LoginModal.js";
+import VotingModal from "./Components/VotingModal.js";
+import FinalModal from "./Components/FinalModal.js";
+import Timer from "./Components/Timer.js";
 
-import { GiBangingGavel } from 'react-icons/gi'
-import { RiSwordFill } from 'react-icons/ri'
+import { GiBangingGavel } from "react-icons/gi";
+import { RiSwordFill } from "react-icons/ri";
 
-import PreparedDeck from './Components/PreparedDeck.js';
+import PreparedDeck from "./Components/PreparedDeck.js";
 
-import './App.css';
-import './Components/MainForm.css';
+import "./App.css";
+import "./Components/MainForm.css";
 
-import crowd from './images/crowd.png';
+import crowd from "./images/crowd.png";
 
-import useSound from 'use-sound';
-import soundGavel from './sounds/gavel-2.mp3';
-import soundWoo from './sounds/woo.wav';
-import soundSlap from './sounds/smol.wav';
-import soundAirhorn from './sounds/airhorn.wav';
-import soundBigHammer from './sounds/big-hammer.wav';
+import useSound from "use-sound";
+import soundGavel from "./sounds/gavel-2.mp3";
+import soundWoo from "./sounds/woo.wav";
+import soundSlap from "./sounds/smol.wav";
+import soundAirhorn from "./sounds/airhorn.wav";
+import soundBigHammer from "./sounds/big-hammer.wav";
+import soundMystery from "./sounds/mystery.wav";
 
-const localENDPOINT = 'http://127.0.0.1:4000';
-const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
-const piENDPOINT = 'http://192.168.178.44:4000';
+const localENDPOINT = "http://127.0.0.1:4000";
+const productionENDPOINT = "https://cardgame-server-master.herokuapp.com:443";
+const piENDPOINT = "http://192.168.178.44:4000";
 
 const App = () => {
   const [yourID, setYourID] = useState();
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   const [role, setRole] = useState();
-  const [yourUnsentArgument, setYourUnsentArgument] = useState('');
-  const [judgeMessage, setJudgeMessage] = useState('guilty');
-  const [finalRuling, setFinalRuling] = useState('');
+  const [yourUnsentArgument, setYourUnsentArgument] = useState("");
+  const [judgeMessage, setJudgeMessage] = useState("guilty");
+  const [finalRuling, setFinalRuling] = useState("");
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
-  const [topic, setTopic] = useState('ÖPNV sollte kostenlos sein');
+  const [topic, setTopic] = useState("ÖPNV sollte kostenlos sein");
   const [game, setGame] = useState({});
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
@@ -51,7 +53,7 @@ const App = () => {
 
   const [chatList, setChatList] = useState([]);
 
-  const [serverMessage, setServerMessage] = useState('');
+  const [serverMessage, setServerMessage] = useState("");
 
   const [userList, setUserList] = useState([]);
 
@@ -59,11 +61,11 @@ const App = () => {
   const [receivedVerdict, setReceivedVerdict] = useState(false);
   const [isTyping] = useState(false);
 
-  const [canRespond, setCanRespond] = useState(true)
+  const [canRespond, setCanRespond] = useState(true);
 
   const [newCardType, setNewCardType] = useState();
 
-  const [gameReady, setGameReady] = useState('');
+  const [gameReady, setGameReady] = useState("");
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
@@ -73,77 +75,80 @@ const App = () => {
 
   useEffect(() => {
     socketRef.current = io.connect(localENDPOINT);
-    socketRef.current.on('your id', (id) => {
+    socketRef.current.on("your id", (id) => {
       setYourID(id);
     });
-    socketRef.current.on('topic', (topic) => {
+    socketRef.current.on("topic", (topic) => {
       setTopic(topic);
     });
 
-    socketRef.current.on('final votes', (voot) => {
+    socketRef.current.on("final votes", (voot) => {
       setFinalVotes(voot);
     });
 
-    socketRef.current.on('message', (cards) => {
+    socketRef.current.on("message", (cards) => {
       setCardList(cards);
+      if (cardList[cardList.length - 1].type == "question") {
+        playMystery();
+      }
     });
 
-    socketRef.current.on('get ready', () => {
-      setServerMessage('All players have joined, get ready...');
+    socketRef.current.on("get ready", () => {
+      setServerMessage("All players have joined, get ready...");
       setGameReady(true);
     });
 
-    socketRef.current.on('game', (gameObj) => {
+    socketRef.current.on("game", (gameObj) => {
       setGame(gameObj);
       setCardList(gameObj.cardList);
       setpreparedDeck(gameObj.preparedDeck);
     });
-    socketRef.current.on('chat messages', (msgList) => {
+    socketRef.current.on("chat messages", (msgList) => {
       setChatList(msgList);
     });
 
-    socketRef.current.on('emit sound', (sound) => {
+    socketRef.current.on("emit sound", (sound) => {
       switch (sound) {
-        case 'airhorn':
+        case "airhorn":
           playAirhorn();
-          socketRef.current.emit('emit sound', 'airhorn');
+          socketRef.current.emit("emit sound", "airhorn");
           break;
-        case 'slap':
+        case "slap":
           playSlap();
-          socketRef.current.emit('emit sound', 'slap');
+          socketRef.current.emit("emit sound", "slap");
           break;
-        case 'gavel':
+        case "gavel":
           playGavel();
-          socketRef.current.emit('emit sound', 'gavel');
+          socketRef.current.emit("emit sound", "gavel");
           break;
-        case 'woo':
+        case "woo":
           playWoo();
-          socketRef.current.emit('emit sound', 'woo');
+          socketRef.current.emit("emit sound", "woo");
           break;
         default:
           break;
       }
     });
-    socketRef.current.on('final ruling', (e) => {
+    socketRef.current.on("final ruling", (e) => {
       setFinalRuling(e);
     });
 
-    socketRef.current.on('judge ruling', (ruling) => {
+    socketRef.current.on("judge ruling", (ruling) => {
       setJudgeMessage(ruling);
       setShowRuling(true);
     });
-    socketRef.current.on('please vote', () => {
+    socketRef.current.on("please vote", () => {
       setShowVoting(true);
     });
   }, []);
 
   const sendTopic = () => {
-    socketRef.current.emit('set topic', topic);
+    socketRef.current.emit("set topic", topic);
   };
 
   //todo: send question cards
   function sendMessage(e) {
-    if (e == '') return;
+    if (e == "") return;
     if (canSend) {
       const messageObject = {
         body: e,
@@ -154,20 +159,20 @@ const App = () => {
       };
 
       //setCanSend(false);
-      socketRef.current.emit('send message', messageObject);
-      setYourUnsentArgument('');
+      socketRef.current.emit("send message", messageObject);
+      setYourUnsentArgument("");
     }
   }
 
   const handleStartGame = () => {
     if (yourID == game.affirmativeID) {
-      setRole('affirmative');
+      setRole("affirmative");
     }
     if (yourID == game.negativeID) {
-      setRole('negative');
+      setRole("negative");
     }
     if (yourID == game.judgeID) {
-      setRole('judge');
+      setRole("judge");
     }
     setShowLogin(false);
   };
@@ -180,7 +185,7 @@ const App = () => {
   };
 
   const handleFinalRuling = (e) => {
-    socketRef.current.emit('final ruling', e);
+    socketRef.current.emit("final ruling", e);
   };
 
   function setName(name) {
@@ -208,7 +213,7 @@ const App = () => {
       role: role,
       vote: e,
     };
-    socketRef.current.emit('send final vote', voteObj);
+    socketRef.current.emit("send final vote", voteObj);
     closeModal();
     setShowFinal(true);
   };
@@ -218,7 +223,7 @@ const App = () => {
       name: userName,
       role: role,
     };
-    socketRef.current.emit('set user', messageObject);
+    socketRef.current.emit("set user", messageObject);
   }
 
   const rateCard = (index, rating) => {
@@ -227,7 +232,7 @@ const App = () => {
       type: role,
       rating: rating,
     };
-    socketRef.current.emit('rate card', msgObj);
+    socketRef.current.emit("rate card", msgObj);
   };
 
   function closeModal() {
@@ -240,6 +245,10 @@ const App = () => {
 
   const [playGavel] = useSound(soundGavel, {
     volume: 1,
+  });
+
+  const [playMystery] = useSound(soundMystery, {
+    volume: 0.4,
   });
 
   const [playWoo, { stop }] = useSound(soundWoo, {
@@ -274,16 +283,16 @@ const App = () => {
   };
 
   const nextRound = () => {
-    if (game.round <= 4) socketRef.current.emit('next round');
+    if (game.round <= 4) socketRef.current.emit("next round");
   };
   const finishGame = (e) => {
     closeModal();
     setShowFinal(true);
-    socketRef.current.emit('end game');
+    socketRef.current.emit("end game");
   };
 
   const resetGame = () => {
-    socketRef.current.emit('reset');
+    socketRef.current.emit("reset");
   };
 
   const sendChatMsg = (msg) => {
@@ -291,11 +300,12 @@ const App = () => {
       name: userName,
       body: msg,
     };
-    socketRef.current.emit('chat message', msgObj);
+    socketRef.current.emit("chat message", msgObj);
   };
 
   return (
     <>
+      <Timer />
       {showVoting ? (
         <VotingModal
           aff={game.affirmativeName}
@@ -330,35 +340,35 @@ const App = () => {
       {showCardDeck ? (
         <PreparedDeck cardList={game.preparedDeck} hideDeck={hideDeck} />
       ) : null}
-      <div class="grid-container">
-        <div className="opponents">
-          {role == 'affirmative' ? (
+      <div class='grid-container'>
+        <div className='opponents'>
+          {role == "affirmative" ? (
             <>
-                <Player name={game.judgeName} role="Richter" />
+              <Player name={game.judgeName} role='Richter' />
               <Player name={game.negativeName} role={role} />
             </>
           ) : null}
-          {role == 'negative' ? (
+          {role == "negative" ? (
             <>
-                <Player name={game.judgeName} role="Richter" />
-                <Player name={game.affirmativeName} role="pro" />
+              <Player name={game.judgeName} role='Richter' />
+              <Player name={game.affirmativeName} role='pro' />
             </>
           ) : null}
-          {role == 'judge' ? (
+          {role == "judge" ? (
             <>
-              <Player name={game.affirmativeName} role={'pro'} />
-              <Player name={game.negativeName} role="contra" />
+              <Player name={game.affirmativeName} role={"pro"} />
+              <Player name={game.negativeName} role='contra' />
             </>
           ) : null}
-          {role == 'spectator' ? (
+          {role == "spectator" ? (
             <>
-              <Player name={game.judgeName} role="Richter" />
-              <Player name={game.affirmativeName} role={'pro'} />
-              <Player name={game.negativeName} role="contra" />
+              <Player name={game.judgeName} role='Richter' />
+              <Player name={game.affirmativeName} role={"pro"} />
+              <Player name={game.negativeName} role='contra' />
             </>
           ) : null}
         </div>
-        <div className="chat">
+        <div className='chat'>
           <Chat
             sendChatMsg={sendChatMsg}
             chatList={chatList}
@@ -366,74 +376,74 @@ const App = () => {
           />
           <RiSwordFill />
         </div>
-        <div className="player1">
-          {role == 'affirmative' ? (
-              <Player name={game.affirmativeName} role={role} />
+        <div className='player1'>
+          {role == "affirmative" ? (
+            <Player name={game.affirmativeName} role={role} />
           ) : null}
-          {role == 'negative' ? (
+          {role == "negative" ? (
             <Player name={game.negativeName} role={role} />
           ) : null}
-          {role == 'judge' ? (
+          {role == "judge" ? (
             <Player name={game.judgeName} role={role} />
           ) : null}
-          
         </div>
-        <div className="title neo-box-outward">
-        
-            <h1>
-              <sup>
-                <i>Thema: </i>
-              </sup>
-              {topic}
-            </h1>
-            <h5>
-              Runde {game.round} von 4 -
+        <div className='title neo-box-outward'>
+          <h1>
+            <sup>
+              <i>Thema: </i>
+            </sup>
+            {topic}
+          </h1>
+          <h5>
+            Runde {game.round} von 4 -
             {game.round % 2 == 1
-                ? `${game.affirmativeName} spielt als erstes`
-                : `${game.negativeName} spielt als erstes`}
-            </h5>
-        
-
+              ? `${game.affirmativeName} spielt als erstes`
+              : `${game.negativeName} spielt als erstes`}
+          </h5>
         </div>
-        <div className="card-table">
+        <div className='card-table'>
           <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />
         </div>
-        <div className="crowd">
-          <img src={crowd} alt="crowd cheering"></img>
+        <div className='crowd'>
+          <img src={crowd} alt='crowd cheering'></img>
         </div>
-        <div className="card-deck"><button onClick={showDeck}>deck öffnen</button></div>
-        <div className="navbar">about us</div>
-        <div className="toolbox">
-            {role == 'spectator' ? (
-              <>
-                <div onKeyPress={handleSoundKeys}>
-                  <button onClick={playWoo}>woo</button>
-                  <button onClick={playSlap}>slap</button>
-                  <button onClick={playAirhorn}>airhorn</button>
-                  <button>throw tomato?</button>
-                </div>
-              </>
-            ) : (
-                <MainForm
-                  game={game}
-                  onChange={handleChange}
-                  handleCardType={handleCardType}
-                  handleSubmit={sendMessage}
-                  role={role}
-                />
-              )}
-            {role == 'judge' ? (
-              <>
-                <button className="gavel-btn" onClick={playGavel}><GiBangingGavel /></button>
-                {judgeCanAdvance ? (
-                  <button onClick={nextRound}>nächste Runde</button>
-                ) : null}
-              </>
-            ) : null}
+        <div className='card-deck'>
+          <button onClick={showDeck}>deck öffnen</button>
+        </div>
+        <div className='navbar'>about us</div>
+        <div className='toolbox'>
+          {role == "spectator" ? (
+            <>
+              <div onKeyPress={handleSoundKeys}>
+                <button onClick={playWoo}>woo</button>
+                <button onClick={playSlap}>slap</button>
+                <button onClick={playAirhorn}>airhorn</button>
+                <button>throw tomato?</button>
+              </div>
+            </>
+          ) : (
+            <MainForm
+              game={game}
+              onChange={handleChange}
+              handleCardType={handleCardType}
+              handleSubmit={sendMessage}
+              role={role}
+            />
+          )}
+          {role == "judge" ? (
+            <>
+              <button className='gavel-btn' onClick={playGavel}>
+                <GiBangingGavel />
+              </button>
+              {judgeCanAdvance ? (
+                <button onClick={nextRound}>nächste Runde</button>
+              ) : null}
+            </>
+          ) : null}
         </div>
       </div>
       <Modal
-        title="verdict:"
+        title='verdict:'
         showModal={showRuling}
         body={judgeMessage}
         closeModal={closeModal}
