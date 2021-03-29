@@ -57,6 +57,8 @@ const App = () => {
   const [receivedVerdict, setReceivedVerdict] = useState(false);
   const [isTyping] = useState(false);
 
+  const [canRespond, setCanRespond] = useState(true)
+
   const [newCardType, setNewCardType] = useState();
 
   const [gameReady, setGameReady] = useState('');
@@ -64,25 +66,6 @@ const App = () => {
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
   const [finalVotes, setFinalVotes] = useState([]);
-
-  function onKeyPressed(e) {
-    console.log(e.key);
-    if (role == 'spectator') {
-      switch (e.key) {
-        case 'w':
-          playWoo();
-          break;
-        case 's':
-          playSlap();
-          break;
-        case 'a':
-          playAirhorn();
-          break;
-        default:
-          break;
-      }
-    }
-  }
 
   const socketRef = useRef();
 
@@ -187,7 +170,7 @@ const App = () => {
     setShowLogin(false);
   };
 
-  const ShowDeck = () => {
+  const showDeck = () => {
     setShowCardDeck(true);
   };
   const hideDeck = () => {
@@ -254,21 +237,21 @@ const App = () => {
   // sound triggers
 
   const [playGavel] = useSound(soundGavel, {
-    volume: 0.8,
+    volume: 1,
   });
 
   const [playWoo, { stop }] = useSound(soundWoo, {
-    volume: 0.8,
+    volume: 0.2,
   });
 
   const [playSlap] = useSound(soundSlap, {
-    volume: 0.8,
+    volume: 0.2,
   });
   const [playAirhorn] = useSound(soundAirhorn, {
-    volume: 0.8,
+    volume: 0.2,
   });
   const [playBigHammer] = useSound(soundBigHammer, {
-    volume: 0.8,
+    volume: 0.2,
   });
 
   //use this for increasing pitch of slaps
@@ -351,8 +334,6 @@ const App = () => {
         class={
           role == 'judge' ? 'grid-container-judge' : 'grid-container-player'
         }
-        onKeyDown={onKeyPressed}
-        tabIndex={0}
       >
         <div className="title-claim neo-box-outward">
           <h1>
@@ -364,8 +345,8 @@ const App = () => {
           <h5>
             Runde {game.round} von 4 -
             {game.round % 2 == 1
-              ? 'pro spielt als erstes'
-              : 'contra spielt als erstes'}
+              ? `${game.affirmativeName} spielt als erstes`
+              : `${game.negativeName} spielt als erstes`}
           </h5>
         </div>
         <div class="chat">
@@ -374,7 +355,7 @@ const App = () => {
             chatList={chatList}
             spectatorList={game.spectatorID}
           />
-        <GiBangingGavel/>
+        
         <RiSwordFill/>
         </div>
         {role == 'affirmative' ? (
@@ -406,20 +387,17 @@ const App = () => {
         <div class="toolbox">
           {role == 'spectator' ? null : (
             <MainForm
-            
+              game={game}
               onChange={handleChange}
               handleCardType={handleCardType}
               handleSubmit={sendMessage}
               role={role}
+              showDeck={showDeck}
             />
           )}
-          {role == 'affirmative' || role == 'negative' ? (
-            <button onClick={ShowDeck}>deck öffnen</button>
-          ) : null}
-
           {role == 'judge' ? (
             <>
-              <button onClick={playGavel}>Hammer</button>
+              <button className="gavel-btn" onClick={playGavel}><GiBangingGavel /></button>
               {judgeCanAdvance ? (
                 <button onClick={nextRound}>nächste Runde</button>
               ) : null}
