@@ -38,10 +38,8 @@ const Timer = (props) => {
   }, [isActive, seconds]);
 
   return (
-    <div className="timer">
-      <div className="time">
-        {seconds != -1 ? `${seconds} s remain` : 'TIME'}
-      </div>
+    <div className='timer'>
+      <div className='time'>{seconds != -1 ? `${seconds} s` : '!!'}</div>
     </div>
   );
 };

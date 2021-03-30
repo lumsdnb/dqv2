@@ -53,15 +53,15 @@ const PreparedDeck = (props) => {
   };
   const listOfCards = copiedJSON.map((c, index) => {
     return (
-      <button className="preview-btn" onClick={playCard}>
+      <button className='preview-btn' onClick={playCard}>
         <Card size={'smol'} key={index} claim={c.body} type={c.type} />
       </button>
     );
   });
 
   return (
-    <div className="modal-outer">
-      <div className="prepared-deck">{listOfCards}</div>
+    <div className='modal-outer'>
+      <div className='prepared-deck'>{listOfCards}</div>
       <button onClick={props.hideDeck}>X</button>
     </div>
   );

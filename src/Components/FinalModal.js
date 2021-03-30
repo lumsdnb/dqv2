@@ -25,10 +25,10 @@ const FinalModal = (props) => {
 
   return (
     <>
-      <div className="login-modal">
+      <div className='login-modal'>
         <div>
           <div>
-            <div className="neo-box-outward">
+            <div className='neo-box-outward'>
               <h2>RUNDENENDE</h2>
 
               <h3>
@@ -37,7 +37,7 @@ const FinalModal = (props) => {
               </h3>
             </div>
 
-            <div className="neo-box-inward">
+            <div className='neo-box-inward'>
               <h3>Ergebnis:</h3>
               <h5>
                 {props.game.affirmativeName} : {props.finalVotes.aff}
@@ -50,14 +50,14 @@ const FinalModal = (props) => {
               </h5>
             </div>
 
-          <div className="neo-box-inward">
+            <div className='neo-box-inward'>
               Richter sagt: {props.finalRuling}
-          </div>
+            </div>
 
             {doneVoting ? null : (
-              <div className="neo-box-outward">
+              <div className='neo-box-outward'>
                 <p>Warte auf Ergebnisse...</p>
-                <div class="spinner-ellipsis">
+                <div class='spinner-ellipsis'>
                   <div></div>
                   <div></div>
                   <div></div>

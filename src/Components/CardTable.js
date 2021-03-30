@@ -39,7 +39,7 @@ const CardTable = (props) => {
           key={c.index}
           claim={c.body}
           index={index}
-          role="Hauptargument"
+          role='Hauptargument'
           userRole={props.userRole}
           spectatorRating={c.spectatorRating}
           judgeRating={c.judgeRating}
@@ -53,9 +53,9 @@ const CardTable = (props) => {
 
   return (
     <>
-      <div className="card-table">
-        <div className="first-card">{firstCard}</div>
-        <div className="scrolling-cards">
+      <div className='card-table'>
+        <div className='first-card'>{firstCard}</div>
+        <div className='scrolling-cards'>
           {listOfCards}
           <div ref={messagesEndRef} />
         </div>

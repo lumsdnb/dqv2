@@ -5,7 +5,7 @@ const Modal = (props) => {
   return (
     <>
       <div
-        className="judge-ruling"
+        className='judge-ruling'
         style={{ display: props.showModal ? 'block' : 'none' }}
       >
         <h3>{props.title}</h3>

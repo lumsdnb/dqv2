@@ -4,9 +4,9 @@ export function NameForm(props) {
     <>
       <label>
         Name:
-        <input type="text" />
+        <input type='text' />
       </label>
-      <input type="submit" value="Submit" />
+      <input type='submit' value='Submit' />
     </>
   );
 }

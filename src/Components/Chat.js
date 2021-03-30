@@ -22,15 +22,15 @@ const Chat = (props) => {
   }
 
   return (
-    <div className="chat-outer">
-      <div className="chat-top">
+    <div className='chat-outer'>
+      <div className='chat-top'>
         <h4>Chat</h4>
         <p>{props.spectatorList}</p>
       </div>
-      <div className="chatmessages">{chatMessages}</div>
-      <form className="chat-controls" onSubmit={handleChatSubmit}>
-        <input className="chat-input" type="text" onChange={handleChatMsg} />
-        <input type="submit" className="form-btn" value="senden" />
+      <div className='chatmessages'>{chatMessages}</div>
+      <form className='chat-controls' onSubmit={handleChatSubmit}>
+        <input className='chat-input' type='text' onChange={handleChatMsg} />
+        <input type='submit' className='form-btn' value='senden' />
       </form>
     </div>
   );
