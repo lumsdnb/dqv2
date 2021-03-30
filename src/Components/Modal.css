@@ -60,18 +60,18 @@ sup {
 
 .BUTTON_START {
   background: #22a70f;
-  background-image: -webkit-linear-gradient(top, #22a70f, #22a70f);
-  background-image: -moz-linear-gradient(top, #22a70f, #22a70f);
-  background-image: -ms-linear-gradient(top, #22a70f, #22a70f);
-  background-image: -o-linear-gradient(top, #22a70f, #22a70f);
-  background-image: -webkit-gradient(to bottom, #22a70f, #22a70f);
+  background-image: -webkit-linear-gradient(top, #5ca552, #58994f);
+  background-image: -moz-linear-gradient(top, #5ca552, #58994f);
+  background-image: -ms-linear-gradient(top, #5ca552, #58994f);
+  background-image: -o-linear-gradient(top, #5ca552, #58994f);
+  background-image: -webkit-gradient(to bottom, #5ca552, #58994f);
   border: none;
   border-radius: 1rem;
   color: #ffffff;
   font-family: Brush Script MT;
-  font-size: 30px;
+  font-size: 2rem;
   font-weight: 100;
-  padding: 40px;
+  padding: 1rem;
   -webkit-box-shadow: 1px 1px 20px 0 #000000;
   -moz-box-shadow: 1px 1px 20px 0 #000000;
   box-shadow: 1px 1px 20px 0 #000000;

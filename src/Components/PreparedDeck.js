@@ -2,6 +2,8 @@ import React from 'react';
 import Card from './Card.js';
 import './CardTable.css';
 
+import { MdClose } from 'react-icons/md';
+
 const PreparedDeck = (props) => {
   const copiedJSON = [
     {
@@ -61,8 +63,12 @@ const PreparedDeck = (props) => {
 
   return (
     <div className='modal-outer'>
-      <div className='prepared-deck'>{listOfCards}</div>
-      <button onClick={props.hideDeck}>X</button>
+      <div className='prepared-deck'>
+        <div classname='prepared-deck-cardlist'>{listOfCards}</div>
+      </div>
+      <button className='deck-prep-close' onClick={props.hideDeck}>
+        <MdClose />
+      </button>
     </div>
   );
 };
