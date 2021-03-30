@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import MainForm from "./MainForm.js";
-import "./Toolbox.css";
-import { GiBangingGavel } from "react-icons/gi";
+import React, { useState } from 'react';
+import MainForm from './MainForm.js';
+import './Toolbox.css';
+import { GiBangingGavel } from 'react-icons/gi';
 
 const Toolbox = (props) => {
-  const [yourArgument, setYourArgument] = useState("");
-  const [cardType, setCardType] = useState("");
+  const [yourArgument, setYourArgument] = useState('');
+  const [cardType, setCardType] = useState('');
   const [canSend, setCanSend] = useState(true);
 
   function handleChange(e) {
@@ -16,7 +16,7 @@ const Toolbox = (props) => {
     setCardType(c);
   }
   function sendMessage(e) {
-    if (e == "") return;
+    if (e == '') return;
     const messageObject = {
       body: yourArgument,
       role: props.role,
@@ -28,7 +28,7 @@ const Toolbox = (props) => {
 
   return (
     <div className='toolbox'>
-      {props.role == "spectator" ? (
+      {props.role == 'spectator' ? (
         <>
           <div className='spectator-board'>
             <button onClick={props.playWoo}>woo</button>
@@ -48,13 +48,13 @@ const Toolbox = (props) => {
           role={props.role}
         />
       )}
-      {props.role == "judge" ? (
-        <>
+      {props.role == 'judge' ? (
+        <div classname='tools-judge'>
           <button className='gavel-btn' onClick={props.playGavel}>
             <GiBangingGavel />
           </button>
           <button onClick={props.nextRound}>nächste Runde</button>
-        </>
+        </div>
       ) : null}
     </div>
   );

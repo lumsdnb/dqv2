@@ -31,23 +31,23 @@ const Card = (props) => {
 
   return (
     <>
-      <div className="card">
+      <div className='card'>
         <h4
           className={'card-top' + ' ' + props.size == 'smol' ? 'card-smol' : ''}
         >
           {props.role} {props.type}
         </h4>
-        <p className="card-body">{props.claim}</p>
+        <p className='card-body'>{props.claim}</p>
         {props.type == 'fact' ? (
-          <a href="https://doyourownresearch.io" target="_blank">
+          <a href='https://doyourownresearch.io' target='_blank'>
             source
           </a>
         ) : null}
         {props.size == 'smol' ? null : (
-          <div className="card-bottom">
-            <progress value={'50'} max="100"></progress>
+          <div className='card-bottom'>
+            <progress value={'50'} max='100'></progress>
             {props.userRole == 'judge' || props.userRole == 'spectator' ? (
-              <div className="rate-card">
+              <div className='rate-card'>
                 {cardScore == 0 ? (
                   <>
                     <button onClick={upvoteCard}>
