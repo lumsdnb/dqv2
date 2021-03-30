@@ -16,11 +16,6 @@ const PreparedDeck = (props) => {
     },
     {
       body:
-        'Eine Mietpreisbremse würde nicht dazu führen, dass finanziell schwache Gruppen eine Wohnung tatsächlich bekämen. Mieter würden sich trotzdem für die Familien mit stabilem Einkommen entscheiden, und diese würden dann noch mehr profitieren als vorher.',
-      type: 'argument',
-    },
-    {
-      body:
         'Ein großflächiger Umstieg auf ÖPNV würde weniger Autos in der Stadt und somit ein geringeres Unfallrisiko für Fußgänger und Radfahrer bedeuten.',
       type: 'argument',
     },
@@ -30,17 +25,6 @@ const PreparedDeck = (props) => {
       type: 'argument',
     },
     {
-      body:
-        'Durch das Fördern von E-Motoren gehen wir als Vorbild für andere Länder voran.',
-      type: 'argument',
-      source: 'https://www.swr.de/swr1/rp/programm/oepnv-102.html',
-    },
-    {
-      body:
-        'In mehreren Städten ist der ÖPNV bereits kostenlos und wird von den Benutzern als sehr positiv empfunden.',
-      type: 'fact',
-    },
-    {
       body: '46% der Nutzer sind unzufrieden mit der Pünktlichkeit des ÖPNV.',
       type: 'fact',
       source:
@@ -48,7 +32,7 @@ const PreparedDeck = (props) => {
     },
     {
       body:
-        'Kostenloser ÖPNV-Versuche haben gezeigt, dass Autofahrer nicht einfach umsteigen.',
+        'Kostenlose ÖPNV-Versuche haben gezeigt, dass Autofahrer nicht einfach umsteigen.',
       type: 'fact',
       source: 'https://taz.de/Pro-und-Contra-kostenloser-OePNV/!5589087/',
     },
@@ -65,6 +49,7 @@ const PreparedDeck = (props) => {
 
   const playCard = () => {
     console.log('card was clicked');
+    props.hideDeck();
   };
   const listOfCards = copiedJSON.map((c, index) => {
     return (
