@@ -33,8 +33,7 @@ const LoginModal = (props) => {
         <div>
           <div>
             <div className='neo-box-outward'>
-              <h2>KNOWLEDGE DECKS&trade;</h2>
-
+              <h2>DEBATE.QUEST</h2>
               <h3>
                 <sup>Thema:</sup>
                 {props.topic}
@@ -116,34 +115,42 @@ const LoginModal = (props) => {
                     ) : null}
                   </div>
                 </form>
-                <AvatarGen
-                  canEdit='true'
-                  handleAviChange={handleAviChange}
-                  style={{ width: '5rem', height: '5rem' }}
-                />
+                <div>
+                  <AvatarGen
+                    canEdit='true'
+                    handleAviChange={handleAviChange}
+                    style={{ width: '5rem', height: '5rem' }}
+                  />
+                </div>
               </div>
             )}
-            <div className='neo-box-inward'>
-              <h2>verbundene Spieler:</h2>
-              <p>Spieler 1: {props.game.debater1Name}</p>
-              <p>Spieler 2: {props.game.debater2Name}</p>
-              <p>RICHTER: {props.game.judgeName}</p>
+            <div className='neo-box-split'>
+              <div>
+                <p>Spieler 1: {props.game.debater1Name}</p>
+                <p>Spieler 2: {props.game.debater2Name}</p>
+                <p>RICHTER: {props.game.judgeName}</p>
+              </div>
+              <div>
+                {props.gameReady ? (
+                  <button
+                    className='BUTTON_START'
+                    onClick={props.handleStartGame}
+                  >
+                    Spiel starten!
+                  </button>
+                ) : (
+                  <div className='flex-item-center'>
+                    <p>Warte auf weitere Spieler...</p>
+                    <div className='spinner-ellipsis'>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-            {props.gameReady ? (
-              <button className='BUTTON_START' onClick={props.handleStartGame}>
-                Spiel starten!
-              </button>
-            ) : (
-              <>
-                <p>Warte auf weitere Spieler...</p>
-                <div className='spinner-ellipsis'>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </>
-            )}
           </div>
         </div>
       </div>
