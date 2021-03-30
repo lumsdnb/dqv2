@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import './Modal.css';
+
+import { RiSwordFill } from 'react-icons/ri';
+import { GiBangingGavel } from 'react-icons/gi';
+import { GrOverview } from 'react-icons/gr';
+
+import AvatarGen from './AvatarGen.js';
+
 const LoginModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
   const [userHasJoined, setUserHasJoined] = useState(false);
@@ -16,12 +23,16 @@ const LoginModal = (props) => {
     props.handleNameChange(e);
   }
 
+  function handleAviChange(e) {
+    props.changeAvi(e);
+  }
+
   return (
     <>
-      <div className="login-modal">
+      <div className='login-modal'>
         <div>
           <div>
-            <div className="neo-box-outward">
+            <div className='neo-box-outward'>
               <h2>KNOWLEDGE DECKS&trade;</h2>
 
               <h3>
@@ -30,98 +41,102 @@ const LoginModal = (props) => {
               </h3>
               <button onClick={props.resetGame}>Spiel zurücksetzen</button>
             </div>
-
             {userHasJoined ? null : (
-              <div className="neo-box-inward">
+              <div className='neo-box-split'>
                 <form>
-                  <div className="form-group">
+                  <div className='form-group'>
                     <label>
                       <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        placeholder="dein Name"
+                        type='text'
+                        className='form-control'
+                        name='name'
+                        placeholder='dein Name'
                         onChange={handleName}
-                        maxlength="30"
-                        required="required"
-                        autocomplete="off"
+                        maxlength='30'
+                        required='required'
+                        autocomplete='off'
                       />
                     </label>{' '}
                   </div>
 
-                  <div className="form-group">
+                  <div className='form-group'>
                     <label>Wähle deine Rolle:</label>
 
-                    <div className="form-check">
-                      <label className="form-check-label">
+                    <div className='form-check'>
+                      <label className='form-check-label'>
                         Debattierer
                         <input
-                          className="form-check-input"
-                          type="radio"
-                          name="role"
-                          value="debater"
+                          className='form-check-input'
+                          type='radio'
+                          name='role'
+                          value='debater'
                           onChange={props.handleRadioChange}
                         />{' '}
                       </label>
+                      <RiSwordFill />
                     </div>
-
-                    <div className="form-check">
-                      <label className="form-check-label">
+                    <div className='form-check'>
+                      <label className='form-check-label'>
                         Richter
                         <input
-                          className="form-check-input"
-                          type="radio"
-                          name="role"
-                          value="judge"
+                          className='form-check-input'
+                          type='radio'
+                          name='role'
+                          value='judge'
                           onChange={props.handleRadioChange}
                         />{' '}
                       </label>
+                      <GiBangingGavel />
                     </div>
 
-                    <div className="form-check">
-                      <label className="form-check-label">
+                    <div className='form-check'>
+                      <label className='form-check-label'>
                         Zuschauer
                         <input
-                          className="form-check-input"
-                          type="radio"
-                          name="role"
-                          value="spectator"
+                          className='form-check-input'
+                          type='radio'
+                          name='role'
+                          value='spectator'
                           onChange={props.handleRadioChange}
                         />{' '}
                       </label>
+                      <GrOverview />
                     </div>
                   </div>
 
-                  <div className="form-group">
+                  <div className='form-group'>
                     {showBtn ? (
                       <input
-                        type="submit"
-                        className="btn btn-primary"
-                        name="set"
-                        value="set"
+                        type='submit'
+                        className='btn btn-primary'
+                        name='set'
+                        value='set'
                         onClick={handleSubmitBtn}
                       />
                     ) : null}
                   </div>
                 </form>
+                <AvatarGen
+                  canEdit='true'
+                  handleAviChange={handleAviChange}
+                  style={{ width: '5rem', height: '5rem' }}
+                />
               </div>
             )}
-
-            <div className="neo-box-inward">
+            <div className='neo-box-inward'>
               <h2>verbundene Spieler:</h2>
               <p>Spieler 1: {props.game.debater1Name}</p>
               <p>Spieler 2: {props.game.debater2Name}</p>
               <p>RICHTER: {props.game.judgeName}</p>
             </div>
-
             {props.gameReady ? (
-              <button className="BUTTON_START" onClick={props.handleStartGame}>
+              <button className='BUTTON_START' onClick={props.handleStartGame}>
                 Spiel starten!
               </button>
             ) : (
               <>
                 <p>Warte auf weitere Spieler...</p>
-                <div className="spinner-ellipsis">
+                <div className='spinner-ellipsis'>
                   <div></div>
                   <div></div>
                   <div></div>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 
+import { Helmet } from 'react-helmet';
+
 import CardTable from './Components/CardTable.js';
 import Player from './Components/Player.js';
 import MainForm from './Components/MainForm.js';
@@ -47,6 +49,8 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
   const [showFinal, setShowFinal] = useState(false);
+
+  const [userAvi, setUserAvi] = useState(0);
 
   const [preparedDeck, setpreparedDeck] = useState([]);
   const [showCardDeck, setShowCardDeck] = useState(false);
@@ -174,6 +178,7 @@ const App = () => {
     if (yourID == game.judgeID) {
       setRole('judge');
     }
+
     setShowLogin(false);
   };
 
@@ -222,6 +227,7 @@ const App = () => {
     const messageObject = {
       name: userName,
       role: role,
+      avi: userAvi,
     };
     socketRef.current.emit('set user', messageObject);
   }
@@ -265,6 +271,10 @@ const App = () => {
     volume: 0.2,
   });
 
+  function changeAvi(e) {
+    setUserAvi(e);
+  }
+
   //use this for increasing pitch of slaps
 
   const [playbackRate, setPlaybackRate] = React.useState(0.75);
@@ -305,11 +315,14 @@ const App = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet='utf-8' />
+        <title>{userName ? `role: ${role}` : 'welcome'}</title>
+      </Helmet>
       <Timer />
       {showVoting ? (
         <VotingModal
-          aff={game.affirmativeName}
-          neg={game.negativeName}
+          game={game}
           topic={topic}
           voteFor={voteFor}
           role={role}
@@ -332,6 +345,7 @@ const App = () => {
           handleSetUser={handleSetUser}
           handleNameChange={handleNameChange}
           handleStartGame={handleStartGame}
+          changeAvi={changeAvi}
           gameReady={gameReady}
           topic={topic}
           resetGame={resetGame}
@@ -340,35 +354,59 @@ const App = () => {
       {showCardDeck ? (
         <PreparedDeck cardList={game.preparedDeck} hideDeck={hideDeck} />
       ) : null}
-      <div class="grid-container">
-        <div className="opponents">
+      <div class='grid-container'>
+        <div className='opponents'>
           {role == 'affirmative' ? (
             <>
-              <Player name={game.judgeName} role="Richter" />
-              <Player name={game.negativeName} role={role} />
+              <Player
+                avi={game.judgeAvi}
+                name={game.judgeName}
+                role='Richter'
+              />
+              <Player
+                avi={game.negativeAvi}
+                name={game.negativeName}
+                role={'contra'}
+              />
             </>
           ) : null}
           {role == 'negative' ? (
             <>
-              <Player name={game.judgeName} role="Richter" />
-              <Player name={game.affirmativeName} role="pro" />
+              <Player
+                avi={game.judgeAvi}
+                name={game.judgeName}
+                role='Richter'
+              />
+              <Player
+                avi={game.affirmativeAvi}
+                name={game.affirmativeName}
+                role='pro'
+              />
             </>
           ) : null}
           {role == 'judge' ? (
             <>
-              <Player name={game.affirmativeName} role={'pro'} />
-              <Player name={game.negativeName} role="contra" />
+              <Player
+                avi={game.affirmativeAvi}
+                name={game.affirmativeName}
+                role={'pro'}
+              />
+              <Player
+                avi={game.negativeAvi}
+                name={game.negativeName}
+                role='contra'
+              />
             </>
           ) : null}
           {role == 'spectator' ? (
             <>
-              <Player name={game.judgeName} role="Richter" />
-              <Player name={game.affirmativeName} role={'pro'} />
-              <Player name={game.negativeName} role="contra" />
+              <Player avi='2' name={game.judgeName} role='Richter' />
+              <Player avi='1' name={game.affirmativeName} role={'pro'} />
+              <Player avi='0' name={game.negativeName} role='contra' />
             </>
           ) : null}
         </div>
-        <div className="chat">
+        <div className='chat'>
           <Chat
             sendChatMsg={sendChatMsg}
             chatList={chatList}
@@ -376,42 +414,50 @@ const App = () => {
           />
           <RiSwordFill />
         </div>
-        <div className="player1">
+        <div className='player1'>
           {role == 'affirmative' ? (
-            <Player name={game.affirmativeName} role={role} />
+            <Player
+              avi={game.affirmativeAvi}
+              name={game.affirmativeName}
+              role={role}
+            />
           ) : null}
           {role == 'negative' ? (
-            <Player name={game.negativeName} role={role} />
+            <Player
+              avi={game.negativeAvi}
+              name={game.negativeName}
+              role={role}
+            />
           ) : null}
           {role == 'judge' ? (
-            <Player name={game.judgeName} role={role} />
+            <Player avi={game.judgeAvi} name={game.judgeName} role={role} />
           ) : null}
         </div>
-        <div className="title neo-box-outward">
+        <div className='title'>
           <h1>
             <sup>
               <i>Thema: </i>
             </sup>
             {topic}
           </h1>
-          <h5>
+          <h5 className='game-commentary'>
             Runde {game.round} von 4 -
             {game.round % 2 == 1
               ? `${game.affirmativeName} spielt als erstes`
               : `${game.negativeName} spielt als erstes`}
           </h5>
         </div>
-        <div className="card-table">
+        <div className='card-table'>
           <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />
         </div>
-        <div className="crowd">
-          <img src={crowd} alt="crowd cheering"></img>
+        <div className='crowd'>
+          <img src={crowd} alt='crowd cheering'></img>
         </div>
-        <div className="card-deck">
+        <div className='card-deck'>
           <button onClick={showDeck}>deck öffnen</button>
         </div>
-        <div className="navbar">about us</div>
-        <div className="toolbox">
+        <div className='navbar'>about us</div>
+        <div className='toolbox'>
           {role == 'spectator' ? (
             <>
               <div onKeyPress={handleSoundKeys}>
@@ -432,7 +478,7 @@ const App = () => {
           )}
           {role == 'judge' ? (
             <>
-              <button className="gavel-btn" onClick={playGavel}>
+              <button className='gavel-btn' onClick={playGavel}>
                 <GiBangingGavel />
               </button>
               {judgeCanAdvance ? (
@@ -443,7 +489,7 @@ const App = () => {
         </div>
       </div>
       <Modal
-        title="verdict:"
+        title='verdict:'
         showModal={showRuling}
         body={judgeMessage}
         closeModal={closeModal}
