@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 const Timer = (props) => {
   const [seconds, setSeconds] = useState(10);
   const [isActive, setIsActive] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   function toggle() {
     setIsActive(!isActive);
@@ -37,20 +38,9 @@ const Timer = (props) => {
   }, [isActive, seconds]);
 
   return (
-    <div className='timer'>
-      <div className='time'>
-        {seconds != -1 ? `${seconds} s remain` : "TIME"}
-      </div>
-      <div className='row'>
-        <button
-          className={`button button-timer ${isActive ? "active" : "inactive"}`}
-          onClick={toggle}
-        >
-          {isActive ? "Pause" : "Start"}
-        </button>
-        <button className='button button-timer reset' onClick={reset}>
-          Reset
-        </button>
+    <div className="timer">
+      <div className="time">
+        {seconds != -1 ? `${seconds} s remain` : 'TIME'}
       </div>
     </div>
   );
