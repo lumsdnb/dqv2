@@ -20,8 +20,8 @@ sup {
   user-select: none;
   overflow: hidden;
   text-align: left;
-  background: rgb(134, 147, 171);
-  background: linear-gradient(90deg, #bfd3da 0%, #bce2d1 100%);
+  background: rgba(134, 147, 171, 0.6);
+  background: linear-gradient(90deg, #46464655 0%, #0a0a0a6b 70%);
   padding: 2rem;
   z-index: 999;
 }
@@ -39,8 +39,8 @@ sup {
   overflow: hidden;
   text-align: center;
   text-align: center;
-  background: rgb(134, 147, 171);
-  background: linear-gradient(90deg, #bfd3da 0%, #bce2d1 100%);
+  background: rgba(134, 147, 171, 0.6);
+  background: linear-gradient(120deg, #000000a8 0%, #0a0a0ab9 70%);
   padding: 2rem;
   z-index: 9;
 }
@@ -112,7 +112,7 @@ sup {
   text-align: center;
   border-radius: 8px;
   border-radius: 8px;
-  background: #bdffff;
+
   box-shadow: 7px 7px 14px #b4f2f2, -7px -7px 14px #c6ffff;
 }
 

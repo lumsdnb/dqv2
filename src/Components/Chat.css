@@ -1,5 +1,5 @@
 .chat-outer {
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   background-color: #e2e2e2;
   height: 100%;
   border-radius: 1rem;
@@ -19,20 +19,20 @@ i {
   color: rgb(63, 47, 121);
 }
 
-.chat-top{
+.chat-top {
   height: 5%;
 }
 
-.chat-controls{
+.chat-controls {
   bottom: 0;
   width: 100%;
 }
 
-.chat-input{
+.chat-input {
   height: 2rem;
   border-radius: 3rem 0 0 3rem;
 }
-button{
+button {
   padding-left: 0;
   margin-left: 0;
 }
