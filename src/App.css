@@ -1,7 +1,7 @@
 #root {
   width: 100vw;
   height: 100vh;
-  padding: 2rem;
+  padding: 0;
   background: #f1f1f1;
 }
 
@@ -68,15 +68,24 @@ button:hover {
 }*/
 
 .grid-container {
+  height: 100vh;
   display: grid;
-  grid-template-columns: 10vw 50vw 20vw 20vw;
-  grid-template-rows: 20vh 20vh 50vh 10vh;
-  gap: 0rem 0rem;
+  padding: 0 2rem;
+  grid-template-columns: 0.6fr 1fr 1fr 0.4fr;
+  grid-template-rows: 0.5fr 0.1fr 2fr 1fr;
+  gap: 1rem 1rem;
   grid-template-areas:
-    "opponents title title navbar"
-    "opponents card-table card-table toolbox"
-    "chat card-table card-table toolbox"
-    "player1 crowd crowd card-deck";
+    'opponents title title navbar'
+    'opponents card-table card-table toolbox'
+    'chat card-table card-table toolbox'
+    'player1 crowd crowd card-deck';
+}
+.spectator-layout {
+  grid-template-areas:
+    'opponents title title navbar'
+    'opponents card-table card-table toolbox'
+    'chat card-table card-table toolbox'
+    'player1 crowd crowd card-deck';
 }
 
 .generate-button {
@@ -94,7 +103,7 @@ button:hover {
   grid-area: opponents;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
 }
 .chat {
@@ -104,11 +113,18 @@ button:hover {
   min-height: 0;
   overflow: hidden;
 }
+
+.flex-item-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .player1 {
   grid-area: player1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .title {
   grid-area: title;
@@ -179,6 +195,7 @@ button:hover {
   padding: 0.3rem;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .four-rows {
