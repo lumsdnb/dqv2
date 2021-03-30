@@ -123,8 +123,9 @@ button:hover {
 .player1 {
   grid-area: player1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-end;
+  align-items: center;
+  transform: scale(1.3);
 }
 .title {
   grid-area: title;
