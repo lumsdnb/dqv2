@@ -38,6 +38,18 @@
   transform: scale(0.9);
 }
 
+.deck-prep-close {
+  font-size: 400%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 50% 0 0 0;
+}
+
+.deck-prep-close:hover {
+  transform: scale(1.1);
+}
+
 .preview-btn {
   background-color: #ffffff00;
 }
