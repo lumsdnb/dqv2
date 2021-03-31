@@ -59,13 +59,15 @@ button:hover {
   transform: scale(0.5);
 }
 
-/*.game-commentary {
-  position: unset;
-  top: 50%;
-  left: 50%;
-  font-size: 300%;
-  z-index: 2;
-}*/
+.game-commentary {
+  color: white;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  font-size: 200%;
+  z-index: 1;
+  user-select: none;
+}
 
 .grid-container {
   height: 100vh;
@@ -92,11 +94,27 @@ button:hover {
   background-color: black;
   color: #fff;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 2rem;
+  height: 2rem;
   position: relative;
-  right: 0;
+  left: 2.5rem;
+  bottom: 1.5rem;
+}
+
+.generate-button:hover {
+  background-color: black;
+  transform: scale(1.1) rotate(10deg);
+  transition: all 80ms;
+}
+
+.generate-button:active {
+  transform: scale(0.9) rotate(100deg);
+  transition: all 80ms;
+}
+
+.avi-gen-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .opponents {
@@ -200,9 +218,13 @@ button:hover {
 }
 
 .four-rows {
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: scroll;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   transform: scale(0.8);
+  z-index: -1;
 }
 
 .flex-row {
