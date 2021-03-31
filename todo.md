@@ -3,53 +3,57 @@
 ## tag 1 - 30.3.
 
 - character generator DONE
-- alle karten auf screen anzeigen
 - BUG: wenn man pro ist werden rollen falsch angezeigt DONE
 
 ## tag 2 - 31.3.
 
-- klar machen wer wann spielt und namen einfügen
-- timer sounds & in runde implementieren
+- sound auf allen devices triggern DONE
+- klar machen wer wann spielt und namen einfügen DONE
 - FIX: zeichenlimit karten
+- spectator voting
+- login screen optimized
 
-## tag3 - 1.4.
+## tag 3 - 1.4.
 
+- timer sounds & in runde implementieren
+- alle karten auf finalem screen anzeigen
+- bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen
 - vorbereitungsrunde
 - mehr fakten zu themen sammeln
 - thema selber setzen
 
-## tag4 - 2.4.
+## tag 4 - 2.4.
 
 - kartentypen
 - smash doubt
 
 - BUG: karte mit enter drin sendet nachricht
 
-## tag5 - 3.4.
+## tag 5 - 3.4.
 
 - scrolling anders machen
 - spectator vote on card
-- sound auf allen devices triggern
 
-## tag6 - 4.4.
+## tag 6 - 4.4.
 
 - giphy integration
 
-## tag7 - 5.4.
+## tag 7 - 5.4.
 
 - für beide seiten argumente legen - game mode
 - final design
 - deck creator (nice to have)
 
-## tag8 - 6.4.
+## tag 8 - 6.4.
 
 - finales urteil
 - zeigen, wo die guten karten landen
 - auf karten kommentieren?
 - karten nummerieren?
 
-## tag9 - 7.4.
+## tag 9 - 7.4.
 
+- domain einrichten
 - abgeben
 - deploy
 - eingabe sperren
