@@ -6,6 +6,7 @@ const AvatarGen = (props) => {
   const [aviNum, setAviNum] = useState(0);
 
   const randomAvi = () => {
+    props.playClick();
     setAviNum(aviNum + 1);
     if (aviNum > 4) {
       setAviNum(0);
@@ -118,6 +119,27 @@ const AvatarGen = (props) => {
           />
         );
         break;
+      case 5:
+        return (
+          <Avatar
+            style={props.style}
+            accessoriesType='Prescription02'
+            avatarStyle='Circle'
+            clotheColor='Red'
+            clotheType='CollarSweater'
+            eyeType='Squint'
+            eyebrowType='UpDownNatural'
+            facialHairColor='BrownDark'
+            facialHairType='MoustacheFancy'
+            graphicType='SkullOutline'
+            hairColor='PastelPink'
+            hatColor='PastelGreen'
+            mouthType='Default'
+            skinColor='Light'
+            topType='NoHair'
+          />
+        );
+        break;
       default:
         return (
           <Avatar
@@ -140,13 +162,13 @@ const AvatarGen = (props) => {
   };
 
   return (
-    <div>
+    <div className='avi-gen-container'>
+      {props.i ? returnAvi(props.i) : returnAvi(aviNum)}
       {props.canEdit ? (
         <button onClick={randomAvi} className='generate-button'>
           <MdLoop />
         </button>
       ) : null}
-      {props.i ? returnAvi(props.i) : returnAvi(aviNum)}
     </div>
   );
 };

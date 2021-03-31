@@ -30,6 +30,8 @@ import soundSlap from './sounds/smol.wav';
 import soundAirhorn from './sounds/airhorn.wav';
 import soundBigHammer from './sounds/big-hammer.wav';
 import soundMystery from './sounds/mystery.wav';
+import soundCard from './sounds/card.mp3';
+import soundClick from './sounds/click.mp3';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
 const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
@@ -92,8 +94,13 @@ const App = () => {
 
     socketRef.current.on('message', (cards) => {
       setCardList(cards);
-      if (cards.splice(-1).type == 'question') {
+    });
+    socketRef.current.on('latest card', (card) => {
+      if (card.type == 'question') {
         playMystery();
+      }
+      if (card.type == 'argument' || 'fact') {
+        playCard();
       }
     });
 
@@ -201,8 +208,8 @@ const App = () => {
     setYourUnsentArgument(e.target.value);
   }
 
-  function handleRadioChange(e) {
-    setRole(e.target.value);
+  function handleSetRole(e) {
+    setRole(e);
   }
 
   function handleNameChange(e) {
@@ -250,11 +257,19 @@ const App = () => {
   // sound triggers
 
   const [playGavel] = useSound(soundGavel, {
-    volume: 1,
+    volume: 0.7,
   });
 
   const [playMystery] = useSound(soundMystery, {
-    volume: 0.4,
+    volume: 0.3,
+  });
+
+  const [playClick] = useSound(soundClick, {
+    volume: 0.5,
+  });
+
+  const [playCard] = useSound(soundCard, {
+    volume: 0.5,
   });
 
   const [playWoo, { stop }] = useSound(soundWoo, {
@@ -340,8 +355,11 @@ const App = () => {
       ) : null}
       {showLogin ? (
         <LoginModal
+          playClick={playClick}
           game={game}
-          handleRadioChange={handleRadioChange}
+          role={role}
+          userName={userName}
+          setRole={handleSetRole}
           handleSetUser={handleSetUser}
           handleNameChange={handleNameChange}
           handleStartGame={handleStartGame}
@@ -440,12 +458,14 @@ const App = () => {
             </sup>
             {topic}
           </h1>
-          <h5 className='game-commentary'>
-            Runde {game.round} von 4 -
-            {game.round % 2 == 1
-              ? `${game.affirmativeName} spielt als erstes`
-              : `${game.negativeName} spielt als erstes`}
-          </h5>
+          <div className='game-commentary'>
+            <h5>
+              Runde {game.round} von 4 -
+              {game.round % 2 == 1
+                ? `${game.affirmativeName} spielt als erstes`
+                : `${game.negativeName} spielt als erstes`}
+            </h5>
+          </div>
         </div>
         <div className='card-table'>
           <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />

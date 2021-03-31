@@ -13,17 +13,79 @@ sup {
   height: 100vh;
   padding-left: 2rem;
   padding: 10rem;
-  border: 5px solid rgba(167, 166, 160, 0.8);
-  border-radius: 0.6rem;
   box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.41);
   font-size: 100%;
   user-select: none;
   overflow: hidden;
   text-align: left;
-  background: rgba(134, 147, 171, 0.6);
-  background: linear-gradient(90deg, #46464655 0%, #0a0a0a6b 70%);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    332deg,
+    rgba(0, 0, 0, 0.5719421557685574) 0%,
+    rgba(0, 0, 0, 0.7960317916228992) 64%
+  );
   padding: 2rem;
   z-index: 999;
+}
+
+#login-card-type {
+  user-select: text;
+}
+
+.login-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  grid-template-rows: 0.4fr 3.6fr 0.4fr;
+  gap: 10px 10px;
+  grid-template-areas:
+    'extra-panel login-title'
+    'login-card login-settings'
+    'extra-panel2 login-settings';
+}
+.login-card {
+  grid-area: login-card;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.login-title {
+  grid-area: login-title;
+}
+.login-settings {
+  grid-area: login-settings;
+}
+
+.extra-panel {
+  grid-area: extra-panel;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.extra-panel2 {
+  grid-area: extra-panel2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.select-highlight {
+  background-color: darkgray;
+  border: 0.2rem solid black;
+  box-sizing: border-box;
+}
+
+.form-name {
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  flex-basis: 100%;
 }
 
 .voting-modal {
@@ -50,35 +112,23 @@ sup {
   text-align: left;
 }
 
-.login-modal h2 {
-  font-size: 160%;
-}
-
-.login-modal h3 {
-  font-size: 140%;
+.login-role-display {
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .BUTTON_START {
-  background: #22a70f;
-  background-image: -webkit-linear-gradient(top, #5ca552, #58994f);
-  background-image: -moz-linear-gradient(top, #5ca552, #58994f);
-  background-image: -ms-linear-gradient(top, #5ca552, #58994f);
-  background-image: -o-linear-gradient(top, #5ca552, #58994f);
-  background-image: -webkit-gradient(to bottom, #5ca552, #58994f);
+  background: #87d37e;
   border: none;
-  border-radius: 1rem;
-  color: #ffffff;
-  font-family: Brush Script MT;
-  font-size: 2rem;
-  font-weight: 100;
+  border-radius: 0.2rem;
+  color: #000;
+  font-size: 1.5rem;
   padding: 1rem;
-  -webkit-box-shadow: 1px 1px 20px 0 #000000;
-  -moz-box-shadow: 1px 1px 20px 0 #000000;
-  box-shadow: 1px 1px 20px 0 #000000;
-  text-shadow: 1px 1px 20px #000000;
   text-decoration: none;
   display: block;
-  padding: 2rem;
+  padding: 0.2rem;
   cursor: pointer;
   text-align: center;
 }
@@ -91,9 +141,7 @@ sup {
   background-image: -ms-linear-gradient(top, #7be778, #3ccb30);
   background-image: -o-linear-gradient(top, #7be778, #3ccb30);
   background-image: -webkit-gradient(to bottom, #7be778, #3ccb30);
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
+  border-radius: 0.2rem;
   text-decoration: none;
   box-sizing: border-box;
 }

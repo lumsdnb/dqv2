@@ -31,7 +31,7 @@ const Card = (props) => {
 
   return (
     <>
-      <div className='card'>
+      <div className='card card-hover'>
         <h4
           className={'card-top' + ' ' + props.size == 'smol' ? 'card-smol' : ''}
         >
