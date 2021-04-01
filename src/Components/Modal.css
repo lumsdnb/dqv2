@@ -107,6 +107,92 @@ sup {
   text-align: center;
 }
 
+/*----------------VOTING MODAL----------------*/
+.voting-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 0fr 0.1fr 0.5fr 0.7fr;
+  gap: 6px 6px;
+  grid-template-areas:
+    'title-topic title-topic title-q title-q'
+    'round1-title round2-title round3-title round4-title'
+    'round-1 round-2 round-3 round-4'
+    'voting voting voting voting';
+}
+.round1-title {
+  grid-area: round1-title;
+}
+.round2-title {
+  grid-area: round2-title;
+}
+.round3-title {
+  grid-area: round3-title;
+}
+.round4-title {
+  grid-area: round4-title;
+}
+.voting {
+  grid-area: voting;
+}
+.round-1 {
+  grid-area: round-1;
+  scrollbar-width: thin;
+}
+.round-2 {
+  grid-area: round-2;
+  scrollbar-width: thin;
+}
+.round-3 {
+  grid-area: round-3;
+  scrollbar-width: thin;
+}
+.round-4 {
+  grid-area: round-4;
+  scrollbar-width: thin;
+}
+.title-topic {
+  grid-area: title-topic;
+  background-color: white;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+}
+.title-q {
+  grid-area: title-q;
+  background-color: white;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+}
+.judgement-textarea {
+  height: 1rem;
+}
+.vote-title {
+  color: white;
+}
+
+.voting-round-title {
+  width: 100%;
+  height: 2rem;
+  background-color: rgb(194, 194, 194);
+  color: black;
+  z-index: 100;
+}
+
+.scroll-round {
+  height: 24rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
 .BUTTON_START {
   background: #87d37e;
   border: none;
