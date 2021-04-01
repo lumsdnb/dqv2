@@ -12,6 +12,7 @@ const LoginModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
   const [userHasJoined, setUserHasJoined] = useState(false);
   const [debateTitle, setDebateTitle] = useState('null');
+  const [debateID, setDebateID] = useState(0);
 
   function handleSubmitBtn(event) {
     event.preventDefault();
@@ -29,8 +30,32 @@ const LoginModal = (props) => {
     props.changeAvi(e);
   }
 
-  const changeDebateTitle = (e) => {
+  const handleOwnTopic = (e) => {
     setDebateTitle(e.target.value);
+  };
+
+  const debateTopics = [
+    'Der ÖPNV sollte kostenlos allen verfügbar sein.',
+    'Autos mit Verbrennungsmotor sollten verboten werden.',
+    'Die Mietpreisbremse ist ineffektiv und sollte abgeschafft werden.',
+  ];
+
+  const changeDebateTopic = (e) => {
+    let temp = debateID + e;
+    console.log(temp);
+    switch (temp) {
+      case debateTopics.length:
+        console.log('bigger');
+        setDebateID(0);
+        break;
+      case -1:
+        console.log('smoller');
+        setDebateID(debateTopics.length - 1);
+        break;
+      default:
+        setDebateID(temp);
+        break;
+    }
   };
 
   return (
@@ -38,13 +63,13 @@ const LoginModal = (props) => {
       <div className='login-modal'>
         <div className='login-grid'>
           <div className='login-card' id='login-card-type'>
-            <button>
+            <button type='button' onClick={() => changeDebateTopic(-1)}>
               <AiFillCaretLeft />
             </button>
             <div className='card'>
-              <h3>{props.topic}</h3>
+              <h2>{debateTopics[debateID]}</h2>
             </div>
-            <button>
+            <button type='button' onClick={() => changeDebateTopic(1)}>
               <AiFillCaretRight />
             </button>
           </div>
@@ -55,7 +80,7 @@ const LoginModal = (props) => {
             <button onClick={props.resetGame}>Spiel zurücksetzen</button>
           </div>
           <div class='extra-panel2'>
-            <input type='textarea' onChange={changeDebateTitle} />
+            <input type='textarea' onChange={handleOwnTopic} />
           </div>
           <div className='login-settings'>
             <div>
