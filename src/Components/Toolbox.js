@@ -39,8 +39,7 @@ const Toolbox = (props) => {
         spectatorRating: 0,
       };
       props.sendMessage(messageObject);
-    }
-    if (cardType == 'argument' || 'question') {
+    } else {
       const messageObject = {
         body: yourArgument,
         role: props.role,
@@ -116,6 +115,7 @@ const Toolbox = (props) => {
         id='cardform'
         className='form-textarea'
         onChange={handleArgument}
+        maxLength='200'
       />
       {cardType == 'fact' ? (
         <textarea
