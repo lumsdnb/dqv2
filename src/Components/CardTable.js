@@ -40,7 +40,7 @@ const CardTable = (props) => {
           key={c.index}
           claim={c.body}
           index={index}
-          role='Hauptargument'
+          role='Main'
           userRole={props.userRole}
           spectatorRating={c.spectatorRating}
           judgeRating={c.judgeRating}

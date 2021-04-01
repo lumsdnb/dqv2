@@ -51,11 +51,21 @@
   transform: scale(1.1);
 }
 
-.preview-btn {
-  background-color: #ffffff00;
+.prepared-deck-cardlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.preview-btn:hover {
-  background-color: #ffffff00;
+
+.d {
+  margin: 1rem;
+}
+
+.card-place-btn {
+  position: relative;
+  bottom: 2rem;
+  background-color: #969696;
+  z-index: 55;
 }
 
 .prepared-deck .card {

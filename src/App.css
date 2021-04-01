@@ -51,7 +51,6 @@ button:active {
   background-color: cadetblue;
   border-radius: 50%;
   width: 5rem;
-  visibility: hidden;
   height: 5rem;
   display: flex;
   flex-direction: column;
