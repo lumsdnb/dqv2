@@ -23,6 +23,7 @@ const CardTable = (props) => {
           index={index}
           role={c.role}
           type={c.type}
+          source={c.source}
           userRole={props.userRole}
           spectatorRating={c.spectatorRating}
           judgeRating={c.judgeRating}

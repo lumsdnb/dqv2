@@ -177,15 +177,18 @@ button:hover {
 }
 .toolbox {
   grid-area: toolbox;
-  padding: 0.5rem;
-  text-align: center;
+}
+
+.select-buttons {
   display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  border-radius: 8px;
-  background: linear-gradient(145deg, #575658, #49484a);
-  box-shadow: 8px 8px 20px #454446, -8px -8px 20px #5d5c5e;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.select-highlight {
+  background-color: darkgray;
+  border: 0.2rem solid black;
+  box-sizing: border-box;
 }
 
 .neo-box-outward {

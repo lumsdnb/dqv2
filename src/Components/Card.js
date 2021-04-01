@@ -38,8 +38,8 @@ const Card = (props) => {
           {props.role} {props.type}
         </h4>
         <p className='card-body'>{props.claim}</p>
-        {props.type == 'fact' ? (
-          <a href='https://doyourownresearch.io' target='_blank'>
+        {props.source ? (
+          <a href={props.source} target='_blank'>
             source
           </a>
         ) : null}

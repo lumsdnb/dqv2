@@ -69,18 +69,6 @@ sup {
   align-items: center;
 }
 
-.select-buttons {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.select-highlight {
-  background-color: darkgray;
-  border: 0.2rem solid black;
-  box-sizing: border-box;
-}
-
 .form-name {
   border: none;
   padding: 1rem;

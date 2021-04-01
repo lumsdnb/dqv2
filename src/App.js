@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 
 import CardTable from './Components/CardTable.js';
 import Player from './Components/Player.js';
-import MainForm from './Components/MainForm.js';
+import Toolbox from './Components/Toolbox.js';
 import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
 import LoginModal from './Components/LoginModal.js';
@@ -19,7 +19,6 @@ import { RiSwordFill } from 'react-icons/ri';
 import PreparedDeck from './Components/PreparedDeck.js';
 
 import './App.css';
-import './Components/MainForm.css';
 
 import crowd from './images/crowd.png';
 
@@ -40,7 +39,7 @@ const piENDPOINT = 'http://192.168.178.44:4000';
 const App = () => {
   const [yourID, setYourID] = useState();
   const [userName, setUserName] = useState('');
-  const [role, setRole] = useState();
+  const [role, setRole] = useState('debater');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [finalRuling, setFinalRuling] = useState('');
@@ -159,18 +158,10 @@ const App = () => {
 
   //todo: send question cards
   function sendMessage(e) {
+    console.log(e);
     if (e == '') return;
     if (canSend) {
-      const messageObject = {
-        body: e,
-        role: role,
-        type: newCardType,
-        judgeRating: 0,
-        spectatorRating: 0,
-      };
-
-      //setCanSend(false);
-      socketRef.current.emit('send message', messageObject);
+      socketRef.current.emit('send message', e);
       setYourUnsentArgument('');
     }
   }
@@ -488,24 +479,18 @@ const App = () => {
               </div>
             </>
           ) : (
-            <MainForm
+            <Toolbox
               game={game}
               onChange={handleChange}
               handleCardType={handleCardType}
-              handleSubmit={sendMessage}
+              sendMessage={sendMessage}
               role={role}
+              playWoo={playWoo}
+              playSlap={playSlap}
+              playAirhorn={playAirhorn}
+              playGavel={playGavel}
             />
           )}
-          {role == 'judge' ? (
-            <>
-              <button className='gavel-btn' onClick={playGavel}>
-                <GiBangingGavel />
-              </button>
-              {judgeCanAdvance ? (
-                <button onClick={nextRound}>nächste Runde</button>
-              ) : null}
-            </>
-          ) : null}
         </div>
       </div>
       <Modal
