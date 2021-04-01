@@ -21,6 +21,7 @@ import PreparedDeck from './Components/PreparedDeck.js';
 import './App.css';
 
 import crowd from './images/crowd.png';
+import deckbtn from './images/cardbtn.png';
 
 import useSound from 'use-sound';
 import soundGavel from './sounds/gavel-2.mp3';
@@ -45,11 +46,13 @@ const App = () => {
   const [finalRuling, setFinalRuling] = useState('');
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
-  const [topic, setTopic] = useState('ÖPNV sollte kostenlos sein');
+  const [topic, setTopic] = useState('');
   const [game, setGame] = useState({});
+
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
   const [showFinal, setShowFinal] = useState(false);
+  const [showCommentary, setShowCommentary] = useState(false);
 
   const [userAvi, setUserAvi] = useState(0);
 
@@ -450,12 +453,14 @@ const App = () => {
             {topic}
           </h1>
           <div className='game-commentary'>
-            <h5>
-              Runde {game.round} von 4 -
-              {game.round % 2 == 1
-                ? `${game.affirmativeName} spielt als erstes`
-                : `${game.negativeName} spielt als erstes`}
-            </h5>
+            {showCommentary ? (
+              <h5>
+                Runde {game.round} von 4 - <br />
+                {game.round % 2 == 1
+                  ? `${game.affirmativeName} spielt das erste PRO Argument`
+                  : `${game.negativeName} spielt das erste CONTRA Argument`}
+              </h5>
+            ) : null}
           </div>
         </div>
         <div className='card-table'>
@@ -465,7 +470,9 @@ const App = () => {
           <img src={crowd} alt='crowd cheering'></img>
         </div>
         <div className='card-deck'>
-          <button onClick={showDeck}>deck öffnen</button>
+          <button className='deck-button' onClick={showDeck}>
+            <img src={deckbtn} alt='deck öffnen'></img>
+          </button>
         </div>
         <div className='navbar'>about us</div>
         <div className='toolbox'>
