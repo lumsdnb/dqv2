@@ -56,6 +56,7 @@ const LoginModal = (props) => {
         setDebateID(temp);
         break;
     }
+    props.handleTopicID(debateID);
   };
 
   return (

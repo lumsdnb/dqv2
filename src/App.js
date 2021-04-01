@@ -32,6 +32,7 @@ import soundBigHammer from './sounds/big-hammer.wav';
 import soundMystery from './sounds/mystery.wav';
 import soundCard from './sounds/card.mp3';
 import soundClick from './sounds/click.mp3';
+import soundTick from './sounds/tick.wav';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
 const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
@@ -47,6 +48,7 @@ const App = () => {
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
   const [topic, setTopic] = useState('');
+  const [topicID, setTopicID] = useState(0);
   const [game, setGame] = useState({});
 
   const [showLogin, setShowLogin] = useState(true);
@@ -75,6 +77,8 @@ const App = () => {
 
   const [gameReady, setGameReady] = useState('');
 
+  const [showTimer, setShowTimer] = useState(false);
+
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
   const [finalVotes, setFinalVotes] = useState([]);
@@ -88,6 +92,10 @@ const App = () => {
     });
     socketRef.current.on('topic', (topic) => {
       setTopic(topic);
+    });
+
+    socketRef.current.on('topic id', (topic) => {
+      setTopicID(topic);
     });
 
     socketRef.current.on('final votes', (voot) => {
@@ -157,6 +165,10 @@ const App = () => {
 
   const sendTopic = () => {
     socketRef.current.emit('set topic', topic);
+  };
+
+  const handleTopicID = (id) => {
+    socketRef.current.emit('topic id', id);
   };
 
   //todo: send question cards
@@ -262,6 +274,10 @@ const App = () => {
     volume: 0.5,
   });
 
+  const [playTick] = useSound(soundTick, {
+    volume: 0.8,
+  });
+
   const [playCard] = useSound(soundCard, {
     volume: 0.5,
   });
@@ -322,13 +338,17 @@ const App = () => {
     socketRef.current.emit('chat message', msgObj);
   };
 
+  const startTimer = () => {
+    setShowTimer(true);
+  };
+
   return (
     <>
       <Helmet>
         <meta charSet='utf-8' />
         <title>{userName ? `role: ${role}` : 'welcome'}</title>
       </Helmet>
-      <Timer />
+      <Timer startTimer={showTimer} playTick={playTick} />
       {showVoting ? (
         <VotingModal
           game={game}
@@ -360,11 +380,17 @@ const App = () => {
           changeAvi={changeAvi}
           gameReady={gameReady}
           topic={topic}
+          handleTopicID={handleTopicID}
           resetGame={resetGame}
         />
       ) : null}
       {showCardDeck ? (
-        <PreparedDeck cardList={game.preparedDeck} hideDeck={hideDeck} />
+        <PreparedDeck
+          cardList={game.preparedDeck}
+          sendMessage={sendMessage}
+          hideDeck={hideDeck}
+          role={role}
+        />
       ) : null}
       <div
         className={
@@ -503,6 +529,7 @@ const App = () => {
               playSlap={playSlap}
               playAirhorn={playAirhorn}
               playGavel={playGavel}
+              startTimer={startTimer}
             />
           )}
         </div>
