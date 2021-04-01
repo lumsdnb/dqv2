@@ -93,7 +93,7 @@ button:active {
     'opponents title title navbar'
     'opponents card-table card-table toolbox'
     'chat card-table card-table toolbox'
-    'player1 crowd crowd card-deck';
+    'chat player1 crowd card-deck';
 }
 
 .generate-button {

@@ -366,7 +366,13 @@ const App = () => {
       {showCardDeck ? (
         <PreparedDeck cardList={game.preparedDeck} hideDeck={hideDeck} />
       ) : null}
-      <div class='grid-container'>
+      <div
+        className={
+          role == 'spectator'
+            ? 'grid-container spectator-layout'
+            : 'grid-container'
+        }
+      >
         <div className='opponents'>
           {role == 'affirmative' ? (
             <>
