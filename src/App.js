@@ -484,6 +484,7 @@ const App = () => {
               onChange={handleChange}
               handleCardType={handleCardType}
               sendMessage={sendMessage}
+              nextRound={nextRound}
               role={role}
               playWoo={playWoo}
               playSlap={playSlap}
