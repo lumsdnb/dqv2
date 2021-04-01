@@ -86,7 +86,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(localENDPOINT);
+    socketRef.current = io.connect(productionENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
