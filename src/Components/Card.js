@@ -45,6 +45,9 @@ const Card = (props) => {
         ) : null}
         {props.size == 'smol' ? null : (
           <div className='card-bottom'>
+            <h5>ID: {props.index}</h5>
+            <h5>JR: {props.judgeRating}</h5>
+            <h5>SR: {props.spectatorRating}</h5>
             <progress value={'50'} max='100'></progress>
             {props.userRole == 'judge' || props.userRole == 'spectator' ? (
               <div className='rate-card'>
