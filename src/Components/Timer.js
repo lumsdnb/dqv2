@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Timer = (props) => {
+const Timer = ({ playTick, startTimer }) => {
   const [seconds, setSeconds] = useState(10);
   const [isActive, setIsActive] = useState(false);
 
@@ -27,18 +27,18 @@ const Timer = (props) => {
         }
         setSeconds((seconds) => seconds - 1);
         if (seconds <= 5 && seconds > 0) {
-          props.playTick();
+          playTick();
         }
       }, 1000);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isActive, seconds]);
+  }, [isActive, seconds, playTick]);
 
   return (
     <>
-      {props.startTimer ? (
+      {startTimer ? (
         <div className='timer'>
           <div className='time'>{seconds != -1 ? `${seconds} s` : '!!'}</div>
           <button onClick={toggle}>t</button>
