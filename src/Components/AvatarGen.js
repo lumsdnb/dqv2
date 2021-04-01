@@ -8,7 +8,7 @@ const AvatarGen = (props) => {
   const randomAvi = () => {
     props.playClick();
     setAviNum(aviNum + 1);
-    if (aviNum > 4) {
+    if (aviNum > 6) {
       setAviNum(0);
     }
   };
@@ -86,7 +86,7 @@ const AvatarGen = (props) => {
             avatarStyle='Circle'
             clotheColor='Blue03'
             clotheType='BlazerShirt'
-            eyeType='Dizzy'
+            eyeType='Wink'
             eyebrowType='UnibrowNatural'
             facialHairColor='Black'
             facialHairType='Blank'
@@ -137,6 +137,45 @@ const AvatarGen = (props) => {
             mouthType='Default'
             skinColor='Light'
             topType='NoHair'
+          />
+        );
+        break;
+      case 6:
+        return (
+          <Avatar
+            style={props.style}
+            accessoriesType='Blank'
+            avatarStyle='Circle'
+            clotheColor='PastelBlue'
+            clotheType='Hoodie'
+            eyeType='Dizzy'
+            eyebrowType='Default'
+            facialHairColor='Red'
+            facialHairType='Blank'
+            hairColor='Brown'
+            mouthType='Vomit'
+            skinColor='Pale'
+            topType='ShortHairFrizzle'
+          />
+        );
+        break;
+      case 7:
+        return (
+          <Avatar
+            style={props.style}
+            accessoriesType='Blank'
+            avatarStyle='Circle'
+            clotheColor='PastelOrange'
+            clotheType='GraphicShirt'
+            eyeType='Wink'
+            eyebrowType='SadConcerned'
+            facialHairColor='Platinum'
+            facialHairType='MoustacheFancy'
+            hairColor='Blonde'
+            hatColor='PastelGreen'
+            mouthType='Twinkle'
+            skinColor='Brown'
+            topType='LongHairStraight'
           />
         );
         break;
