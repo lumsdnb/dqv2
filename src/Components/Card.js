@@ -15,6 +15,11 @@ const Card = (props) => {
     console.log('updoot');
     props.rateCard(props.index, 1);
   };
+
+  const voteOnCard = (v) => {
+    console.log('vote');
+    props.rateCard(props.index, v);
+  };
   const downvoteCard = () => {
     console.log('downvote');
     props.rateCard(props.index, -1);
@@ -58,10 +63,10 @@ const Card = (props) => {
               <div className='rate-card'>
                 {cardScore == 0 ? (
                   <>
-                    <button onClick={upvoteCard}>
+                    <button onClick={() => voteOnCard(1)}>
                       <TiThumbsUp />
                     </button>
-                    <button onClick={downvoteCard}>
+                    <button onClick={() => voteOnCard(-1)}>
                       <TiThumbsDown />
                     </button>
                   </>

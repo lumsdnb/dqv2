@@ -117,6 +117,7 @@ const App = () => {
     socketRef.current.on('get ready', () => {
       setServerMessage('All players have joined, get ready...');
       setGameReady(true);
+      setShowCommentary(true);
     });
 
     socketRef.current.on('game', (gameObj) => {
