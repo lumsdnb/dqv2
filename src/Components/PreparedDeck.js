@@ -5,7 +5,7 @@ import './CardTable.css';
 import { MdClose } from 'react-icons/md';
 
 const PreparedDeck = (props) => {
-  const copiedJSON = [
+  const opnvDeck = [
     {
       body:
         'Wenn man überall mit ÖPNV hinkommt, sinkt der Bedarf an Autos, was ein Vorteil für die Umwelt wäre.',
@@ -49,22 +49,39 @@ const PreparedDeck = (props) => {
     },
   ];
 
-  const playCard = () => {
+  const playCard = (c) => {
     console.log('card was clicked');
+    c.role = props.role;
+
+    props.sendMessage(c);
     props.hideDeck();
   };
-  const listOfCards = copiedJSON.map((c, index) => {
+
+  const listOfCards = opnvDeck.map((c, index) => {
     return (
-      <button className='preview-btn' onClick={playCard}>
-        <Card size={'smol'} key={index} claim={c.body} type={c.type} />
-      </button>
+      <div classname='d'>
+        <Card
+          size={'smol'}
+          key={index}
+          claim={c.body}
+          type={c.type}
+          source={c.source}
+        />
+        <button
+          type='button'
+          className='card-place-btn'
+          onClick={() => playCard(c)}
+        >
+          Karte spielen
+        </button>
+      </div>
     );
   });
 
   return (
     <div className='modal-outer'>
       <div className='prepared-deck'>
-        <div classname='prepared-deck-cardlist'>{listOfCards}</div>
+        <div className='prepared-deck-cardlist'>{listOfCards}</div>
       </div>
       <button className='deck-prep-close' onClick={props.hideDeck}>
         <MdClose />

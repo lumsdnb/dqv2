@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const Timer = (props) => {
   const [seconds, setSeconds] = useState(10);
   const [isActive, setIsActive] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   function toggle() {
     setIsActive(!isActive);
@@ -38,9 +37,14 @@ const Timer = (props) => {
   }, [isActive, seconds]);
 
   return (
-    <div className='timer'>
-      <div className='time'>{seconds != -1 ? `${seconds} s` : '!!'}</div>
-    </div>
+    <>
+      {props.startTimer ? (
+        <div className='timer'>
+          <div className='time'>{seconds != -1 ? `${seconds} s` : '!!'}</div>
+          <button onClick={toggle}>t</button>
+        </div>
+      ) : null}
+    </>
   );
 };
 

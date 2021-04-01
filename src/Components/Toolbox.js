@@ -62,6 +62,10 @@ const Toolbox = (props) => {
     );
   };
 
+  const startTimer = () => {
+    props.startTimer();
+  };
+
   return (
     <div>
       {props.role === 'spectator' ? spectatorView : null}
@@ -71,6 +75,7 @@ const Toolbox = (props) => {
           <button className='gavel-btn' onClick={props.playGavel}>
             <GiBangingGavel />
           </button>
+          <button onClick={startTimer}>timer</button>
 
           <button onClick={props.nextRound}>nächste Runde</button>
         </div>
