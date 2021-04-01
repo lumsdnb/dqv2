@@ -4,18 +4,20 @@
 
 - character generator DONE
 - BUG: wenn man pro ist werden rollen falsch angezeigt DONE
+- char limit karten, resize library raus DONE
 
 ## tag 2 - 31.3.
 
 - sound auf allen devices triggern DONE
 - klar machen wer wann spielt und namen einfügen DONE
-- FIX: zeichenlimit karten
-- spectator voting
-- login screen optimized
+- login screen optimized - DONE
 
 ## tag 3 - 1.4.
 
-- timer sounds & in runde implementieren
+- FIX: zeichenlimit karten DONE
+- timer sounds DONE
+  karten aus prep deck legen DONE
+- timer in runde implementieren 50% DONE
 - alle karten auf finalem screen anzeigen
 - bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen
 - vorbereitungsrunde
@@ -24,23 +26,25 @@
 
 ## tag 4 - 2.4.
 
-- kartentypen
+- BUG: sounds triggern nicht beim spieler
+- spectator voting
 - smash doubt
+- kartendesign
 
 - BUG: karte mit enter drin sendet nachricht
 
 ## tag 5 - 3.4.
 
-- scrolling anders machen
+- FIX unterer rand
 - spectator vote on card
 
 ## tag 6 - 4.4.
 
-- giphy integration
+- giphy integration (nice to have)
 
 ## tag 7 - 5.4.
 
-- für beide seiten argumente legen - game mode
+- für beide seiten argumente legen - game mode (nice to have)
 - final design
 - deck creator (nice to have)
 
@@ -66,9 +70,6 @@
 
 ### extra zeug unsortiert bis jetzt
 
-karten aus prep deck legen
-char limit karten, resize library raus
-
 voting screen
 verdict, spectator voting, diskussion aufklappen
 
@@ -76,7 +77,7 @@ erste karte mit voting zeigen
 
 spectator voting
 
-karten display
+karten display(?)
 
 wahl o mat
 
