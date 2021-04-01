@@ -35,7 +35,12 @@ const Card = (props) => {
         <h4
           className={'card-top' + ' ' + props.size == 'smol' ? 'card-smol' : ''}
         >
-          {props.role} {props.type}
+          {props.role == 'Main' ? 'Hauptargument' : null}
+          {props.role == 'affirmative' ? 'pro' : null}
+          {props.role == 'negative' ? 'contra' : null}{' '}
+          {props.type == 'argument' ? 'Argument' : null}
+          {props.type == 'fact' ? 'Fakt' : null}
+          {props.type == 'question' ? 'Frage' : null}
         </h4>
         <p className='card-body'>{props.claim}</p>
         {props.source ? (
