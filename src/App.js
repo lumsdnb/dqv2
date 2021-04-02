@@ -84,7 +84,7 @@ const App = () => {
   const [finalVotes, setFinalVotes] = useState([]);
 
   const debateTopics = [
-    'Der ÖPNV sollte kostenlos allen verfügbar sein.',
+    'Der ÖPNV sollte kostenlos für alle verfügbar sein.',
     'Autos mit Verbrennungsmotor sollten verboten werden.',
     'Die Mietpreisbremse ist ineffektiv und sollte abgeschafft werden.',
   ];
@@ -92,7 +92,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -186,10 +186,8 @@ const App = () => {
       //if role is neg and round is even, turn on sending
       if (role == 'affirmative') {
         game.round % 2 == 1 ? setCanSend(true) : setCanSend(false);
-        console.log('aff ur round');
       }
       if (role == 'negative') {
-        console.log('negggg ur round');
         game.round % 2 == 1 ? setCanSend(false) : setCanSend(true);
       }
     } else if (cardList.length > 0) {
@@ -351,6 +349,7 @@ const App = () => {
   };
 
   const nextRound = () => {
+    emitGavel();
     if (game.round <= 4) socketRef.current.emit('next round');
   };
   const finishGame = (e) => {
@@ -527,7 +526,7 @@ const App = () => {
           <Chat
             sendChatMsg={sendChatMsg}
             chatList={chatList}
-            spectatorList={game.spectatorID}
+            spectatorList={game.spectators}
           />
           <RiSwordFill />
         </div>

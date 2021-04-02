@@ -1,12 +1,12 @@
 .card {
   position: relative;
-  padding: 0.5rem;
+  padding: 1rem;
   margin: 0.5rem;
   min-width: 13rem;
   max-width: 13rem;
   min-height: 21rem;
   max-height: 21rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   background-image: url(/src/images/card-tex.png);
   border-radius: 0.4rem;
   user-select: none;
@@ -36,8 +36,9 @@
 }
 
 .card-top {
-  position: absolute;
-  top: -2.3rem;
+  position: relative;
+  top: 0.2rem;
+  font-size: 130%;
 }
 
 .card-bottom {

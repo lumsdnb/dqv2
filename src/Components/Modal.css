@@ -28,10 +28,6 @@ sup {
   z-index: 999;
 }
 
-#login-card-type {
-  user-select: text;
-}
-
 .login-grid {
   display: grid;
   grid-template-columns: 1fr 0.8fr;
@@ -42,7 +38,7 @@ sup {
     'login-card login-settings'
     'extra-panel2 login-settings';
 }
-.login-card {
+.login-topic-carousel {
   grid-area: login-card;
   display: flex;
   flex-direction: row;
@@ -84,7 +80,6 @@ sup {
   width: 100vw;
   height: 100vh;
   padding: 10rem;
-  border-radius: 0.6rem;
   user-select: none;
   overflow: hidden;
   text-align: center;
@@ -111,7 +106,7 @@ sup {
 .voting-grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 0fr 0.1fr 1.5fr 0.7fr;
+  grid-template-rows: 0.1fr 0fr 1.5fr 0.1fr;
   gap: 6px 6px;
   grid-template-areas:
     'title-topic title-topic title-q title-q'

@@ -61,7 +61,6 @@ const Toolbox = (props) => {
         <button onClick={props.playWoo}>woo</button>
         <button onClick={props.playSlap}>slap</button>
         <button onClick={props.playAirhorn}>airhorn</button>
-        <button>throw tomato?</button>
       </div>
     );
   };

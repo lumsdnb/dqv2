@@ -57,7 +57,7 @@ const LoginModal = (props) => {
     <>
       <div className='login-modal'>
         <div className='login-grid'>
-          <div className='login-card' id='login-card-type'>
+          <div className='login-topic-carousel'>
             <button type='button' onClick={() => changeDebateTopic(-1)}>
               <AiFillCaretLeft />
             </button>
