@@ -8,10 +8,12 @@ const Modal = (props) => {
         className='judge-ruling'
         style={{ display: props.showModal ? 'block' : 'none' }}
       >
-        <h3>{props.title}</h3>
-        <p>{props.body}</p>
-        <button onClick={props.closeModal}>ok</button>
-        <button onClick={props.closeModal}>ok</button>
+        <div classname='center-flex'>
+          <h3>{props.title}</h3>
+          <p>{props.body}</p>
+          <button onClick={props.closeModal}>ok</button>
+          <button onClick={props.closeModal}>ok</button>
+        </div>
       </div>
     </>
   );
