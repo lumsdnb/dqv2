@@ -77,10 +77,10 @@ const LoginModal = (props) => {
           <div className='login-title neo-box-inward'>
             <h2 style={{ textAlign: 'center' }}>DEBATE.QUEST</h2>
           </div>
-          <div class='extra-panel'>
+          <div className='extra-panel'>
             <button onClick={props.resetGame}>Spiel zurücksetzen</button>
           </div>
-          <div class='extra-panel2'>
+          <div className='extra-panel2'>
             <input type='textarea' onChange={handleOwnTopic} />
           </div>
           <div className='login-settings'>
@@ -95,7 +95,7 @@ const LoginModal = (props) => {
                         name='name'
                         placeholder='dein Name'
                         onChange={handleName}
-                        maxlength='30'
+                        maxLength='30'
                         required='required'
                         autocomplete='off'
                       />
@@ -160,7 +160,6 @@ const LoginModal = (props) => {
                   </form>
                   <div>
                     <AvatarGen
-                      playClick={props.playClick}
                       canEdit='true'
                       handleAviChange={handleAviChange}
                       style={{ width: '5rem', height: '5rem' }}
