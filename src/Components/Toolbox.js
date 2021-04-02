@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import BlockUi from 'react-block-ui';
+
+import 'react-block-ui/style.css';
+
 import './Toolbox.css';
 import { GiBangingGavel } from 'react-icons/gi';
 
@@ -67,75 +71,82 @@ const Toolbox = (props) => {
   };
 
   return (
-    <div>
-      {props.role === 'spectator' ? spectatorView : null}
+    <BlockUi
+      tag='div'
+      blocking={!props.canSend}
+      message=''
+      style={{ borderRadius: '100vh' }}
+    >
+      <div style={{ height: '100vh' }}>
+        {props.role === 'spectator' ? spectatorView : null}
 
-      {props.role == 'judge' ? (
-        <div classname='tools-judge'>
-          <button className='gavel-btn' onClick={props.playGavel}>
-            <GiBangingGavel />
-          </button>
-          <button onClick={startTimer}>timer</button>
+        {props.role == 'judge' ? (
+          <div classname='tools-judge'>
+            <button className='gavel-btn' onClick={props.playGavel}>
+              <GiBangingGavel />
+            </button>
+            <button onClick={startTimer}>timer</button>
 
-          <button onClick={props.nextRound}>nächste Runde</button>
-        </div>
-      ) : null}
-      {props.role == 'affirmative' ||
-      props.role == 'negative' ||
-      props.role == 'debater' ? (
-        <>
-          <div class='select-buttons'>
-            <button
-              className={cardType == 'argument' ? 'select-highlight' : null}
-              type='button'
-              name='card_type'
-              value='argument'
-              onClick={handleCardType}
-            >
-              Arg
-            </button>
-            <button
-              className={cardType == 'fact' ? 'select-highlight' : null}
-              type='button'
-              name='card_type'
-              value='fact'
-              onClick={handleCardType}
-            >
-              Fakt
-            </button>
-            <button
-              className={cardType == 'question' ? 'select-highlight' : null}
-              type='button'
-              name='card_type'
-              value='question'
-              onClick={handleCardType}
-            >
-              ???
-            </button>
+            <button onClick={props.nextRound}>nächste Runde</button>
           </div>
-        </>
-      ) : null}
+        ) : null}
+        {props.role == 'affirmative' ||
+        props.role == 'negative' ||
+        props.role == 'debater' ? (
+          <>
+            <div class='select-buttons'>
+              <button
+                className={cardType == 'argument' ? 'select-highlight' : null}
+                type='button'
+                name='card_type'
+                value='argument'
+                onClick={handleCardType}
+              >
+                Arg
+              </button>
+              <button
+                className={cardType == 'fact' ? 'select-highlight' : null}
+                type='button'
+                name='card_type'
+                value='fact'
+                onClick={handleCardType}
+              >
+                Fakt
+              </button>
+              <button
+                className={cardType == 'question' ? 'select-highlight' : null}
+                type='button'
+                name='card_type'
+                value='question'
+                onClick={handleCardType}
+              >
+                ???
+              </button>
+            </div>
+          </>
+        ) : null}
 
-      <textarea
-        id='cardform'
-        className='form-textarea'
-        onChange={handleArgument}
-        maxLength='200'
-      />
-      {cardType == 'fact' ? (
         <textarea
-          id='cardsource'
-          className='source-field'
-          onChange={handleCardSource}
-        >
-          source pls
-        </textarea>
-      ) : null}
+          id='cardform'
+          className='form-textarea'
+          onChange={handleArgument}
+          maxLength='200'
+        />
+        {cardType == 'fact' ? (
+          <textarea
+            id='cardsource'
+            className='source-field'
+            onChange={handleCardSource}
+          >
+            source pls
+          </textarea>
+        ) : null}
 
-      <button type='button' className='form-btn' onClick={sendMessage}>
-        {props.role == 'judge' ? 'Urteil fällen' : 'Karte spielen'}
-      </button>
-    </div>
+        <button type='button' className='form-btn' onClick={sendMessage}>
+          {props.role == 'judge' ? 'Urteil fällen' : 'Karte spielen'}
+        </button>
+      </div>
+    </BlockUi>
   );
 };
 

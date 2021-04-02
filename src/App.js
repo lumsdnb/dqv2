@@ -86,7 +86,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -129,23 +129,26 @@ const App = () => {
       setChatList(msgList);
     });
 
-    socketRef.current.on('emit sound', (sound) => {
+    socketRef.current.on('play sound', (sound) => {
       switch (sound) {
         case 'airhorn':
           playAirhorn();
-          socketRef.current.emit('emit sound', 'airhorn');
+
           break;
         case 'slap':
           playSlap();
-          socketRef.current.emit('emit sound', 'slap');
+
           break;
         case 'gavel':
           playGavel();
-          socketRef.current.emit('emit sound', 'gavel');
+
           break;
         case 'woo':
           playWoo();
-          socketRef.current.emit('emit sound', 'woo');
+
+          break;
+        case 'timer':
+          playTick();
           break;
         default:
           break;
@@ -164,6 +167,24 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(cardList.length);
+    if (cardList.length == 0) {
+      //if role is aff and round is odd, turn on sending
+      //if role is neg and round is even, turn on sending
+      if (role == 'affirmative') {
+        game.round % 2 == 1 ? setCanSend(true) : setCanSend(false);
+        console.log('aff ur round');
+      }
+      if (role == 'negative') {
+        console.log('negggg ur round');
+        game.round % 2 == 1 ? setCanSend(false) : setCanSend(true);
+      }
+    } else if (cardList.length > 0) {
+      setCanSend(true);
+    }
+  }, [cardList, role]);
+
   const sendTopic = () => {
     socketRef.current.emit('set topic', topic);
   };
@@ -172,9 +193,8 @@ const App = () => {
     socketRef.current.emit('topic id', id);
   };
 
-  //todo: send question cards
+  //send cards from prep deck & toolbox
   function sendMessage(e) {
-    console.log(e);
     if (e == '') return;
     if (canSend) {
       socketRef.current.emit('send message', e);
@@ -343,6 +363,23 @@ const App = () => {
     setShowTimer(true);
   };
 
+  const emitAirhorn = () => {
+    socketRef.current.emit('emit sound', 'airhorn');
+  };
+
+  const emitSlap = () => {
+    socketRef.current.emit('emit sound', 'slap');
+  };
+  const emitGavel = () => {
+    socketRef.current.emit('emit sound', 'gavel');
+  };
+  const emitWoo = () => {
+    socketRef.current.emit('emit sound', 'woo');
+  };
+  const emitTimer = () => {
+    socketRef.current.emit('emit sound', 'timer');
+  };
+
   return (
     <>
       <Helmet>
@@ -370,7 +407,6 @@ const App = () => {
       ) : null}
       {showLogin ? (
         <LoginModal
-          playClick={playClick}
           game={game}
           role={role}
           userName={userName}
@@ -411,7 +447,7 @@ const App = () => {
               <Player
                 avi={game.negativeAvi}
                 name={game.negativeName}
-                role={'contra'}
+                role='dagegen'
               />
             </>
           ) : null}
@@ -425,7 +461,7 @@ const App = () => {
               <Player
                 avi={game.affirmativeAvi}
                 name={game.affirmativeName}
-                role='pro'
+                role='dafür'
               />
             </>
           ) : null}
@@ -434,20 +470,32 @@ const App = () => {
               <Player
                 avi={game.affirmativeAvi}
                 name={game.affirmativeName}
-                role={'pro'}
+                role={'dafür'}
               />
               <Player
                 avi={game.negativeAvi}
                 name={game.negativeName}
-                role='contra'
+                role='dagegen'
               />
             </>
           ) : null}
           {role == 'spectator' ? (
             <>
-              <Player avi='2' name={game.judgeName} role='Richter' />
-              <Player avi='1' name={game.affirmativeName} role={'pro'} />
-              <Player avi='0' name={game.negativeName} role='contra' />
+              <Player
+                avi={game.judgeAvi}
+                name={game.judgeName}
+                role='Richter'
+              />
+              <Player
+                avi={game.affirmativeAvi}
+                name={game.affirmativeName}
+                role={'dafür'}
+              />
+              <Player
+                avi={game.negativeAvi}
+                name={game.negativeName}
+                role='dagegen'
+              />
             </>
           ) : null}
         </div>
@@ -464,18 +512,18 @@ const App = () => {
             <Player
               avi={game.affirmativeAvi}
               name={game.affirmativeName}
-              role={role}
+              role='dafür'
             />
           ) : null}
           {role == 'negative' ? (
             <Player
               avi={game.negativeAvi}
               name={game.negativeName}
-              role={role}
+              role='dagegen'
             />
           ) : null}
           {role == 'judge' ? (
-            <Player avi={game.judgeAvi} name={game.judgeName} role={role} />
+            <Player avi={game.judgeAvi} name={game.judgeName} role='richter' />
           ) : null}
         </div>
         <div className='title'>
@@ -526,11 +574,12 @@ const App = () => {
               sendMessage={sendMessage}
               nextRound={nextRound}
               role={role}
-              playWoo={playWoo}
-              playSlap={playSlap}
-              playAirhorn={playAirhorn}
-              playGavel={playGavel}
-              startTimer={startTimer}
+              canSend={canSend}
+              playWoo={emitWoo}
+              playSlap={emitSlap}
+              playAirhorn={emitAirhorn}
+              playGavel={emitGavel}
+              startTimer={emitTimer}
             />
           )}
         </div>

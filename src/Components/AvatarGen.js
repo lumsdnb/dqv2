@@ -6,7 +6,6 @@ const AvatarGen = (props) => {
   const [aviNum, setAviNum] = useState(0);
 
   const randomAvi = () => {
-    props.playClick();
     setAviNum(aviNum + 1);
     if (aviNum > 6) {
       setAviNum(0);
