@@ -3,10 +3,15 @@
   height: 100vh;
   padding: 0;
   background: #f1f1f1;
+  overflow-y: hidden;
 }
 
 .resize {
   transform: scale(0.7);
+}
+
+h1 {
+  font-size: 130%;
 }
 
 button {
