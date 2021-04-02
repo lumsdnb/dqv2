@@ -83,6 +83,12 @@ const App = () => {
 
   const [finalVotes, setFinalVotes] = useState([]);
 
+  const debateTopics = [
+    'Der ÖPNV sollte kostenlos allen verfügbar sein.',
+    'Autos mit Verbrennungsmotor sollten verboten werden.',
+    'Die Mietpreisbremse ist ineffektiv und sollte abgeschafft werden.',
+  ];
+
   const socketRef = useRef();
 
   useEffect(() => {
@@ -96,6 +102,7 @@ const App = () => {
 
     socketRef.current.on('topic id', (topic) => {
       setTopicID(topic);
+      setTopic(debateTopics[topic]);
     });
 
     socketRef.current.on('final votes', (voot) => {
@@ -113,6 +120,13 @@ const App = () => {
         playCard();
       }
     });
+    socketRef.current.on('topic id', (id) => {
+      setTopicID(id);
+    });
+
+    socketRef.current.on('next round', () => {
+      setShowCommentary(true);
+    });
 
     socketRef.current.on('get ready', () => {
       setServerMessage('All players have joined, get ready...');
@@ -123,7 +137,6 @@ const App = () => {
     socketRef.current.on('game', (gameObj) => {
       setGame(gameObj);
       setCardList(gameObj.cardList);
-      setpreparedDeck(gameObj.preparedDeck);
     });
     socketRef.current.on('chat messages', (msgList) => {
       setChatList(msgList);
@@ -168,7 +181,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(cardList.length);
     if (cardList.length == 0) {
       //if role is aff and round is odd, turn on sending
       //if role is neg and round is even, turn on sending
@@ -182,6 +194,7 @@ const App = () => {
       }
     } else if (cardList.length > 0) {
       setCanSend(true);
+      setShowCommentary(false);
     }
   }, [cardList, role]);
 
@@ -190,16 +203,15 @@ const App = () => {
   };
 
   const handleTopicID = (id) => {
-    socketRef.current.emit('topic id', id);
+    socketRef.current.emit('topic number', id);
   };
 
   //send cards from prep deck & toolbox
   function sendMessage(e) {
     if (e == '') return;
-    if (canSend) {
-      socketRef.current.emit('send message', e);
-      setYourUnsentArgument('');
-    }
+
+    socketRef.current.emit('send message', e);
+    setYourUnsentArgument('');
   }
 
   const handleStartGame = () => {
@@ -387,6 +399,12 @@ const App = () => {
         <title>{userName ? `role: ${role}` : 'welcome'}</title>
       </Helmet>
       <Timer startTimer={showTimer} playTick={playTick} />
+      <Modal
+        title='judge sagt:'
+        showModal={showRuling}
+        body={judgeMessage}
+        closeModal={closeModal}
+      />
       {showVoting ? (
         <VotingModal
           game={game}
@@ -403,6 +421,7 @@ const App = () => {
           role={role}
           game={game}
           finalVotes={finalVotes}
+          finalRuling={finalRuling}
         />
       ) : null}
       {showLogin ? (
@@ -417,16 +436,21 @@ const App = () => {
           changeAvi={changeAvi}
           gameReady={gameReady}
           topic={topic}
+          debateTopics={debateTopics}
+          topicID={topicID}
           handleTopicID={handleTopicID}
           resetGame={resetGame}
         />
       ) : null}
       {showCardDeck ? (
         <PreparedDeck
+          canSend={canSend}
           cardList={game.preparedDeck}
           sendMessage={sendMessage}
           hideDeck={hideDeck}
           role={role}
+          topicID={topicID}
+          debateTopics={debateTopics}
         />
       ) : null}
       <div
@@ -551,11 +575,13 @@ const App = () => {
           <img src={crowd} alt='crowd cheering'></img>
         </div>
         <div className='card-deck'>
-          <button className='deck-button' onClick={showDeck}>
-            <img src={deckbtn} alt='deck öffnen'></img>
-          </button>
+          {role === 'judge' ? null : (
+            <button className='deck-button' onClick={showDeck}>
+              <img src={deckbtn} alt='deck öffnen'></img>
+            </button>
+          )}
         </div>
-        <div className='navbar'>about us</div>
+        <div className='navbar'>Info</div>
         <div className='toolbox'>
           {role == 'spectator' ? (
             <>
@@ -584,12 +610,6 @@ const App = () => {
           )}
         </div>
       </div>
-      <Modal
-        title='verdict:'
-        showModal={showRuling}
-        body={judgeMessage}
-        closeModal={closeModal}
-      />
     </>
   );
 };
