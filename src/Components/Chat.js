@@ -8,11 +8,25 @@ const Chat = (props) => {
     setCurrentMessage(e.target.value);
   }
 
+  const chatMessagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    chatMessagesEndRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
+    });
+  };
+
   const chatMessages = props.chatList.map((msg, index) => (
     <p>
       <i> {msg.name}</i>: {msg.body}
     </p>
   ));
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages]);
 
   function handleChatSubmit(e) {
     e.preventDefault();
@@ -25,9 +39,11 @@ const Chat = (props) => {
     <div className='chat-outer'>
       <div className='chat-top'>
         <h4>Chat</h4>
-        <p>{props.spectatorList}</p>
       </div>
-      <div className='chatmessages'>{chatMessages}</div>
+      <div className='chatmessages'>
+        {chatMessages}
+        <div ref={chatMessagesEndRef} />
+      </div>
       <form className='chat-controls' onSubmit={handleChatSubmit}>
         <input className='chat-input' type='text' onChange={handleChatMsg} />
         <input type='submit' className='form-btn' value='senden' />
