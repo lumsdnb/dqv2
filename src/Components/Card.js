@@ -6,24 +6,17 @@ import { TiThumbsUp, TiThumbsDown } from 'react-icons/ti';
 import './Card.css';
 
 const Card = (props) => {
-  const [cardScore, setCardScore] = useState(0);
   const [hover, setHover] = useState(false);
+  const [wasRated, setWasRated] = useState('');
 
   //todo: pass this up
 
-  const upvoteCard = () => {
-    console.log('updoot');
-    props.rateCard(props.index, 1);
-  };
-
   const voteOnCard = (v) => {
     console.log('vote');
+    setWasRated(v);
     props.rateCard(props.index, v);
   };
-  const downvoteCard = () => {
-    console.log('downvote');
-    props.rateCard(props.index, -1);
-  };
+
   const hoverOn = () => {
     console.log('hover on');
     setHover(true);
@@ -37,9 +30,7 @@ const Card = (props) => {
   return (
     <>
       <div className='card card-hover'>
-        <h4
-          className={'card-top' + ' ' + props.size == 'smol' ? 'card-smol' : ''}
-        >
+        <h4 className='card-top'>
           {props.role == 'Main' ? 'Hauptargument' : null}
           {props.role == 'affirmative' ? 'pro' : null}
           {props.role == 'negative' ? 'contra' : null}{' '}
@@ -61,17 +52,23 @@ const Card = (props) => {
             <progress value={'50'} max='100'></progress>
             {props.userRole == 'judge' || props.userRole == 'spectator' ? (
               <div className='rate-card'>
-                {cardScore == 0 ? (
+                {wasRated ? (
+                  wasRated
+                ) : (
                   <>
-                    <button onClick={() => voteOnCard(1)}>
+                    <button
+                      className={wasRated == 1 ? 'select-highlight' : null}
+                      onClick={() => voteOnCard(1)}
+                    >
                       <TiThumbsUp />
                     </button>
-                    <button onClick={() => voteOnCard(-1)}>
+                    <button
+                      className={wasRated == -1 ? 'select-highlight' : null}
+                      onClick={() => voteOnCard(-1)}
+                    >
                       <TiThumbsDown />
                     </button>
                   </>
-                ) : (
-                  <h4>score: {cardScore}</h4>
                 )}
               </div>
             ) : null}
