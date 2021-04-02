@@ -14,57 +14,73 @@
 
 ## tag 3 - 1.4.
 
+- voting modal runde anzeigen DONE
+- sound emitting on all devices
+- spectator voting?
+- commentary text wegmachen
+- spectator alle avis gleich
+- urteil fällen BUG
+- chat user rollen (titel oder icon)
+- selbst geschrieben karten können nciht gevotet werden
+- karten aus deck können nicht gevotet werden
+- voting screen! 4 rows/columns - show votes
+- timer
+- hammer um nächste runde zu starten
+- ruhe! in chat wenn hammer gedrückt
+- sound geht immer noch net
 - FIX: zeichenlimit karten DONE
 - timer sounds DONE
   karten aus prep deck legen DONE
 - timer in runde implementieren 50% DONE
 - alle karten auf finalem screen anzeigen
 - bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen
-- vorbereitungsrunde
 - mehr fakten zu themen sammeln
-- thema selber setzen
+- spectator voting DONE
 
 ## tag 4 - 2.4.
 
-- BUG: sounds triggern nicht beim spieler
-- spectator voting
+- eingabe sperren https://availity.github.io/react-block-ui/ DONE
+- player 1 2 bug fixen DONE
+- disconnect handling (muss net jetzt wo reset geht)
+- judge urteil geht iwie net mehr DONE
+- BUG: sounds triggern nicht beim spieler DONE
 - smash doubt
 - kartendesign
-
+- vorbereitungsrunde (nice to have)
 - BUG: karte mit enter drin sendet nachricht
 
 ## tag 5 - 3.4.
 
 - FIX unterer rand
-- spectator vote on card
+- spectator vote on card DONE
+- thema selber setzen
+- chat autoscroll
 
 ## tag 6 - 4.4.
-
-- giphy integration (nice to have)
-
-## tag 7 - 5.4.
-
-- für beide seiten argumente legen - game mode (nice to have)
-- final design
-- deck creator (nice to have)
-
-## tag 8 - 6.4.
 
 - finales urteil
 - zeigen, wo die guten karten landen
 - auf karten kommentieren?
 - karten nummerieren?
 
+## tag 7 - 5.4.
+
+- final design
+
+## tag 8 - 6.4.
+
 ## tag 9 - 7.4.
 
 - domain einrichten
 - abgeben
 - deploy
-- eingabe sperren
 
 ## fertig sein - danach:
 
+- für beide seiten argumente legen - game mode (nice to have)
 - zeitlimit testen
+- deck creator (nice to have)
+- giphy integration (nice to have)
 
 - mit leuten testen
 
