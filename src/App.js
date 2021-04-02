@@ -100,9 +100,11 @@ const App = () => {
       setTopic(topic);
     });
 
-    socketRef.current.on('topic id', (topic) => {
-      setTopicID(topic);
-      setTopic(debateTopics[topic]);
+    socketRef.current.on('topic id', (id) => {
+      setTopicID(id);
+      if (id != -1) {
+        setTopic(debateTopics[id]);
+      }
     });
 
     socketRef.current.on('final votes', (voot) => {
@@ -340,6 +342,10 @@ const App = () => {
     playSlap();
   };
 
+  const handleSetCustomTopic = (t) => {
+    socketRef.current.emit('set topic', t);
+  };
+
   const handleSoundKeys = (e) => {
     console.log(e.key);
   };
@@ -435,6 +441,7 @@ const App = () => {
           changeAvi={changeAvi}
           gameReady={gameReady}
           topic={topic}
+          setTopic={handleSetCustomTopic}
           debateTopics={debateTopics}
           topicID={topicID}
           handleTopicID={handleTopicID}

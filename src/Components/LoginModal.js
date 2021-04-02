@@ -13,10 +13,10 @@ const LoginModal = (props) => {
   const [userHasJoined, setUserHasJoined] = useState(false);
   const [debateTitle, setDebateTitle] = useState('null');
   const [debateID, setDebateID] = useState(0);
+  const [textAreaCustom, setTextAreaCustom] = useState('');
 
   function handleSubmitBtn(event) {
     event.preventDefault();
-    //setUserHasJoined(true);
     props.handleSetUser(event.target.value);
   }
 
@@ -30,26 +30,25 @@ const LoginModal = (props) => {
     props.changeAvi(e);
   }
 
-  const handleOwnTopic = (e) => {
-    setDebateTitle(e.target.value);
+  const handleCustomTopic = (e) => {
+    setTextAreaCustom(e.target.value);
+  };
+
+  const setCustomTopic = () => {
+    props.setTopic(textAreaCustom);
+    props.handleTopicID(-1);
   };
 
   const changeDebateTopic = (e) => {
     let temp = props.topicID + e;
     console.log(temp);
-    switch (temp) {
-      case props.debateTopics.length:
-        console.log('bigger');
-        props.handleTopicID(0);
-        break;
-      case -1:
-        console.log('smoller');
-        props.handleTopicID(props.debateTopics.length - 1);
-        break;
-      default:
-        props.handleTopicID(temp);
-        break;
-    }
+
+    if (temp >= props.debateTopics.length) {
+      props.handleTopicID(0);
+    } else if (temp < -1) {
+      props.handleTopicID(props.debateTopics.length - 1);
+    } else props.handleTopicID(temp);
+
     setDebateID(props.topicID);
   };
 
@@ -62,7 +61,11 @@ const LoginModal = (props) => {
               <AiFillCaretLeft />
             </button>
             <div className='card'>
-              <h2>{props.debateTopics[props.topicID]}</h2>
+              <h2>
+                {props.topicID == -1
+                  ? textAreaCustom
+                  : props.debateTopics[props.topicID]}
+              </h2>
             </div>
             <button type='button' onClick={() => changeDebateTopic(1)}>
               <AiFillCaretRight />
@@ -75,7 +78,14 @@ const LoginModal = (props) => {
             <button onClick={props.resetGame}>Spiel zurücksetzen</button>
           </div>
           <div className='extra-panel2'>
-            <input type='textarea' onChange={handleOwnTopic} />
+            <div classname='flex-split'>
+              <input
+                type='textarea'
+                onChange={handleCustomTopic}
+                maxLength='100'
+              />
+              <button onClick={setCustomTopic}>eigenes Thema</button>
+            </div>
           </div>
           <div className='login-settings'>
             <div>
