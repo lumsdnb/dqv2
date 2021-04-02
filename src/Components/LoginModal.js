@@ -34,29 +34,23 @@ const LoginModal = (props) => {
     setDebateTitle(e.target.value);
   };
 
-  const debateTopics = [
-    'Der ÖPNV sollte kostenlos allen verfügbar sein.',
-    'Autos mit Verbrennungsmotor sollten verboten werden.',
-    'Die Mietpreisbremse ist ineffektiv und sollte abgeschafft werden.',
-  ];
-
   const changeDebateTopic = (e) => {
-    let temp = debateID + e;
+    let temp = props.topicID + e;
     console.log(temp);
     switch (temp) {
-      case debateTopics.length:
+      case props.debateTopics.length:
         console.log('bigger');
-        setDebateID(0);
+        props.handleTopicID(0);
         break;
       case -1:
         console.log('smoller');
-        setDebateID(debateTopics.length - 1);
+        props.handleTopicID(props.debateTopics.length - 1);
         break;
       default:
-        setDebateID(temp);
+        props.handleTopicID(temp);
         break;
     }
-    props.handleTopicID(debateID);
+    setDebateID(props.topicID);
   };
 
   return (
@@ -68,7 +62,7 @@ const LoginModal = (props) => {
               <AiFillCaretLeft />
             </button>
             <div className='card'>
-              <h2>{debateTopics[debateID]}</h2>
+              <h2>{props.debateTopics[props.topicID]}</h2>
             </div>
             <button type='button' onClick={() => changeDebateTopic(1)}>
               <AiFillCaretRight />
