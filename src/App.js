@@ -1,52 +1,52 @@
-import React, { useState, useEffect, useRef } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useEffect, useRef } from "react";
+import io from "socket.io-client";
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
-import CardTable from './Components/CardTable.js';
-import Player from './Components/Player.js';
-import Toolbox from './Components/Toolbox.js';
-import Chat from './Components/Chat.js';
-import Modal from './Components/Modal.js';
-import LoginModal from './Components/LoginModal.js';
-import VotingModal from './Components/VotingModal.js';
-import FinalModal from './Components/FinalModal.js';
-import Timer from './Components/Timer.js';
+import CardTable from "./Components/CardTable.js";
+import Player from "./Components/Player.js";
+import Toolbox from "./Components/Toolbox.js";
+import Chat from "./Components/Chat.js";
+import Modal from "./Components/Modal.js";
+import LoginModal from "./Components/LoginModal.js";
+import VotingModal from "./Components/VotingModal.js";
+import FinalModal from "./Components/FinalModal.js";
+import Timer from "./Components/Timer.js";
 
-import { RiSwordFill } from 'react-icons/ri';
+import { RiSwordFill } from "react-icons/ri";
 
-import PreparedDeck from './Components/PreparedDeck.js';
+import PreparedDeck from "./Components/PreparedDeck.js";
 
-import './App.css';
+import "./App.css";
 
-import crowd from './images/crowd.png';
-import deckbtn from './images/cardbtn.png';
+import crowd from "./images/crowd.png";
+import deckbtn from "./images/cardbtn.png";
 
-import useSound from 'use-sound';
-import soundGavel from './sounds/gavel-2.mp3';
-import soundWoo from './sounds/woo.wav';
-import soundSlap from './sounds/smol.wav';
-import soundAirhorn from './sounds/airhorn.wav';
-import soundBigHammer from './sounds/big-hammer.wav';
-import soundMystery from './sounds/mystery.wav';
-import soundCard from './sounds/card.mp3';
-import soundClick from './sounds/click.mp3';
-import soundTick from './sounds/tick.wav';
+import useSound from "use-sound";
+import soundGavel from "./sounds/gavel-2.mp3";
+import soundWoo from "./sounds/woo.wav";
+import soundSlap from "./sounds/smol.wav";
+import soundAirhorn from "./sounds/airhorn.wav";
+import soundBigHammer from "./sounds/big-hammer.wav";
+import soundMystery from "./sounds/mystery.wav";
+import soundCard from "./sounds/card.mp3";
+import soundClick from "./sounds/click.mp3";
+import soundTick from "./sounds/tick.wav";
 
-const localENDPOINT = 'http://127.0.0.1:4000';
-const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
-const piENDPOINT = 'http://192.168.178.44:4000';
+const localENDPOINT = "http://127.0.0.1:4000";
+const productionENDPOINT = "https://cardgame-server-master.herokuapp.com:443";
+const piENDPOINT = "http://192.168.178.44:4000";
 
 const App = () => {
   const [yourID, setYourID] = useState();
-  const [userName, setUserName] = useState('');
-  const [role, setRole] = useState('');
-  const [yourUnsentArgument, setYourUnsentArgument] = useState('');
-  const [judgeMessage, setJudgeMessage] = useState('guilty');
-  const [finalRuling, setFinalRuling] = useState('');
+  const [userName, setUserName] = useState("");
+  const [role, setRole] = useState("");
+  const [yourUnsentArgument, setYourUnsentArgument] = useState("");
+  const [judgeMessage, setJudgeMessage] = useState("guilty");
+  const [finalRuling, setFinalRuling] = useState("");
   const [canSend, setCanSend] = useState(true);
   const [showRuling, setShowRuling] = useState(false);
-  const [topic, setTopic] = useState('');
+  const [topic, setTopic] = useState("");
   const [topicID, setTopicID] = useState(0);
   const [game, setGame] = useState({});
 
@@ -68,7 +68,7 @@ const App = () => {
 
   const [newCardType, setNewCardType] = useState();
 
-  const [gameReady, setGameReady] = useState('');
+  const [gameReady, setGameReady] = useState("");
 
   const [showTimer, setShowTimer] = useState(false);
 
@@ -79,9 +79,9 @@ const App = () => {
   const [finalVotes, setFinalVotes] = useState([]);
 
   const debateTopics = [
-    'Der ÖPNV sollte kostenlos für alle verfügbar sein.',
-    'Autos mit Verbrennungsmotor sollten verboten werden.',
-    'Die Mietpreisbremse ist ineffektiv und sollte abgeschafft werden.',
+    "Der ÖPNV sollte kostenlos für alle verfügbar sein.",
+    "Autos mit Verbrennungsmotor sollten verboten werden.",
+    "Die Mietpreisbremse ist ineffektiv und sollte abgeschafft werden.",
   ];
 
   const socketRef = useRef();
@@ -124,92 +124,96 @@ const App = () => {
   });
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
-    socketRef.current.on('your id', (id) => {
+    socketRef.current = io.connect(localENDPOINT);
+    socketRef.current.on("your id", (id) => {
       setYourID(id);
     });
-    socketRef.current.on('topic', (topic) => {
+    socketRef.current.on("topic", (topic) => {
       setTopic(topic);
     });
 
-    socketRef.current.on('topic id', (id) => {
+    socketRef.current.on("topic id", (id) => {
       setTopicID(id);
       if (id != -1) {
         setTopic(debateTopics[id]);
       }
     });
 
-    socketRef.current.on('final votes', (voot) => {
+    socketRef.current.on("start round timer", () => {
+      setShowTimer(true);
+    });
+
+    socketRef.current.on("final votes", (voot) => {
       setFinalVotes(voot);
     });
 
-    socketRef.current.on('message', (cards) => {
+    socketRef.current.on("message", (cards) => {
       setCardList(cards);
     });
-    socketRef.current.on('latest card', (card) => {
-      if (card.type === 'question') {
+    socketRef.current.on("latest card", (card) => {
+      if (card.type === "question") {
         playMystery();
       }
-      if (card.type === 'argument' || 'fact') {
+      if (card.type === "argument" || "fact") {
         playCard();
       }
     });
-    socketRef.current.on('topic id', (id) => {
+    socketRef.current.on("topic id", (id) => {
       setTopicID(id);
     });
 
-    socketRef.current.on('next round', () => {
-      console.log('nextround');
+    socketRef.current.on("next round", () => {
+      console.log("nextround");
       setShowCommentary(true);
     });
 
-    socketRef.current.on('get ready', () => {
+    socketRef.current.on("get ready", () => {
       setGameReady(true);
       setShowCommentary(true);
     });
 
-    socketRef.current.on('game', (gameObj) => {
+    socketRef.current.on("game", (gameObj) => {
       setGame(gameObj);
       setCardList(gameObj.cardList);
     });
-    socketRef.current.on('chat messages', (msgList) => {
+    socketRef.current.on("chat messages", (msgList) => {
       setChatList(msgList);
     });
 
-    socketRef.current.on('play sound', (sound) => {
+    socketRef.current.on("play sound", (sound) => {
       switch (sound) {
-        case 'airhorn':
+        case "airhorn":
           playAirhorn();
 
           break;
-        case 'slap':
+        case "slap":
           playSlap();
 
           break;
-        case 'gavel':
+        case "gavel":
           playGavel();
 
           break;
-        case 'woo':
+        case "woo":
           playWoo();
 
           break;
-        case 'timer':
+        case "timer":
           playTick();
           break;
         default:
           break;
       }
     });
-    socketRef.current.on('final ruling', (e) => {
+    socketRef.current.on("final ruling", (e) => {
       setFinalRuling(e);
     });
 
-    socketRef.current.on('judge ruling', (ruling) => {
+    socketRef.current.on("judge ruling", (ruling) => {
       setJudgeMessage(ruling);
       setShowRuling(true);
     });
-    socketRef.current.on('please vote', () => {
+    socketRef.current.on("please vote", () => {
       setShowVoting(true);
     });
   }, [
@@ -226,11 +230,14 @@ const App = () => {
     if (cardList.length === 0) {
       //if role is aff and round is odd, turn on sending
       //if role is neg and round is even, turn on sending
-      if (role === 'affirmative') {
+      if (role === "affirmative") {
         game.round % 2 === 1 ? setCanSend(true) : setCanSend(false);
       }
-      if (role === 'negative') {
+      if (role === "negative") {
         game.round % 2 === 1 ? setCanSend(false) : setCanSend(true);
+      }
+      if (role === "judge") {
+        setCanSend(true);
       }
     } else if (cardList.length > 0) {
       setCanSend(true);
@@ -239,30 +246,30 @@ const App = () => {
   }, [cardList, role, game.round]);
 
   const sendTopic = () => {
-    socketRef.current.emit('set topic', topic);
+    socketRef.current.emit("set topic", topic);
   };
 
   const handleTopicID = (id) => {
-    socketRef.current.emit('topic number', id);
+    socketRef.current.emit("topic number", id);
   };
 
   //send cards from prep deck & toolbox
   function sendMessage(e) {
-    if (e === '') return;
+    if (e === "") return;
 
-    socketRef.current.emit('send message', e);
-    setYourUnsentArgument('');
+    socketRef.current.emit("send message", e);
+    setYourUnsentArgument("");
   }
 
   const handleStartGame = () => {
     if (yourID === game.affirmativeID) {
-      setRole('affirmative');
+      setRole("affirmative");
     }
     if (yourID === game.negativeID) {
-      setRole('negative');
+      setRole("negative");
     }
     if (yourID === game.judgeID) {
-      setRole('judge');
+      setRole("judge");
     }
 
     setShowLogin(false);
@@ -277,7 +284,7 @@ const App = () => {
   };
 
   const handleFinalRuling = (e) => {
-    socketRef.current.emit('final ruling', e);
+    socketRef.current.emit("final ruling", e);
   };
 
   function setName(name) {
@@ -305,7 +312,7 @@ const App = () => {
       role: role,
       vote: e,
     };
-    socketRef.current.emit('send final vote', voteObj);
+    socketRef.current.emit("send final vote", voteObj);
     closeModal();
     setShowFinal(true);
   };
@@ -316,7 +323,7 @@ const App = () => {
       role: role,
       avi: userAvi,
     };
-    socketRef.current.emit('set user', messageObject);
+    socketRef.current.emit("set user", messageObject);
   }
 
   const rateCard = (index, rating) => {
@@ -325,7 +332,7 @@ const App = () => {
       type: role,
       rating: rating,
     };
-    socketRef.current.emit('rate card', msgObj);
+    socketRef.current.emit("rate card", msgObj);
   };
 
   function closeModal() {
@@ -354,7 +361,7 @@ const App = () => {
   };
 
   const handleSetCustomTopic = (t) => {
-    socketRef.current.emit('set topic', t);
+    socketRef.current.emit("set topic", t);
   };
 
   const handleSoundKeys = (e) => {
@@ -367,19 +374,19 @@ const App = () => {
 
   const nextRound = () => {
     emitGavel();
-    if (game.round <= 4) socketRef.current.emit('next round');
+    if (game.round <= 4) socketRef.current.emit("next round");
   };
   const finishGame = (e) => {
     closeModal();
     setShowFinal(true);
-    socketRef.current.emit('end game');
+    socketRef.current.emit("end game");
   };
 
   const resetGame = () => {
-    socketRef.current.emit('reset');
+    socketRef.current.emit("reset");
     setGameReady(false);
-    setUserName('');
-    setRole('');
+    setUserName("");
+    setRole("");
     closeModal();
     setShowLogin(true);
   };
@@ -389,7 +396,7 @@ const App = () => {
       name: userName,
       body: msg,
     };
-    socketRef.current.emit('chat message', msgObj);
+    socketRef.current.emit("chat message", msgObj);
   };
 
   const startTimer = () => {
@@ -397,20 +404,28 @@ const App = () => {
   };
 
   const emitAirhorn = () => {
-    socketRef.current.emit('emit sound', 'airhorn');
+    socketRef.current.emit("emit sound", "airhorn");
   };
 
   const emitSlap = () => {
-    socketRef.current.emit('emit sound', 'slap');
+    socketRef.current.emit("emit sound", "slap");
   };
   const emitGavel = () => {
-    socketRef.current.emit('emit sound', 'gavel');
+    socketRef.current.emit("emit sound", "gavel");
   };
   const emitWoo = () => {
-    socketRef.current.emit('emit sound', 'woo');
+    socketRef.current.emit("emit sound", "woo");
   };
   const emitTimer = () => {
-    socketRef.current.emit('emit sound', 'timer');
+    socketRef.current.emit("start timer");
+  };
+
+  const finishCounting = () => {
+    if (role != "judge") {
+      setCanSend(false);
+    }
+    setShowTimer(false);
+    console.log("app f received");
   };
 
   return (
@@ -419,20 +434,24 @@ const App = () => {
         <meta charSet='utf-8' />
         <title>
           {userName
-            ? `Rolle: ${role === 'affirmative' ? 'Pro' : ''}${
-                role === 'negative' ? 'Contra' : ''
-              }${role === 'judge' ? 'Richter' : ''} ${
-                role === 'spectator' ? 'Zuschauer' : ''
+            ? `Rolle: ${role === "affirmative" ? "Pro" : ""}${
+                role === "negative" ? "Contra" : ""
+              }${role === "judge" ? "Richter" : ""} ${
+                role === "spectator" ? "Zuschauer" : ""
               } - Debate Quest`
-            : 'Debate Quest'}
+            : "Debate Quest"}
         </title>
       </Helmet>
-      <Timer startTimer={showTimer} playTick={playTick} />
+      <Timer
+        startTimer={showTimer}
+        playTick={playTick}
+        stopRound={finishCounting}
+      />
 
       <Modal
         title='Debate Quest'
         showModal={showInfo}
-        body={'hier stehen infos über das Spiel'}
+        body={"hier stehen infos über das Spiel"}
         closeModal={closeModal}
       />
 
@@ -500,13 +519,13 @@ const App = () => {
       ) : null}
       <div
         className={
-          role === 'spectator'
-            ? 'grid-container spectator-layout'
-            : 'grid-container'
+          role === "spectator"
+            ? "grid-container spectator-layout"
+            : "grid-container"
         }
       >
         <div className='opponents'>
-          {role === 'affirmative' ? (
+          {role === "affirmative" ? (
             <>
               <Player
                 avi={game.judgeAvi}
@@ -520,7 +539,7 @@ const App = () => {
               />
             </>
           ) : null}
-          {role === 'negative' ? (
+          {role === "negative" ? (
             <>
               <Player
                 avi={game.judgeAvi}
@@ -534,12 +553,12 @@ const App = () => {
               />
             </>
           ) : null}
-          {role === 'judge' ? (
+          {role === "judge" ? (
             <>
               <Player
                 avi={game.affirmativeAvi}
                 name={game.affirmativeName}
-                role={'dafür'}
+                role={"dafür"}
               />
               <Player
                 avi={game.negativeAvi}
@@ -548,7 +567,7 @@ const App = () => {
               />
             </>
           ) : null}
-          {role === 'spectator' ? (
+          {role === "spectator" ? (
             <>
               <Player
                 avi={game.judgeAvi}
@@ -558,7 +577,7 @@ const App = () => {
               <Player
                 avi={game.affirmativeAvi}
                 name={game.affirmativeName}
-                role={'dafür'}
+                role={"dafür"}
               />
               <Player
                 avi={game.negativeAvi}
@@ -577,21 +596,21 @@ const App = () => {
           <RiSwordFill />
         </div>
         <div className='player1'>
-          {role === 'affirmative' ? (
+          {role === "affirmative" ? (
             <Player
               avi={game.affirmativeAvi}
               name={game.affirmativeName}
               role='dafür'
             />
           ) : null}
-          {role === 'negative' ? (
+          {role === "negative" ? (
             <Player
               avi={game.negativeAvi}
               name={game.negativeName}
               role='dagegen'
             />
           ) : null}
-          {role === 'judge' ? (
+          {role === "judge" ? (
             <Player avi={game.judgeAvi} name={game.judgeName} role='richter' />
           ) : null}
         </div>
@@ -624,7 +643,7 @@ const App = () => {
           <img src={crowd} alt='crowd cheering'></img>
         </div>
         <div className='card-deck'>
-          {role === 'judge' ? null : (
+          {role === "judge" ? null : (
             <button className='deck-button' onClick={showDeck}>
               <img src={deckbtn} alt='deck öffnen'></img>
             </button>
@@ -634,7 +653,7 @@ const App = () => {
           <button onClick={handleShowInfo}>Info</button>
         </div>
         <div className='toolbox'>
-          {role === 'spectator' ? (
+          {role === "spectator" ? (
             <>
               <div onKeyPress={handleSoundKeys}>
                 <button onClick={playWoo}>woo</button>
