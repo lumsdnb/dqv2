@@ -18,6 +18,11 @@
   z-index: 4;
 }
 
+.card-id {
+  position: absolute;
+  top: 1rem;
+}
+
 .card-hover:hover {
   background-color: #ddd;
   transition: transform 40ms;
@@ -43,12 +48,15 @@
 
 .card-bottom {
   position: absolute;
-  left: 0;
-  right: 0;
   bottom: 0.7rem;
   margin-left: auto;
   margin-right: auto;
-  width: 100px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 0.1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .rate-card button {
@@ -63,14 +71,6 @@ progress::-webkit-progress-value {
   background: rgb(16, 190, 16);
 }
 
-.card-bottom {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  line-height: 0.1rem;
-  justify-content: center;
-  align-items: center;
-}
 .hide {
   visibility: show;
 }

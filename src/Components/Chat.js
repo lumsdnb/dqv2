@@ -33,6 +33,7 @@ const Chat = (props) => {
     if (currentMessage) {
       props.sendChatMsg(currentMessage);
     }
+    document.getElementById('chat-form').reset();
   }
 
   return (
@@ -44,7 +45,11 @@ const Chat = (props) => {
         {chatMessages}
         <div ref={chatMessagesEndRef} />
       </div>
-      <form className='chat-controls' onSubmit={handleChatSubmit}>
+      <form
+        id='chat-form'
+        className='chat-controls'
+        onSubmit={handleChatSubmit}
+      >
         <input className='chat-input' type='text' onChange={handleChatMsg} />
         <input type='submit' className='form-btn' value='senden' />
       </form>

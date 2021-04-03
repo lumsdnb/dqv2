@@ -205,7 +205,7 @@ const AvatarGen = (props) => {
     <div className='avi-gen-container'>
       {props.i ? returnAvi(props.i) : returnAvi(aviNum)}
       {props.canEdit ? (
-        <button onClick={randomAvi} className='generate-button'>
+        <button type='button' onClick={randomAvi} className='generate-button'>
           <MdLoop />
         </button>
       ) : null}

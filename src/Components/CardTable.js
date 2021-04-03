@@ -3,9 +3,9 @@ import Card from './Card.js';
 import './CardTable.css';
 
 const CardTable = (props) => {
-  //todo: scroll to newest card
   const handleRating = (i, rating) => {
     props.rateCard(i, rating);
+    console.log(`i: ${i} r: ${rating}`);
   };
 
   const messagesEndRef = useRef(null);
@@ -31,7 +31,7 @@ const CardTable = (props) => {
           userRole={props.userRole}
           spectatorRating={c.spectatorRating}
           judgeRating={c.judgeRating}
-          rateCard={handleRating}
+          rateCard={(i, r) => handleRating(i, r)}
         />
       );
   });

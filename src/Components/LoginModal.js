@@ -18,6 +18,7 @@ const LoginModal = (props) => {
   function handleSubmitBtn(event) {
     event.preventDefault();
     props.handleSetUser(event.target.value);
+    setUserHasJoined(true);
   }
 
   function handleName(e) {
@@ -26,8 +27,16 @@ const LoginModal = (props) => {
     props.handleNameChange(e);
   }
 
+  const handleResetGame = () => {
+    props.resetGame();
+    setUserHasJoined(false);
+    setTextAreaCustom('');
+    setDebateID(-1);
+  };
+
   function handleAviChange(e) {
     props.changeAvi(e);
+    setDebateID(e);
   }
 
   const handleCustomTopic = (e) => {
@@ -65,7 +74,7 @@ const LoginModal = (props) => {
             <div className='card'>
               <h2>
                 {props.topicID == -1
-                  ? textAreaCustom
+                  ? props.topic
                   : props.debateTopics[props.topicID]}
               </h2>
             </div>
@@ -74,18 +83,10 @@ const LoginModal = (props) => {
             </button>
           </div>
           <div className='login-title neo-box-inward'>
-            <h2
-              style={{
-                fontSize: '120%',
-                textAlign: 'center',
-                fontFamily: 'Vollkorn',
-              }}
-            >
-              DEBATE.QUEST
-            </h2>
+            <h2 classname='login-title'>Debate.Quest</h2>
           </div>
           <div className='extra-panel'>
-            <button onClick={props.resetGame}>Spiel zurücksetzen</button>
+            <button onClick={handleResetGame}>Spiel zurücksetzen</button>
           </div>
           <div className='extra-panel2'>
             <div classname='flex-split'>
@@ -100,96 +101,137 @@ const LoginModal = (props) => {
           </div>
           <div className='login-settings'>
             <div>
-              {userHasJoined ? null : (
+              {props.gameReady ? (
                 <div className='neo-box-split'>
-                  <form>
-                    <div className='form-group'>
-                      <input
-                        type='text'
-                        className='form-name'
-                        name='name'
-                        placeholder='dein Name'
-                        onChange={handleName}
-                        maxLength='30'
-                        required='required'
-                        autocomplete='off'
-                      />
-                    </div>
-
-                    <div className='form-group'>
-                      <div className='select-buttons'>
-                        <button
-                          type='button'
-                          onClick={(e) => props.setRole('player1')}
-                          className={
-                            props.role == 'player1' ? 'select-highlight' : null
-                          }
-                          title='Spieler 1'
-                        >
-                          <RiSwordFill />
-                        </button>
-                        <button
-                          type='button'
-                          onClick={(e) => props.setRole('player2')}
-                          className={
-                            props.role == 'player2' ? 'select-highlight' : null
-                          }
-                          title='Spieler 2'
-                        >
-                          <RiSwordFill />
-                        </button>
-
-                        <button
-                          type='button'
-                          onClick={(e) => props.setRole('judge')}
-                          className={
-                            props.role == 'judge' ? 'select-highlight' : null
-                          }
-                          title='Richter'
-                        >
-                          <GiBangingGavel />
-                        </button>
-
-                        <button
-                          type='button'
-                          onClick={(e) => props.setRole('spectator')}
-                          className={
-                            props.role == 'spectator'
-                              ? 'select-highlight'
-                              : null
-                          }
-                          title='Zuschauer'
-                        >
-                          <GrOverview />
-                        </button>
+                  <button
+                    className='BUTTON_START'
+                    onClick={props.handleStartGame}
+                  >
+                    Spiel starten!
+                  </button>{' '}
+                </div>
+              ) : (
+                <div className='neo-box-split'>
+                  {userHasJoined ? (
+                    <div className='flex-item-center fb100'>
+                      warte auf Spieler...
+                      <div className='spinner-ellipsis'>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                       </div>
-                      <div className='neo-box-split'>
-                        {props.userName && props.role ? (
-                          <>
-                            <div className='login-role-display'>
-                              {props.role}
-                            </div>
+                    </div>
+                  ) : (
+                    <form>
+                      <div className='form-group'>
+                        <input
+                          type='text'
+                          className='form-name'
+                          name='name'
+                          placeholder='dein Name'
+                          onChange={handleName}
+                          maxLength='30'
+                          required='required'
+                          autocomplete='off'
+                        />
+                      </div>
+
+                      <div className='form-group'>
+                        <div className='select-buttons'>
+                          {props.game.debater1Name == '' ? (
                             <button
                               type='button'
-                              className='BUTTON_START'
-                              name='set'
-                              value='set'
-                              onClick={handleSubmitBtn}
+                              onClick={(e) => props.setRole('player1')}
+                              className={
+                                props.role == 'player1'
+                                  ? 'select-highlight'
+                                  : null
+                              }
+                              title='Spieler 1'
                             >
-                              <GiConfirmed />
+                              <RiSwordFill />
                             </button>
-                          </>
-                        ) : null}
+                          ) : null}
+                          {props.game.debater2Name == '' ? (
+                            <button
+                              type='button'
+                              onClick={(e) => props.setRole('player2')}
+                              className={
+                                props.role == 'player2'
+                                  ? 'select-highlight'
+                                  : null
+                              }
+                              title='Spieler 2'
+                            >
+                              <RiSwordFill />
+                            </button>
+                          ) : null}
+
+                          {props.game.judgeName == '' ? (
+                            <button
+                              type='button'
+                              onClick={(e) => props.setRole('judge')}
+                              className={
+                                props.role == 'judge'
+                                  ? 'select-highlight'
+                                  : null
+                              }
+                              title='Richter'
+                            >
+                              <GiBangingGavel />
+                            </button>
+                          ) : null}
+
+                          <button
+                            type='button'
+                            onClick={(e) => props.setRole('spectator')}
+                            className={
+                              props.role == 'spectator'
+                                ? 'select-highlight'
+                                : null
+                            }
+                            title='Zuschauer'
+                          >
+                            <GrOverview />
+                          </button>
+                        </div>
+                        {userHasJoined ? null : (
+                          <div className='neo-box-split'>
+                            <div>
+                              <AvatarGen
+                                canEdit='true'
+                                handleAviChange={handleAviChange}
+                                style={{ width: '5rem', height: '5rem' }}
+                              />
+                            </div>
+                            {props.userName && props.role && debateID != -1 ? (
+                              <>
+                                <button
+                                  type='button'
+                                  className='BUTTON_START'
+                                  name='set'
+                                  value='set'
+                                  onClick={handleSubmitBtn}
+                                >
+                                  <GiConfirmed />
+                                </button>
+                              </>
+                            ) : (
+                              <button
+                                type='button'
+                                className='BUTTON_INACTIVE'
+                                name='set'
+                                value='set'
+                              >
+                                <GiConfirmed />
+                              </button>
+                            )}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  </form>
-                  <div>
-                    <AvatarGen
-                      canEdit='true'
-                      handleAviChange={handleAviChange}
-                      style={{ width: '5rem', height: '5rem' }}
-                    />
-                  </div>
+                    </form>
+                  )}
                 </div>
               )}
               <div className='neo-box-inward'>
@@ -230,23 +272,6 @@ const LoginModal = (props) => {
                       <div>{props.game.debater2Name}</div>
                     </div>
                   </div>
-                  {props.gameReady ? (
-                    <button
-                      className='BUTTON_START'
-                      onClick={props.handleStartGame}
-                    >
-                      Spiel starten!
-                    </button>
-                  ) : (
-                    <div className='flex-item-center fb100'>
-                      <div className='spinner-ellipsis'>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

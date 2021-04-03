@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './Modal.css';
+
+import AvatarGen from './AvatarGen.js';
+
 const FinalModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
   const doneVoting = () => {
@@ -29,7 +32,7 @@ const FinalModal = (props) => {
         <div>
           <div>
             <div className='neo-box-outward'>
-              <h2>RUNDENENDE</h2>
+              <h2>Rundenende</h2>
 
               <h3>
                 <sup>Thema:</sup>
@@ -37,21 +40,33 @@ const FinalModal = (props) => {
               </h3>
             </div>
 
-            <div className='neo-box-inward'>
-              <h3>Ergebnis:</h3>
+            <div className='neo-box-inward vote-display'>
+              <h3 className='fb100'>Ergebnis:</h3>
               <h5>
+                <AvatarGen
+                  i={props.game.affirmativeAvi}
+                  style={{ width: '3rem', height: '3rem' }}
+                />{' '}
                 {props.game.affirmativeName} : {props.finalVotes.aff}
               </h5>
               <h5>
+                <AvatarGen
+                  i={props.game.negativeAvi}
+                  style={{ width: '3rem', height: '3rem' }}
+                />{' '}
                 {props.game.negativeName} : {props.finalVotes.neg}
               </h5>
               <h5>
+                <AvatarGen
+                  i={props.game.judgeAvi}
+                  style={{ width: '3rem', height: '3rem' }}
+                />{' '}
                 {props.game.judgeName} : {props.finalVotes.judge}
               </h5>
             </div>
 
             <div className='neo-box-inward'>
-              Richter sagt: {props.finalRuling}
+              <h2>{`${props.game.judgeName}'s Urteil: ${props.finalRuling}`}</h2>
             </div>
 
             {doneVoting ? null : (
@@ -67,6 +82,7 @@ const FinalModal = (props) => {
             )}
           </div>
         </div>
+        <button onClick={props.resetGame}>Neues Spiel</button>
       </div>
     </>
   );

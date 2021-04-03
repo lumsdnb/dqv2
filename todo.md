@@ -51,8 +51,10 @@
 
 ## tag 5 - 3.4.
 
-- show connected spectators
 - kartendesign
+  -judge ruling nicht beim richter zeigen
+- BUG: ratings gehen net
+- show connected spectators
 - tomato throw raus
 - timer fix&playback
 - thema selber setzen

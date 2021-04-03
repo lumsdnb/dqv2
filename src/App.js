@@ -41,7 +41,7 @@ const piENDPOINT = 'http://192.168.178.44:4000';
 const App = () => {
   const [yourID, setYourID] = useState();
   const [userName, setUserName] = useState('');
-  const [role, setRole] = useState('player1');
+  const [role, setRole] = useState('');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [finalRuling, setFinalRuling] = useState('');
@@ -93,7 +93,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(localENDPOINT);
+    socketRef.current = io.connect(productionENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -128,6 +128,7 @@ const App = () => {
     });
 
     socketRef.current.on('next round', () => {
+      console.log('nextround');
       setShowCommentary(true);
     });
 
@@ -369,6 +370,11 @@ const App = () => {
 
   const resetGame = () => {
     socketRef.current.emit('reset');
+    setGameReady(false);
+    setUserName('');
+    setRole('');
+    closeModal();
+    setShowLogin(true);
   };
 
   const sendChatMsg = (msg) => {
@@ -404,20 +410,26 @@ const App = () => {
     <>
       <Helmet>
         <meta charSet='utf-8' />
-        <title>{userName ? `role: ${role}` : 'Debate Quest'}</title>
+        <title>
+          {userName
+            ? `Rolle: ${role == 'affirmative' ? 'Pro' : ''}${
+                role == 'negative' ? 'Contra' : ''
+              }${role == 'judge' ? 'Richter' : ''} - Debate Quest`
+            : 'Debate Quest'}
+        </title>
       </Helmet>
       <Timer startTimer={showTimer} playTick={playTick} />
       <Modal
-        title='judge sagt:'
+        title='Richter sagt:'
         showModal={showRuling}
         body={judgeMessage}
         closeModal={closeModal}
       />
       <Modal
-        title='Das Spiel beginnt'
+        title='Die Debatte beginnt'
         showModal={showStartingModal}
-        body={`Deine Rolle: ${role}`}
         closeModal={closeModal}
+        game={game}
       />
       {showVoting ? (
         <VotingModal
@@ -434,6 +446,7 @@ const App = () => {
           topic={topic}
           role={role}
           game={game}
+          resetGame={resetGame}
           finalVotes={finalVotes}
           finalRuling={finalRuling}
         />
@@ -584,7 +597,11 @@ const App = () => {
           </div>
         </div>
         <div className='card-table'>
-          <CardTable cardList={cardList} userRole={role} rateCard={rateCard} />
+          <CardTable
+            cardList={cardList}
+            userRole={role}
+            rateCard={(i, r) => rateCard(i, r)}
+          />
         </div>
         <div className='crowd'>
           <img src={crowd} alt='crowd cheering'></img>

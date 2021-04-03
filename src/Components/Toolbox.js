@@ -33,6 +33,7 @@ const Toolbox = (props) => {
 
   function sendMessage(e) {
     if (e == '') return;
+    if (yourArgument == '') return;
     if (cardType == 'fact') {
       const messageObject = {
         body: yourArgument,
@@ -53,6 +54,8 @@ const Toolbox = (props) => {
       };
       props.sendMessage(messageObject);
     }
+    document.getElementById('toolbox-form').reset();
+    setYourArgument('');
   }
 
   const spectatorView = () => {
@@ -86,7 +89,7 @@ const Toolbox = (props) => {
             </button>
             <button onClick={startTimer}>timer</button>
 
-            <button onClick={props.nextRound}>nächste Runde</button>
+            <button onClick={props.nextRound}>Runde beenden</button>
           </div>
         ) : null}
         {props.role == 'affirmative' ||
@@ -124,26 +127,27 @@ const Toolbox = (props) => {
             </div>
           </>
         ) : null}
-
-        <textarea
-          id='cardform'
-          className='form-textarea'
-          onChange={handleArgument}
-          maxLength='200'
-        />
-        {cardType == 'fact' ? (
+        <form id='toolbox-form'>
           <textarea
-            id='cardsource'
-            className='source-field'
-            onChange={handleCardSource}
-          >
-            source pls
-          </textarea>
-        ) : null}
+            id='cardform'
+            className='form-textarea'
+            onChange={handleArgument}
+            maxLength='200'
+          />
+          {cardType == 'fact' ? (
+            <textarea
+              id='cardsource'
+              className='source-field'
+              onChange={handleCardSource}
+            >
+              source pls
+            </textarea>
+          ) : null}
 
-        <button type='button' className='form-btn' onClick={sendMessage}>
-          {props.role == 'judge' ? 'Urteil fällen' : 'Karte spielen'}
-        </button>
+          <button type='button' className='form-btn' onClick={sendMessage}>
+            {props.role == 'judge' ? 'Urteil fällen' : 'Karte spielen'}
+          </button>
+        </form>
       </div>
     </BlockUi>
   );

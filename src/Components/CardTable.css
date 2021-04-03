@@ -64,6 +64,7 @@
 .card-place-btn {
   position: relative;
   bottom: 2rem;
+  left: 25%;
   background-color: #969696;
   z-index: 55;
 }

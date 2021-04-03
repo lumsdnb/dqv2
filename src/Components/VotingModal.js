@@ -38,7 +38,7 @@ const VotingModal = (props) => {
   const round1 = props.usedCards[0].map((c, i) => {
     return (
       <Card
-        size='smol'
+        save
         key={c.i}
         claim={c.body}
         index={i}
@@ -53,7 +53,7 @@ const VotingModal = (props) => {
   const round2 = props.usedCards[1].map((c, i) => {
     return (
       <Card
-        size='smol'
+        save
         key={c.i}
         claim={c.body}
         index={i}
@@ -68,7 +68,7 @@ const VotingModal = (props) => {
   const round3 = props.usedCards[2].map((c, i) => {
     return (
       <Card
-        size='smol'
+        save
         key={c.i}
         claim={c.body}
         index={i}
@@ -82,7 +82,7 @@ const VotingModal = (props) => {
   const round4 = props.usedCards[3].map((c, i) => {
     return (
       <Card
-        size='smol'
+        save
         key={c.i}
         claim={c.body}
         index={i}
@@ -98,16 +98,23 @@ const VotingModal = (props) => {
     <>
       <div className='voting-modal'>
         <div class='voting-grid-container'>
-          <div class='title-topic'>
-            <h4>topic:{props.topic}</h4>
-          </div>
-          <div className='title-q'>
+          <div class='title-topic flex-column'>
+            <h4>{props.topic}</h4>
             <h3>Wer hat am besten argumentiert?</h3>
           </div>
-          <div className='round1-title vote-title'>Runde 1</div>
-          <div className='round2-title vote-title'>Runde 2</div>
-          <div className='round3-title vote-title'>Runde 3</div>
-          <div className='round4-title vote-title'>Runde 4</div>
+
+          <div className='round1-title vote-title'>
+            <h3>Runde 1</h3>
+          </div>
+          <div className='round2-title vote-title'>
+            <h3>Runde 2</h3>
+          </div>
+          <div className='round3-title vote-title'>
+            <h3>Runde 3</h3>
+          </div>
+          <div className='round4-title vote-title'>
+            <h3>Runde 4</h3>
+          </div>
           <div className='round1 scroll-round'>{round1}</div>
           <div className='round2 scroll-round'>{round2}</div>
           <div className='round3 scroll-round'>{round3}</div>
@@ -137,7 +144,7 @@ const VotingModal = (props) => {
                     selectVote('tie');
                   }}
                 >
-                  <FaBlackTie className='big-icon' />
+                  <h4 classname='center-flex'>Unentschieden</h4>
                 </button>
                 <button
                   className={

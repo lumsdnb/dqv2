@@ -106,13 +106,12 @@ sup {
 .voting-grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 0.1fr 0fr 1.5fr 0.1fr;
-  gap: 6px 6px;
+  grid-template-rows: 0.2fr 1.8fr 1fr;
+  gap: 0px 0px;
   grid-template-areas:
-    'title-topic title-topic title-q title-q'
     'round1-title round2-title round3-title round4-title'
-    'round-1 round-2 round-3 round-4'
-    'voting voting voting voting';
+    'round1 round2 round3 round4'
+    'title-topic title-topic voting voting';
 }
 .round1-title {
   grid-area: round1-title;
@@ -145,6 +144,12 @@ sup {
   grid-area: round-4;
   scrollbar-width: thin;
 }
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .title-topic {
   grid-area: title-topic;
   background-color: white;
@@ -202,6 +207,29 @@ sup {
   text-align: center;
 }
 
+.BUTTON_INACTIVE {
+  background: #797979;
+  border: none;
+  border-radius: 0.2rem;
+  color: #000;
+  font-size: 1.5rem;
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
+  padding: 0.2rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.BUTTON_INACTIVE:hover {
+  border: none;
+  background: #797979;
+  text-decoration: none;
+  box-sizing: border-box;
+  transform: scale(1);
+  cursor: not-allowed;
+}
+
 .BUTTON_START:hover {
   border: none;
   background: #7be778;
@@ -215,19 +243,22 @@ sup {
   box-sizing: border-box;
 }
 
-.judge-ruling {
-  display: grid;
-  place-items: center;
-  background-color: rgba(167, 166, 160, 0.8);
+.modal-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 4rem;
+  width: 30vw;
+  transform: translate(-50%, -50%);
+
   border-radius: 0.6rem;
-  box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.41);
   font-size: 120%;
   user-select: none;
   overflow: hidden;
   text-align: center;
-  border-radius: 8px;
-  border-radius: 8px;
-  box-shadow: 7px 7px 14px #dbdbdb, -7px -7px 14px #b4b4b4;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  box-shadow: 2px 2px 4px #d9d9d9, -2px -2px 4px #e7e7e7;
   z-index: 55;
 }
 
@@ -313,6 +344,13 @@ sup {
 .login-player-small {
   display: flex;
   flex-direction: column;
+}
+
+.vote-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .fb50 {
