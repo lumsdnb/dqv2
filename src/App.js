@@ -53,6 +53,7 @@ const App = () => {
 
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
+  const [showStartingModal, setShowStartingModal] = useState(false);
   const [showFinal, setShowFinal] = useState(false);
   const [showCommentary, setShowCommentary] = useState(false);
 
@@ -226,6 +227,7 @@ const App = () => {
     }
 
     setShowLogin(false);
+    setShowStartingModal(true);
   };
 
   const showDeck = () => {
@@ -291,6 +293,7 @@ const App = () => {
     setShowRuling(false);
     setShowFinal(false);
     setShowVoting(false);
+    setShowStartingModal(false);
   }
   //=============================================
   // sound triggers
@@ -408,6 +411,12 @@ const App = () => {
         title='judge sagt:'
         showModal={showRuling}
         body={judgeMessage}
+        closeModal={closeModal}
+      />
+      <Modal
+        title='Das Spiel beginnt'
+        showModal={showStartingModal}
+        body={`Deine Rolle: ${role}`}
         closeModal={closeModal}
       />
       {showVoting ? (

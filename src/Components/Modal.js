@@ -11,8 +11,8 @@ const Modal = (props) => {
         <div>
           <h3>{props.title}</h3>
           <p>{props.body}</p>
-          <button onClick={props.closeModal}>ok</button>
-          <button onClick={props.closeModal}>ok</button>
+          <button onClick={props.closeModal}>ok!</button>
+          <button onClick={props.closeModal}>alles klar!</button>
         </div>
       </div>
     </>
