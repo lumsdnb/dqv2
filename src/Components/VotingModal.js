@@ -90,7 +90,7 @@ const VotingModal = (props) => {
     <>
       <div className='voting-modal'>
         <div class='voting-grid-container'>
-          <div class='title-topic flex-column'>
+          <div class='title-topic neo-box-inward flex-column'>
             <h4>{props.topic}</h4>
             <h3>Wer hat am besten argumentiert?</h3>
           </div>

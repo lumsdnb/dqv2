@@ -86,6 +86,43 @@ const App = () => {
 
   const socketRef = useRef();
 
+  //=============================================
+  // sound triggers
+
+  const [playGavel] = useSound(soundGavel, {
+    volume: 0.7,
+  });
+
+  const [playMystery] = useSound(soundMystery, {
+    volume: 0.3,
+  });
+
+  const [playClick] = useSound(soundClick, {
+    volume: 0.5,
+  });
+
+  const [playTick] = useSound(soundTick, {
+    volume: 0.8,
+  });
+
+  const [playCard] = useSound(soundCard, {
+    volume: 0.5,
+  });
+
+  const [playWoo, { stop }] = useSound(soundWoo, {
+    volume: 0.2,
+  });
+
+  const [playSlap] = useSound(soundSlap, {
+    volume: 0.2,
+  });
+  const [playAirhorn] = useSound(soundAirhorn, {
+    volume: 0.2,
+  });
+  const [playBigHammer] = useSound(soundBigHammer, {
+    volume: 0.2,
+  });
+
   useEffect(() => {
     socketRef.current = io.connect(productionENDPOINT);
     socketRef.current.on('your id', (id) => {
@@ -175,7 +212,15 @@ const App = () => {
     socketRef.current.on('please vote', () => {
       setShowVoting(true);
     });
-  }, []);
+  }, [
+    playAirhorn,
+    playCard,
+    playGavel,
+    playMystery,
+    playSlap,
+    playTick,
+    playWoo,
+  ]);
 
   useEffect(() => {
     if (cardList.length === 0) {
@@ -191,7 +236,7 @@ const App = () => {
       setCanSend(true);
       setShowCommentary(false);
     }
-  }, [cardList, role]);
+  }, [cardList, role, game.round]);
 
   const sendTopic = () => {
     socketRef.current.emit('set topic', topic);
@@ -290,42 +335,6 @@ const App = () => {
     setShowStartingModal(false);
     setShowInfo(false);
   }
-  //=============================================
-  // sound triggers
-
-  const [playGavel] = useSound(soundGavel, {
-    volume: 0.7,
-  });
-
-  const [playMystery] = useSound(soundMystery, {
-    volume: 0.3,
-  });
-
-  const [playClick] = useSound(soundClick, {
-    volume: 0.5,
-  });
-
-  const [playTick] = useSound(soundTick, {
-    volume: 0.8,
-  });
-
-  const [playCard] = useSound(soundCard, {
-    volume: 0.5,
-  });
-
-  const [playWoo, { stop }] = useSound(soundWoo, {
-    volume: 0.2,
-  });
-
-  const [playSlap] = useSound(soundSlap, {
-    volume: 0.2,
-  });
-  const [playAirhorn] = useSound(soundAirhorn, {
-    volume: 0.2,
-  });
-  const [playBigHammer] = useSound(soundBigHammer, {
-    volume: 0.2,
-  });
 
   function changeAvi(e) {
     setUserAvi(e);
