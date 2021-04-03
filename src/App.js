@@ -13,7 +13,6 @@ import VotingModal from './Components/VotingModal.js';
 import FinalModal from './Components/FinalModal.js';
 import Timer from './Components/Timer.js';
 
-import { GiBangingGavel } from 'react-icons/gi';
 import { RiSwordFill } from 'react-icons/ri';
 
 import PreparedDeck from './Components/PreparedDeck.js';
@@ -64,21 +63,16 @@ const App = () => {
 
   const [chatList, setChatList] = useState([]);
 
-  const [serverMessage, setServerMessage] = useState('');
-
-  const [userList, setUserList] = useState([]);
-
   const [cardList, setCardList] = useState([]);
-  const [receivedVerdict, setReceivedVerdict] = useState(false);
   const [isTyping] = useState(false);
-
-  const [canRespond, setCanRespond] = useState(true);
 
   const [newCardType, setNewCardType] = useState();
 
   const [gameReady, setGameReady] = useState('');
 
   const [showTimer, setShowTimer] = useState(false);
+
+  const [showInfo, setShowInfo] = useState(false);
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
@@ -116,10 +110,10 @@ const App = () => {
       setCardList(cards);
     });
     socketRef.current.on('latest card', (card) => {
-      if (card.type == 'question') {
+      if (card.type === 'question') {
         playMystery();
       }
-      if (card.type == 'argument' || 'fact') {
+      if (card.type === 'argument' || 'fact') {
         playCard();
       }
     });
@@ -133,7 +127,6 @@ const App = () => {
     });
 
     socketRef.current.on('get ready', () => {
-      setServerMessage('All players have joined, get ready...');
       setGameReady(true);
       setShowCommentary(true);
     });
@@ -185,14 +178,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (cardList.length == 0) {
+    if (cardList.length === 0) {
       //if role is aff and round is odd, turn on sending
       //if role is neg and round is even, turn on sending
-      if (role == 'affirmative') {
-        game.round % 2 == 1 ? setCanSend(true) : setCanSend(false);
+      if (role === 'affirmative') {
+        game.round % 2 === 1 ? setCanSend(true) : setCanSend(false);
       }
-      if (role == 'negative') {
-        game.round % 2 == 1 ? setCanSend(false) : setCanSend(true);
+      if (role === 'negative') {
+        game.round % 2 === 1 ? setCanSend(false) : setCanSend(true);
       }
     } else if (cardList.length > 0) {
       setCanSend(true);
@@ -210,20 +203,20 @@ const App = () => {
 
   //send cards from prep deck & toolbox
   function sendMessage(e) {
-    if (e == '') return;
+    if (e === '') return;
 
     socketRef.current.emit('send message', e);
     setYourUnsentArgument('');
   }
 
   const handleStartGame = () => {
-    if (yourID == game.affirmativeID) {
+    if (yourID === game.affirmativeID) {
       setRole('affirmative');
     }
-    if (yourID == game.negativeID) {
+    if (yourID === game.negativeID) {
       setRole('negative');
     }
-    if (yourID == game.judgeID) {
+    if (yourID === game.judgeID) {
       setRole('judge');
     }
 
@@ -295,6 +288,7 @@ const App = () => {
     setShowFinal(false);
     setShowVoting(false);
     setShowStartingModal(false);
+    setShowInfo(false);
   }
   //=============================================
   // sound triggers
@@ -336,6 +330,10 @@ const App = () => {
   function changeAvi(e) {
     setUserAvi(e);
   }
+
+  const handleShowInfo = () => {
+    setShowInfo(true);
+  };
 
   //use this for increasing pitch of slaps
 
@@ -412,13 +410,23 @@ const App = () => {
         <meta charSet='utf-8' />
         <title>
           {userName
-            ? `Rolle: ${role == 'affirmative' ? 'Pro' : ''}${
-                role == 'negative' ? 'Contra' : ''
-              }${role == 'judge' ? 'Richter' : ''} - Debate Quest`
+            ? `Rolle: ${role === 'affirmative' ? 'Pro' : ''}${
+                role === 'negative' ? 'Contra' : ''
+              }${role === 'judge' ? 'Richter' : ''} ${
+                role === 'spectator' ? 'Zuschauer' : ''
+              } - Debate Quest`
             : 'Debate Quest'}
         </title>
       </Helmet>
       <Timer startTimer={showTimer} playTick={playTick} />
+
+      <Modal
+        title='Debate Quest'
+        showModal={showInfo}
+        body={'hier stehen infos über das Spiel'}
+        closeModal={closeModal}
+      />
+
       <Modal
         title='Richter sagt:'
         showModal={showRuling}
@@ -483,13 +491,13 @@ const App = () => {
       ) : null}
       <div
         className={
-          role == 'spectator'
+          role === 'spectator'
             ? 'grid-container spectator-layout'
             : 'grid-container'
         }
       >
         <div className='opponents'>
-          {role == 'affirmative' ? (
+          {role === 'affirmative' ? (
             <>
               <Player
                 avi={game.judgeAvi}
@@ -503,7 +511,7 @@ const App = () => {
               />
             </>
           ) : null}
-          {role == 'negative' ? (
+          {role === 'negative' ? (
             <>
               <Player
                 avi={game.judgeAvi}
@@ -517,7 +525,7 @@ const App = () => {
               />
             </>
           ) : null}
-          {role == 'judge' ? (
+          {role === 'judge' ? (
             <>
               <Player
                 avi={game.affirmativeAvi}
@@ -531,7 +539,7 @@ const App = () => {
               />
             </>
           ) : null}
-          {role == 'spectator' ? (
+          {role === 'spectator' ? (
             <>
               <Player
                 avi={game.judgeAvi}
@@ -560,21 +568,21 @@ const App = () => {
           <RiSwordFill />
         </div>
         <div className='player1'>
-          {role == 'affirmative' ? (
+          {role === 'affirmative' ? (
             <Player
               avi={game.affirmativeAvi}
               name={game.affirmativeName}
               role='dafür'
             />
           ) : null}
-          {role == 'negative' ? (
+          {role === 'negative' ? (
             <Player
               avi={game.negativeAvi}
               name={game.negativeName}
               role='dagegen'
             />
           ) : null}
-          {role == 'judge' ? (
+          {role === 'judge' ? (
             <Player avi={game.judgeAvi} name={game.judgeName} role='richter' />
           ) : null}
         </div>
@@ -589,7 +597,7 @@ const App = () => {
             {showCommentary ? (
               <h5>
                 Runde {game.round} von 4 - <br />
-                {game.round % 2 == 1
+                {game.round % 2 === 1
                   ? `${game.affirmativeName} spielt das erste PRO Argument`
                   : `${game.negativeName} spielt das erste CONTRA Argument`}
               </h5>
@@ -613,15 +621,16 @@ const App = () => {
             </button>
           )}
         </div>
-        <div className='navbar'>Info</div>
+        <div className='navbar'>
+          <button onClick={handleShowInfo}>Info</button>
+        </div>
         <div className='toolbox'>
-          {role == 'spectator' ? (
+          {role === 'spectator' ? (
             <>
               <div onKeyPress={handleSoundKeys}>
                 <button onClick={playWoo}>woo</button>
                 <button onClick={playSlap}>slap</button>
                 <button onClick={playAirhorn}>airhorn</button>
-                <button>throw tomato?</button>
               </div>
             </>
           ) : (

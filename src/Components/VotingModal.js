@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import Card from './Card.js';
 import './Modal.css';
-import { FaBlackTie } from 'react-icons/fa';
 
 import Player from './Player.js';
 
 const VotingModal = (props) => {
-  const [canVote, setCanVote] = useState(true);
   const [yourWinner, setYourWinner] = useState('unset');
   const [ruling, setRuling] = useState('');
-
-  function handleSubmitBtn(event) {
-    event.preventDefault();
-    props.handleSetUser(event.target.value);
-  }
 
   const handleRuling = (e) => {
     setRuling(e.target.value);
@@ -24,12 +17,11 @@ const VotingModal = (props) => {
   };
 
   function selectVote(e) {
-    setCanVote(false);
     setYourWinner(e);
   }
 
   const sendVote = () => {
-    if (props.role == 'judge') {
+    if (props.role === 'judge') {
       sendRuling();
     }
     props.voteFor(yourWinner);
@@ -124,7 +116,7 @@ const VotingModal = (props) => {
               <div className='flex-row'>
                 <button
                   className={
-                    yourWinner == 'aff' ? 'select-highlight' : 'select-buttons'
+                    yourWinner === 'aff' ? 'select-highlight' : 'select-buttons'
                   }
                   onClick={() => {
                     selectVote('aff');
@@ -138,7 +130,7 @@ const VotingModal = (props) => {
                 </button>
                 <button
                   className={
-                    yourWinner == 'tie' ? 'select-highlight' : 'select-buttons'
+                    yourWinner === 'tie' ? 'select-highlight' : 'select-buttons'
                   }
                   onClick={() => {
                     selectVote('tie');
@@ -148,7 +140,7 @@ const VotingModal = (props) => {
                 </button>
                 <button
                   className={
-                    yourWinner == 'neg' ? 'select-highlight' : 'select-buttons'
+                    yourWinner === 'neg' ? 'select-highlight' : 'select-buttons'
                   }
                   onClick={() => {
                     selectVote('neg');
@@ -162,7 +154,7 @@ const VotingModal = (props) => {
                 </button>
               </div>
               <div className='neo-box-outward flex-row'>
-                {props.role == 'judge' ? (
+                {props.role === 'judge' ? (
                   <>
                     <h4>dein Urteil:</h4>
                     <textarea
@@ -171,7 +163,7 @@ const VotingModal = (props) => {
                     />
                   </>
                 ) : null}
-                {yourWinner != 'unset' ? (
+                {yourWinner !== 'unset' ? (
                   <button onClick={sendVote}>abstimmen</button>
                 ) : null}
               </div>

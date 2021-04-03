@@ -2,9 +2,7 @@ import React from 'react';
 import './Modal.css';
 
 import { RiSwordFill } from 'react-icons/ri';
-import { GiBangingGavel, GiConfirmed } from 'react-icons/gi';
-import { GrOverview } from 'react-icons/gr';
-import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
+import { GiBangingGavel } from 'react-icons/gi';
 
 import AvatarGen from './AvatarGen.js';
 

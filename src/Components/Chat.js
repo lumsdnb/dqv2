@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css';
-import { RiCodeSFill } from 'react-icons/ri';
 const Chat = (props) => {
   const [currentMessage, setCurrentMessage] = useState('');
 

@@ -65,9 +65,11 @@ const FinalModal = (props) => {
               </h5>
             </div>
 
-            <div className='neo-box-inward'>
-              <h2>{`${props.game.judgeName}'s Urteil: ${props.finalRuling}`}</h2>
-            </div>
+            {props.finalRuling ? (
+              <div className='neo-box-inward'>
+                <h2>{`${props.game.judgeName}'s Urteil: ${props.finalRuling}`}</h2>
+              </div>
+            ) : null}
 
             {doneVoting ? null : (
               <div className='neo-box-outward'>

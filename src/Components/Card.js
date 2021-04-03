@@ -25,12 +25,12 @@ const Card = (props) => {
     <>
       <div className='card card-hover'>
         <h4 className='card-top'>
-          {props.role == 'Main' ? 'Rundenargument' : null}
-          {props.role == 'affirmative' ? 'Pro' : null}
-          {props.role == 'negative' ? 'Contra' : null}{' '}
-          {props.type == 'argument' ? 'Argument' : null}
-          {props.type == 'fact' ? 'Fakt' : null}
-          {props.type == 'question' ? 'Frage' : null}
+          {props.role === 'Main' ? 'Rundenargument' : null}
+          {props.role === 'affirmative' ? 'Pro' : null}
+          {props.role === 'negative' ? 'Contra' : null}{' '}
+          {props.type === 'argument' ? 'Argument' : null}
+          {props.type === 'fact' ? 'Fakt' : null}
+          {props.type === 'question' ? 'Frage' : null}
         </h4>
         <p className='card-body'>{props.claim}</p>
         {props.source ? (
@@ -38,7 +38,7 @@ const Card = (props) => {
             source
           </a>
         ) : null}
-        {props.size == 'smol' ? null : (
+        {props.size === 'smol' ? null : (
           <div className='card-bottom'>
             {props.save ? (
               <div className='fb100'>
@@ -55,18 +55,18 @@ const Card = (props) => {
             <h5>JR: {props.judgeRating}</h5>
             <h5>SR: {props.spectatorRating}</h5>
             {/*<progress value={'50'} max='100'></progress>*/}
-            {props.userRole == 'judge' || props.userRole == 'spectator' ? (
+            {props.userRole === 'judge' || props.userRole === 'spectator' ? (
               <div className='rate-card'>
                 {wasRated ? null : (
                   <>
                     <button
-                      className={wasRated == 1 ? 'select-highlight' : null}
+                      className={wasRated === 1 ? 'select-highlight' : null}
                       onClick={() => voteOnCard(1)}
                     >
                       <TiThumbsUp />
                     </button>
                     <button
-                      className={wasRated == -1 ? 'select-highlight' : null}
+                      className={wasRated === -1 ? 'select-highlight' : null}
                       onClick={() => voteOnCard(-1)}
                     >
                       <TiThumbsDown />

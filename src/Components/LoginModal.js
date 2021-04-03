@@ -9,9 +9,7 @@ import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 import AvatarGen from './AvatarGen.js';
 
 const LoginModal = (props) => {
-  const [showBtn, setShowBtn] = useState(false);
   const [userHasJoined, setUserHasJoined] = useState(false);
-  const [debateTitle, setDebateTitle] = useState('null');
   const [debateID, setDebateID] = useState(0);
   const [textAreaCustom, setTextAreaCustom] = useState('');
 
@@ -23,7 +21,6 @@ const LoginModal = (props) => {
 
   function handleName(e) {
     e.preventDefault();
-    setShowBtn(true);
     props.handleNameChange(e);
   }
 
@@ -73,7 +70,7 @@ const LoginModal = (props) => {
             </button>
             <div className='card'>
               <h2>
-                {props.topicID == -1
+                {props.topicID === -1
                   ? props.topic
                   : props.debateTopics[props.topicID]}
               </h2>
@@ -139,12 +136,12 @@ const LoginModal = (props) => {
 
                       <div className='form-group'>
                         <div className='select-buttons'>
-                          {props.game.debater1Name == '' ? (
+                          {props.game.debater1Name === '' ? (
                             <button
                               type='button'
                               onClick={(e) => props.setRole('player1')}
                               className={
-                                props.role == 'player1'
+                                props.role === 'player1'
                                   ? 'select-highlight'
                                   : null
                               }
@@ -153,12 +150,12 @@ const LoginModal = (props) => {
                               <RiSwordFill />
                             </button>
                           ) : null}
-                          {props.game.debater2Name == '' ? (
+                          {props.game.debater2Name === '' ? (
                             <button
                               type='button'
                               onClick={(e) => props.setRole('player2')}
                               className={
-                                props.role == 'player2'
+                                props.role === 'player2'
                                   ? 'select-highlight'
                                   : null
                               }
@@ -168,12 +165,12 @@ const LoginModal = (props) => {
                             </button>
                           ) : null}
 
-                          {props.game.judgeName == '' ? (
+                          {props.game.judgeName === '' ? (
                             <button
                               type='button'
                               onClick={(e) => props.setRole('judge')}
                               className={
-                                props.role == 'judge'
+                                props.role === 'judge'
                                   ? 'select-highlight'
                                   : null
                               }
@@ -187,7 +184,7 @@ const LoginModal = (props) => {
                             type='button'
                             onClick={(e) => props.setRole('spectator')}
                             className={
-                              props.role == 'spectator'
+                              props.role === 'spectator'
                                 ? 'select-highlight'
                                 : null
                             }

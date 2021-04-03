@@ -159,7 +159,7 @@ const PreparedDeck = (props) => {
     props.hideDeck();
   };
 
-  const listOfCards = demoDeck[props.topicID == 0 ? 0 : props.topicID + 1].map(
+  const listOfCards = demoDeck[props.topicID === 0 ? 0 : props.topicID + 1].map(
     (c, index) => {
       return (
         <div classname='d'>
