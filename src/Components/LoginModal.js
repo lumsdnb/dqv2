@@ -35,8 +35,10 @@ const LoginModal = (props) => {
   };
 
   const setCustomTopic = () => {
-    props.setTopic(textAreaCustom);
-    props.handleTopicID(-1);
+    if (textAreaCustom !== '') {
+      props.setTopic(textAreaCustom);
+      props.handleTopicID(-1);
+    }
   };
 
   const changeDebateTopic = (e) => {
@@ -72,7 +74,15 @@ const LoginModal = (props) => {
             </button>
           </div>
           <div className='login-title neo-box-inward'>
-            <h2 style={{ textAlign: 'center' }}>DEBATE.QUEST</h2>
+            <h2
+              style={{
+                fontSize: '120%',
+                textAlign: 'center',
+                fontFamily: 'Vollkorn',
+              }}
+            >
+              DEBATE.QUEST
+            </h2>
           </div>
           <div className='extra-panel'>
             <button onClick={props.resetGame}>Spiel zurücksetzen</button>
@@ -80,6 +90,7 @@ const LoginModal = (props) => {
           <div className='extra-panel2'>
             <div classname='flex-split'>
               <input
+                className='form-name'
                 type='textarea'
                 onChange={handleCustomTopic}
                 maxLength='100'
@@ -109,11 +120,21 @@ const LoginModal = (props) => {
                       <div className='select-buttons'>
                         <button
                           type='button'
-                          onClick={(e) => props.setRole('debater')}
+                          onClick={(e) => props.setRole('player1')}
                           className={
-                            props.role == 'debater' ? 'select-highlight' : null
+                            props.role == 'player1' ? 'select-highlight' : null
                           }
-                          title='debattierer'
+                          title='Spieler 1'
+                        >
+                          <RiSwordFill />
+                        </button>
+                        <button
+                          type='button'
+                          onClick={(e) => props.setRole('player2')}
+                          className={
+                            props.role == 'player2' ? 'select-highlight' : null
+                          }
+                          title='Spieler 2'
                         >
                           <RiSwordFill />
                         </button>
@@ -124,7 +145,7 @@ const LoginModal = (props) => {
                           className={
                             props.role == 'judge' ? 'select-highlight' : null
                           }
-                          title='richter'
+                          title='Richter'
                         >
                           <GiBangingGavel />
                         </button>
@@ -137,7 +158,7 @@ const LoginModal = (props) => {
                               ? 'select-highlight'
                               : null
                           }
-                          title='zuschauer'
+                          title='Zuschauer'
                         >
                           <GrOverview />
                         </button>
@@ -171,13 +192,44 @@ const LoginModal = (props) => {
                   </div>
                 </div>
               )}
-              <div className='neo-box-inward login-players-triangular'>
-                <div>
-                  <RiSwordFill /> 1: {props.game.debater1Name}
-                  <RiSwordFill /> 2: {props.game.debater2Name}
-                  <GiBangingGavel /> {props.game.judgeName}
-                </div>
-                <div>
+              <div className='neo-box-inward'>
+                <div className='triangular-flex-container'>
+                  <div className='login-flex-player'>
+                    <div className='center-flex'>
+                      <GiBangingGavel className='big-icon' />
+                      <AvatarGen
+                        className='fb100'
+                        i={props.game.judgeAvi}
+                        style={{ width: '3.8rem', height: '3.8rem' }}
+                      />
+                      <div>{props.game.judgeName}</div>
+                    </div>
+                  </div>
+
+                  <div className='login-player fb50'>
+                    <div className='login-flex-player'>
+                      ?
+                      <AvatarGen
+                        className='fb100'
+                        i={props.game.debater1Avi}
+                        style={{ width: '3.8rem', height: '3.8rem' }}
+                      />
+                      <RiSwordFill className='big-icon' />{' '}
+                      <div>{props.game.debater1Name}</div>
+                    </div>
+                  </div>
+                  <div className='login-player fb50'>
+                    <div className='login-flex-player'>
+                      ?
+                      <AvatarGen
+                        className='fb100'
+                        i={props.game.debater2Avi}
+                        style={{ width: '3.8rem', height: '3.8rem' }}
+                      />
+                      <RiSwordFill className='big-icon' />{' '}
+                      <div>{props.game.debater2Name}</div>
+                    </div>
+                  </div>
                   {props.gameReady ? (
                     <button
                       className='BUTTON_START'
@@ -186,7 +238,7 @@ const LoginModal = (props) => {
                       Spiel starten!
                     </button>
                   ) : (
-                    <div className='flex-item-center'>
+                    <div className='flex-item-center fb100'>
                       <div className='spinner-ellipsis'>
                         <div></div>
                         <div></div>

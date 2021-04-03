@@ -3,7 +3,7 @@ import Avatar from 'avataaars';
 import { MdLoop } from 'react-icons/md';
 
 const AvatarGen = (props) => {
-  const [aviNum, setAviNum] = useState(0);
+  const [aviNum, setAviNum] = useState(-1);
 
   const randomAvi = () => {
     setAviNum(aviNum + 1);
@@ -182,17 +182,19 @@ const AvatarGen = (props) => {
         return (
           <Avatar
             style={props.style}
+            accessoriesType='Blank'
             avatarStyle='Circle'
-            topType='LongHairFrida'
-            accessoriesType='Sunglasses'
-            hairColor='BrownDark'
-            facialHairType='Blank'
-            clotheType='Overall'
-            clotheColor='PastelBlue'
-            eyeType='Dizzy'
-            eyebrowType='RaisedExcitedNatural'
-            mouthType='ScreamOpen'
-            skinColor='Light'
+            clotheColor='Blank'
+            clotheType=' '
+            eyeType=' '
+            eyebrowType=' '
+            facialHairColor=' '
+            facialHairType=' '
+            hairColor=' '
+            hatColor=' '
+            mouthType=' '
+            skinColor='Brown'
+            topType=' '
           />
         );
         break;

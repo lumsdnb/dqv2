@@ -41,7 +41,7 @@ const piENDPOINT = 'http://192.168.178.44:4000';
 const App = () => {
   const [yourID, setYourID] = useState();
   const [userName, setUserName] = useState('');
-  const [role, setRole] = useState('debater');
+  const [role, setRole] = useState('player1');
   const [yourUnsentArgument, setYourUnsentArgument] = useState('');
   const [judgeMessage, setJudgeMessage] = useState('guilty');
   const [finalRuling, setFinalRuling] = useState('');
@@ -92,7 +92,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -401,7 +401,7 @@ const App = () => {
     <>
       <Helmet>
         <meta charSet='utf-8' />
-        <title>{userName ? `role: ${role}` : 'welcome'}</title>
+        <title>{userName ? `role: ${role}` : 'Debate Quest'}</title>
       </Helmet>
       <Timer startTimer={showTimer} playTick={playTick} />
       <Modal
