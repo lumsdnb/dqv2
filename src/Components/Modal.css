@@ -216,11 +216,8 @@ sup {
 }
 
 .judge-ruling {
-  display: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-
+  display: grid;
+  place-items: center;
   background-color: rgba(167, 166, 160, 0.8);
   border-radius: 0.6rem;
   box-shadow: 10px 10px 5px -6px rgba(0, 0, 0, 0.41);
@@ -232,6 +229,14 @@ sup {
   border-radius: 8px;
   box-shadow: 7px 7px 14px #dbdbdb, -7px -7px 14px #b4b4b4;
   z-index: 55;
+}
+
+.login-players-triangular {
+  display: flex;
+  flex-direction: row;
+}
+.login-player-judge {
+  flex-basis: 100%;
 }
 
 .center-flex {

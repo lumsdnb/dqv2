@@ -171,17 +171,11 @@ const LoginModal = (props) => {
                   </div>
                 </div>
               )}
-              <div className='neo-box-split'>
+              <div className='neo-box-inward login-players-triangular'>
                 <div>
-                  <p>
-                    <RiSwordFill /> 1: {props.game.debater1Name}
-                  </p>
-                  <p>
-                    <RiSwordFill /> 2: {props.game.debater2Name}
-                  </p>
-                  <p>
-                    <GiBangingGavel /> {props.game.judgeName}
-                  </p>
+                  <RiSwordFill /> 1: {props.game.debater1Name}
+                  <RiSwordFill /> 2: {props.game.debater2Name}
+                  <GiBangingGavel /> {props.game.judgeName}
                 </div>
                 <div>
                   {props.gameReady ? (
@@ -193,7 +187,6 @@ const LoginModal = (props) => {
                     </button>
                   ) : (
                     <div className='flex-item-center'>
-                      <p>Warte auf weitere Spieler...</p>
                       <div className='spinner-ellipsis'>
                         <div></div>
                         <div></div>

@@ -34,7 +34,6 @@
 - timer in runde implementieren 50% DONE
 - alle karten auf finalem screen anzeigen
 - bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen
-- mehr fakten zu themen sammeln
 - spectator voting DONE
 
 ## tag 4 - 2.4.
@@ -44,24 +43,29 @@
 - disconnect handling (muss net jetzt wo reset geht)
 - judge urteil geht iwie net mehr DONE
 - BUG: sounds triggern nicht beim spieler DONE
-- smash doubt
-- kartendesign
-- vorbereitungsrunde (nice to have)
-- BUG: karte mit enter drin sendet nachricht
+- FIX unterer rand DONE
+- spectator vote on card DONE
+- chat autoscroll DONE
+- mehr fakten zu themen sammeln
+- spectator smash doubt (nice to have)
 
 ## tag 5 - 3.4.
 
-- FIX unterer rand
-- spectator vote on card DONE
+- show connected spectators
+- kartendesign
+- tomato throw raus
+- timer fix&playback
 - thema selber setzen
-- chat autoscroll
+- vorbereitungsrunde (nice to have)
 
 ## tag 6 - 4.4.
 
-- finales urteil
-- zeigen, wo die guten karten landen
-- auf karten kommentieren?
-- karten nummerieren?
+- BUG: karte mit enter drin sendet nachricht
+- finales urteil DONE
+- chat show role or player icon (nice to have)
+- zeigen, wo die guten karten landen/gute karten speichern
+- auf karten kommentieren? (nice to have)
+- karten nummerieren? DONE
 
 ## tag 7 - 5.4.
 
