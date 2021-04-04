@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Avatar from 'avataaars';
-import { MdLoop } from 'react-icons/md';
+import React, { useState } from "react";
+import Avatar from "avataaars";
+import { MdLoop } from "react-icons/md";
 
 const AvatarGen = (props) => {
   const [aviNum, setAviNum] = useState(-1);
@@ -203,7 +203,7 @@ const AvatarGen = (props) => {
 
   return (
     <div className='avi-gen-container'>
-      {props.i ? returnAvi(props.i) : returnAvi(aviNum)}
+      {props.i > -1 ? returnAvi(props.i) : returnAvi(aviNum)}
       {props.canEdit ? (
         <button type='button' onClick={randomAvi} className='generate-button'>
           <MdLoop />
