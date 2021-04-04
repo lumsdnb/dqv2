@@ -18,12 +18,12 @@
 - sound emitting on all devices DONE
 - spectator voting?
 - commentary text wegmachen DONE
-- spectator alle avis gleich
-- urteil fällen BUG
+- spectator alle avis gleich DONE ish
+- urteil fällen BUG DONE
 - chat user rollen (titel oder icon)
-- selbst geschrieben karten können nciht gevotet werden
-- karten aus deck können nicht gevotet werden
-- voting screen! 4 rows/columns - show votes
+- selbst geschrieben karten können nciht gevotet werden DONE
+- karten aus deck können nicht gevotet werden DONE
+- voting screen! 4 rows/columns - show votes DONE
 - timer DONE
 - hammer um nächste runde zu starten DONE
 - ruhe! in chat wenn hammer gedrückt DONE
@@ -31,7 +31,6 @@
 - FIX: zeichenlimit karten DONE
 - timer sounds DONE
   karten aus prep deck legen DONE
-- timer in runde implementieren 50% DONE
 - alle karten auf finalem screen anzeigen DONE (quasi)
 - bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen DONE
 - spectator voting DONE
@@ -51,36 +50,36 @@
 
 ## tag 5 - 3.4.
 
-- kartendesign
-  -judge ruling nicht beim richter zeigen
-- BUG: ratings gehen net
-- show connected spectators
-- tomato throw raus
-- timer fix&playback
-- thema selber setzen
+- kartendesign DONE ish
+  -judge ruling nicht beim richter zeigen DONE
+- BUG: ratings gehen net DONE
+- show connected spectators (nice to have)
+- tomato throw raus DONE
+- timer fix&playback DONE
+- thema selber setzen DONE
 - vorbereitungsrunde (nice to have)
 
 ## tag 6 - 4.4.
 
+- timer in runde implementieren DONE
 - BUG: karte mit enter drin sendet nachricht
 - finales urteil DONE
 - chat show role or player icon (nice to have)
-- zeigen, wo die guten karten landen/gute karten speichern
+- zeigen, wo die guten karten landen/gute karten speichern (nice to have)
 - auf karten kommentieren? (nice to have)
 - karten nummerieren? DONE
+- domain einrichten DONE
+- deploy DONE
+- final design DONE
+- chat char limit DONE
 
 ## tag 7 - 5.4.
 
-- final design
-- chat char limit
+- BUG nach rundenablauf können karten gespielt werden DONE
 
 ## tag 8 - 6.4.
 
-## tag 9 - 7.4.
-
-- domain einrichten
 - abgeben
-- deploy
 
 ## fertig sein - danach:
 
