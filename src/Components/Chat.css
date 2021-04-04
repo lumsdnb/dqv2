@@ -9,6 +9,7 @@
 .chatmessages {
   overflow-y: scroll;
   scrollbar-width: thin;
+  scrollbar-color: #d5d5d5 #e3e3e3;
   text-align: left;
   padding: 1rem 2rem;
   height: 70%;

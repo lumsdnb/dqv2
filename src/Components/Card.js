@@ -43,23 +43,12 @@ const Card = (props) => {
         ) : null}
         {props.size === "smol" ? null : (
           <div className='card-bottom'>
-            {props.save ? (
-              <div className='fb100'>
-                {cardSaved ? (
-                  <p>in Deck gespeichert</p>
-                ) : (
-                  <button onClick={handleCardSave}>
-                    <HiOutlineSaveAs />
-                  </button>
-                )}
-              </div>
-            ) : null}
-
             {/*<h5 classname='card-id'>ID: {props.index}</h5>*/}
             <div className='card-ratings'>
               <h5 className='left-corner'>
                 <GiBangingGavel /> {props.judgeRating}
               </h5>
+
               <h5 className='right-corner'>
                 <GrOverview /> {props.spectatorRating}
               </h5>
@@ -84,6 +73,17 @@ const Card = (props) => {
                   <TiThumbsDown />
                 </button>
               </>
+            )}
+          </div>
+        ) : null}
+        {props.save ? (
+          <div className='fb100'>
+            {cardSaved ? (
+              <p>in Deck gespeichert</p>
+            ) : (
+              <button onClick={handleCardSave}>
+                <HiOutlineSaveAs />
+              </button>
             )}
           </div>
         ) : null}

@@ -49,6 +49,7 @@ const Chat = (props) => {
         id='chat-form'
         className='chat-controls'
         onSubmit={handleChatSubmit}
+        maxLength='400'
       >
         <input className='chat-input' type='text' onChange={handleChatMsg} />
         <input type='submit' className='form-btn' value='senden' />

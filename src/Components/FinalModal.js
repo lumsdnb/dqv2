@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './Modal.css';
+import React, { useState } from "react";
+import "./Modal.css";
 
-import AvatarGen from './AvatarGen.js';
+import AvatarGen from "./AvatarGen.js";
 
 const FinalModal = (props) => {
   const [showBtn, setShowBtn] = useState(false);
@@ -26,6 +26,10 @@ const FinalModal = (props) => {
     props.handleNameChange(e);
   }
 
+  const spectators = props.game.spectators.map((s) => {
+    return <p>{s.name}</p>;
+  });
+
   return (
     <>
       <div className='login-modal'>
@@ -45,24 +49,25 @@ const FinalModal = (props) => {
               <h5>
                 <AvatarGen
                   i={props.game.affirmativeAvi}
-                  style={{ width: '3rem', height: '3rem' }}
-                />{' '}
+                  style={{ width: "3rem", height: "3rem" }}
+                />{" "}
                 {props.game.affirmativeName} : {props.finalVotes.aff}
               </h5>
               <h5>
                 <AvatarGen
                   i={props.game.negativeAvi}
-                  style={{ width: '3rem', height: '3rem' }}
-                />{' '}
+                  style={{ width: "3rem", height: "3rem" }}
+                />{" "}
                 {props.game.negativeName} : {props.finalVotes.neg}
               </h5>
               <h5>
                 <AvatarGen
                   i={props.game.judgeAvi}
-                  style={{ width: '3rem', height: '3rem' }}
-                />{' '}
+                  style={{ width: "3rem", height: "3rem" }}
+                />{" "}
                 {props.game.judgeName} : {props.finalVotes.judge}
               </h5>
+              {spectators}
             </div>
 
             {props.finalRuling ? (

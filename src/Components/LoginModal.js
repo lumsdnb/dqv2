@@ -99,7 +99,7 @@ const LoginModal = (props) => {
           </div>
           <div className='login-settings'>
             <div>
-              {props.gameReady ? (
+              {props.gameReady && userHasJoined ? (
                 <div className='neo-box-split'>
                   <button
                     className='BUTTON_START'
