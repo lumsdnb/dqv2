@@ -125,12 +125,19 @@ const App = () => {
   });
 
   useEffect(() => {
-    socketRef.current = io.connect(localENDPOINT);
+    socketRef.current = io.connect(productionENDPOINT);
     socketRef.current.on("your id", (id) => {
       setYourID(id);
     });
     socketRef.current.on("topic", (topic) => {
       setTopic(topic);
+    });
+    socketRef.current.on("game reset", () => {
+      setGameReady(false);
+      setUserName("");
+      setRole("");
+      closeModal();
+      setShowLogin(true);
     });
 
     socketRef.current.on("topic id", (id) => {
