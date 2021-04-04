@@ -1,11 +1,28 @@
-.timer-outer {
-  background-color: aquamarine;
+.timer {
+  background-color: rgb(243, 169, 169);
   position: absolute;
-  top: 30%;
-  right: 30%;
-  transform: translate(-10%, -30%);
+  top: 10%;
+  right: 20%;
+  transform: translate(-10%, -10%);
   z-index: 55;
+  font-size: 1rem;
+  padding: 2rem;
+  z-index: 20;
+  font-weight: 900;
+  border-radius: 1rem;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(20deg);
+}
+.time {
+  text-align: center;
 }
 
-.timer {
+.timer button {
+  font-size: 1rem;
+  transform: scale(0.5);
 }

@@ -79,7 +79,6 @@ const Toolbox = (props) => {
             <button className='gavel-btn' onClick={props.playGavel}>
               <GiBangingGavel />
             </button>
-            <button onClick={startTimer}>Runde starten</button>
 
             <button onClick={props.nextRound}>Runde beenden</button>
           </div>

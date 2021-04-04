@@ -72,6 +72,7 @@ const App = () => {
   const [gameReady, setGameReady] = useState("");
 
   const [showTimer, setShowTimer] = useState(false);
+  const [roundTimerWasUsed, setRoundTimerWasUsed] = useState(false);
 
   const [showInfo, setShowInfo] = useState(false);
 
@@ -138,6 +139,7 @@ const App = () => {
       setRole("");
       closeModal();
       setShowLogin(true);
+      setRoundTimerWasUsed(false);
     });
 
     socketRef.current.on("topic id", (id) => {
@@ -145,10 +147,6 @@ const App = () => {
       if (id != -1) {
         setTopic(debateTopics[id]);
       }
-    });
-
-    socketRef.current.on("start round timer", () => {
-      setShowTimer(true);
     });
 
     socketRef.current.on("final votes", (voot) => {
@@ -173,6 +171,8 @@ const App = () => {
     socketRef.current.on("next round", () => {
       console.log("nextround");
       setShowCommentary(true);
+      setRoundTimerWasUsed(false);
+      setShowTimer(false);
     });
 
     socketRef.current.on("get ready", () => {
@@ -219,12 +219,22 @@ const App = () => {
 
     socketRef.current.on("judge ruling", (ruling) => {
       setJudgeMessage(ruling);
-      setShowRuling(true);
+      if (role !== "judge") {
+        setShowRuling(true);
+      }
     });
     socketRef.current.on("please vote", () => {
       setShowVoting(true);
     });
   }, []);
+
+  const oneTimerPerRound = () => {
+    if (!roundTimerWasUsed) {
+      console.log("bang");
+      setShowTimer(true);
+      setRoundTimerWasUsed(true);
+    }
+  };
 
   useEffect(() => {
     if (cardList.length === 0) {
@@ -240,6 +250,7 @@ const App = () => {
         setCanSend(true);
       }
     } else if (cardList.length > 0) {
+      oneTimerPerRound();
       setCanSend(true);
       setShowCommentary(false);
     }
@@ -398,6 +409,8 @@ const App = () => {
     setRole("");
     closeModal();
     setShowLogin(true);
+    setChatList([]);
+    setShowTimer(false);
   };
 
   const sendChatMsg = (msg) => {
@@ -430,7 +443,7 @@ const App = () => {
   };
 
   const finishCounting = () => {
-    if (role != "judge") {
+    if (role !== "judge") {
       setCanSend(false);
     }
     setShowTimer(false);

@@ -26,11 +26,17 @@ const Card = (props) => {
 
   return (
     <>
-      <div className='card card-hover'>
+      <div className={props.save ? "card" : "card card-hover"}>
         <h4 className='card-top'>
-          {props.role === "Main" ? "Rundenargument" : null}
-          {props.role === "affirmative" ? "Pro" : null}
-          {props.role === "negative" ? "Contra" : null}{" "}
+          {props.role === "Main" && props.type !== "question"
+            ? "Rundenargument"
+            : null}
+          {props.role === "affirmative" && props.type !== "question"
+            ? "Pro"
+            : null}
+          {props.role === "negative" && props.type !== "question"
+            ? "Contra"
+            : null}{" "}
           {props.type === "argument" ? "Argument" : null}
           {props.type === "fact" ? "Fakt" : null}
           {props.type === "question" ? "Frage" : null}

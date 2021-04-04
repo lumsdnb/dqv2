@@ -4,7 +4,8 @@ import { propTypes } from "react-bootstrap/esm/Image";
 import "./Timer.css";
 
 const Timer = ({ playTick, startTimer, stopRound }) => {
-  const [seconds, setSeconds] = useState(10);
+  const DEFAULT_TIME = 30;
+  const [seconds, setSeconds] = useState(DEFAULT_TIME);
   const [isActive, setIsActive] = useState(false);
 
   function toggle() {
@@ -12,7 +13,7 @@ const Timer = ({ playTick, startTimer, stopRound }) => {
   }
 
   function reset() {
-    setSeconds(10);
+    setSeconds(DEFAULT_TIME);
     setIsActive(false);
   }
 
@@ -27,7 +28,7 @@ const Timer = ({ playTick, startTimer, stopRound }) => {
       interval = setInterval(() => {
         if (seconds <= 0) {
           toggle();
-          setSeconds(10);
+          setSeconds(DEFAULT_TIME);
           stopRound();
           console.log("time over");
         }
@@ -46,7 +47,11 @@ const Timer = ({ playTick, startTimer, stopRound }) => {
     <div className='timer-outer'>
       {startTimer ? (
         <div className='timer'>
-          <div className='time'>{seconds != -1 ? `${seconds} s` : "!!"}</div>
+          <div className='time'>
+            {seconds != -1
+              ? `Zeit, um Argument zu widerlegen: ${seconds} s`
+              : "!!"}
+          </div>
         </div>
       ) : null}
     </div>
