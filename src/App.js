@@ -57,6 +57,7 @@ const App = () => {
   const [showCommentary, setShowCommentary] = useState(false);
 
   const [userAvi, setUserAvi] = useState(0);
+  const [tempSpectatorAvi, setTempSpectatorAvi] = useState(0);
 
   const [preparedDeck, setpreparedDeck] = useState([]);
   const [showCardDeck, setShowCardDeck] = useState(false);
@@ -216,15 +217,7 @@ const App = () => {
     socketRef.current.on("please vote", () => {
       setShowVoting(true);
     });
-  }, [
-    playAirhorn,
-    playCard,
-    playGavel,
-    playMystery,
-    playSlap,
-    playTick,
-    playWoo,
-  ]);
+  }, []);
 
   useEffect(() => {
     if (cardList.length === 0) {
@@ -271,9 +264,14 @@ const App = () => {
     if (yourID === game.judgeID) {
       setRole("judge");
     }
+    if (game.spectators.find((s) => s.id === yourID)) {
+      setUserAvi(tempSpectatorAvi);
+    }
 
     setShowLogin(false);
-    setShowStartingModal(true);
+    if (role !== "spectator") {
+      setShowStartingModal(true);
+    }
   };
 
   const showDeck = () => {
@@ -370,6 +368,10 @@ const App = () => {
 
   const handleDebateField = (e) => {
     setTopic(e.target.value);
+  };
+
+  const handleTempAvi = (e) => {
+    setTempSpectatorAvi(e);
   };
 
   const nextRound = () => {
@@ -497,6 +499,7 @@ const App = () => {
           handleNameChange={handleNameChange}
           handleStartGame={handleStartGame}
           changeAvi={changeAvi}
+          changeTempAvi={handleTempAvi}
           gameReady={gameReady}
           topic={topic}
           setTopic={handleSetCustomTopic}
@@ -535,7 +538,7 @@ const App = () => {
               <Player
                 avi={game.negativeAvi}
                 name={game.negativeName}
-                role='dagegen'
+                role='Contra'
               />
             </>
           ) : null}
@@ -549,7 +552,7 @@ const App = () => {
               <Player
                 avi={game.affirmativeAvi}
                 name={game.affirmativeName}
-                role='dafür'
+                role='Pro'
               />
             </>
           ) : null}
@@ -600,18 +603,25 @@ const App = () => {
             <Player
               avi={game.affirmativeAvi}
               name={game.affirmativeName}
-              role='dafür'
+              role='Pro'
             />
           ) : null}
           {role === "negative" ? (
             <Player
               avi={game.negativeAvi}
               name={game.negativeName}
-              role='dagegen'
+              role='Contra'
             />
           ) : null}
           {role === "judge" ? (
-            <Player avi={game.judgeAvi} name={game.judgeName} role='richter' />
+            <Player avi={game.judgeAvi} name={game.judgeName} role='Richter' />
+          ) : null}
+          {role === "spectator" ? (
+            <Player
+              avi={tempSpectatorAvi}
+              name={game.judgeName}
+              role='Zuschauer'
+            />
           ) : null}
         </div>
         <div className='title'>
@@ -623,12 +633,12 @@ const App = () => {
           </h1>
           <div className='game-commentary'>
             {showCommentary ? (
-              <h5>
-                Runde {game.round} von 4 - <br />
+              <h3>
+                Runde {game.round} von 4 <br />
                 {game.round % 2 === 1
                   ? `${game.affirmativeName} spielt das erste PRO Argument`
                   : `${game.negativeName} spielt das erste CONTRA Argument`}
-              </h5>
+              </h3>
             ) : null}
           </div>
         </div>
@@ -656,9 +666,9 @@ const App = () => {
           {role === "spectator" ? (
             <>
               <div onKeyPress={handleSoundKeys}>
-                <button onClick={playWoo}>woo</button>
-                <button onClick={playSlap}>slap</button>
-                <button onClick={playAirhorn}>airhorn</button>
+                <button onClick={emitWoo}>woo</button>
+                <button onClick={emitSlap}>slap</button>
+                <button onClick={emitAirhorn}>airhorn</button>
               </div>
             </>
           ) : (

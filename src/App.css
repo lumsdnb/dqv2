@@ -16,10 +16,14 @@ h3 {
   font-size: 130%;
   font-family: Piazzolla;
 }
+h1 {
+  font-size: 170%;
+  user-select: none;
+}
 
 .login-title {
   text-align: center !important;
-  font-family: 'Piazzolla', serif !important;
+  font-family: "Piazzolla", serif !important;
   font-size: 150% !important;
 }
 button {
@@ -82,7 +86,7 @@ button:active {
   text-align: left;
   top: 30%;
   left: 30%;
-  font-size: 200%;
+  font-size: 150%;
   z-index: 1;
   user-select: none;
 }
@@ -95,17 +99,18 @@ button:active {
   grid-template-rows: 0.5fr 0.1fr 2fr 1fr;
   gap: 1rem 1rem;
   grid-template-areas:
-    'opponents title title navbar'
-    'opponents card-table card-table toolbox'
-    'chat card-table card-table toolbox'
-    'player1 crowd crowd card-deck';
+    "opponents title title navbar"
+    "opponents card-table card-table toolbox"
+    "chat card-table card-table toolbox"
+    "player1 crowd crowd card-deck";
 }
 .spectator-layout {
   grid-template-areas:
-    'opponents title title navbar'
-    'opponents card-table card-table toolbox'
-    'chat card-table card-table toolbox'
-    'chat player1 crowd card-deck';
+    "opponents title title navbar"
+    "opponents card-table card-table toolbox"
+    "chat card-table card-table toolbox"
+    "player1 crowd crowd card-deck";
+  grid-template-rows: 0.5fr 0.5fr 2fr 1fr;
 }
 
 .generate-button {

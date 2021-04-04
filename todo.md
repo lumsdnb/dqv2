@@ -15,25 +15,25 @@
 ## tag 3 - 1.4.
 
 - voting modal runde anzeigen DONE
-- sound emitting on all devices
+- sound emitting on all devices DONE
 - spectator voting?
-- commentary text wegmachen
+- commentary text wegmachen DONE
 - spectator alle avis gleich
 - urteil fällen BUG
 - chat user rollen (titel oder icon)
 - selbst geschrieben karten können nciht gevotet werden
 - karten aus deck können nicht gevotet werden
 - voting screen! 4 rows/columns - show votes
-- timer
-- hammer um nächste runde zu starten
-- ruhe! in chat wenn hammer gedrückt
-- sound geht immer noch net
+- timer DONE
+- hammer um nächste runde zu starten DONE
+- ruhe! in chat wenn hammer gedrückt DONE
+- sound geht immer noch net DONE
 - FIX: zeichenlimit karten DONE
 - timer sounds DONE
   karten aus prep deck legen DONE
 - timer in runde implementieren 50% DONE
-- alle karten auf finalem screen anzeigen
-- bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen
+- alle karten auf finalem screen anzeigen DONE (quasi)
+- bug: wenn judge noch kein urteil gefällt hat und man schon abgestimmt, warteanimation zeigen DONE
 - spectator voting DONE
 
 ## tag 4 - 2.4.
@@ -72,6 +72,7 @@
 ## tag 7 - 5.4.
 
 - final design
+- chat char limit
 
 ## tag 8 - 6.4.
 

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import './Modal.css';
+import React, { useState } from "react";
+import "./Modal.css";
 
-import { RiSwordFill } from 'react-icons/ri';
-import { GiBangingGavel, GiConfirmed } from 'react-icons/gi';
-import { GrOverview } from 'react-icons/gr';
-import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
+import { RiSwordFill } from "react-icons/ri";
+import { GiBangingGavel, GiConfirmed } from "react-icons/gi";
+import { GrOverview } from "react-icons/gr";
+import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 
-import AvatarGen from './AvatarGen.js';
+import AvatarGen from "./AvatarGen.js";
 
 const LoginModal = (props) => {
   const [userHasJoined, setUserHasJoined] = useState(false);
   const [debateID, setDebateID] = useState(0);
-  const [textAreaCustom, setTextAreaCustom] = useState('');
+  const [textAreaCustom, setTextAreaCustom] = useState("");
 
   function handleSubmitBtn(event) {
     event.preventDefault();
@@ -27,12 +27,13 @@ const LoginModal = (props) => {
   const handleResetGame = () => {
     props.resetGame();
     setUserHasJoined(false);
-    setTextAreaCustom('');
+    setTextAreaCustom("");
     setDebateID(-1);
   };
 
   function handleAviChange(e) {
     props.changeAvi(e);
+    props.changeTempAvi(e);
     setDebateID(e);
   }
 
@@ -41,7 +42,7 @@ const LoginModal = (props) => {
   };
 
   const setCustomTopic = () => {
-    if (textAreaCustom !== '') {
+    if (textAreaCustom !== "") {
       props.setTopic(textAreaCustom);
       props.handleTopicID(-1);
     }
@@ -104,8 +105,10 @@ const LoginModal = (props) => {
                     className='BUTTON_START'
                     onClick={props.handleStartGame}
                   >
-                    Spiel starten!
-                  </button>{' '}
+                    {props.role === "spectator"
+                      ? "Spiel beobachten"
+                      : "Spiel starten!"}
+                  </button>{" "}
                 </div>
               ) : (
                 <div className='neo-box-split'>
@@ -136,13 +139,13 @@ const LoginModal = (props) => {
 
                       <div className='form-group'>
                         <div className='select-buttons'>
-                          {props.game.debater1Name === '' ? (
+                          {props.game.debater1Name === "" ? (
                             <button
                               type='button'
-                              onClick={(e) => props.setRole('player1')}
+                              onClick={(e) => props.setRole("player1")}
                               className={
-                                props.role === 'player1'
-                                  ? 'select-highlight'
+                                props.role === "player1"
+                                  ? "select-highlight"
                                   : null
                               }
                               title='Spieler 1'
@@ -150,13 +153,13 @@ const LoginModal = (props) => {
                               <RiSwordFill />
                             </button>
                           ) : null}
-                          {props.game.debater2Name === '' ? (
+                          {props.game.debater2Name === "" ? (
                             <button
                               type='button'
-                              onClick={(e) => props.setRole('player2')}
+                              onClick={(e) => props.setRole("player2")}
                               className={
-                                props.role === 'player2'
-                                  ? 'select-highlight'
+                                props.role === "player2"
+                                  ? "select-highlight"
                                   : null
                               }
                               title='Spieler 2'
@@ -165,13 +168,13 @@ const LoginModal = (props) => {
                             </button>
                           ) : null}
 
-                          {props.game.judgeName === '' ? (
+                          {props.game.judgeName === "" ? (
                             <button
                               type='button'
-                              onClick={(e) => props.setRole('judge')}
+                              onClick={(e) => props.setRole("judge")}
                               className={
-                                props.role === 'judge'
-                                  ? 'select-highlight'
+                                props.role === "judge"
+                                  ? "select-highlight"
                                   : null
                               }
                               title='Richter'
@@ -182,10 +185,10 @@ const LoginModal = (props) => {
 
                           <button
                             type='button'
-                            onClick={(e) => props.setRole('spectator')}
+                            onClick={(e) => props.setRole("spectator")}
                             className={
-                              props.role === 'spectator'
-                                ? 'select-highlight'
+                              props.role === "spectator"
+                                ? "select-highlight"
                                 : null
                             }
                             title='Zuschauer'
@@ -199,7 +202,7 @@ const LoginModal = (props) => {
                               <AvatarGen
                                 canEdit='true'
                                 handleAviChange={handleAviChange}
-                                style={{ width: '5rem', height: '5rem' }}
+                                style={{ width: "5rem", height: "5rem" }}
                               />
                             </div>
                             {props.userName && props.role && debateID != -1 ? (
@@ -239,7 +242,7 @@ const LoginModal = (props) => {
                       <AvatarGen
                         className='fb100'
                         i={props.game.judgeAvi}
-                        style={{ width: '3.8rem', height: '3.8rem' }}
+                        style={{ width: "3.8rem", height: "3.8rem" }}
                       />
                       <div>{props.game.judgeName}</div>
                     </div>
@@ -251,9 +254,9 @@ const LoginModal = (props) => {
                       <AvatarGen
                         className='fb100'
                         i={props.game.debater1Avi}
-                        style={{ width: '3.8rem', height: '3.8rem' }}
+                        style={{ width: "3.8rem", height: "3.8rem" }}
                       />
-                      <RiSwordFill className='big-icon' />{' '}
+                      <RiSwordFill className='big-icon' />{" "}
                       <div>{props.game.debater1Name}</div>
                     </div>
                   </div>
@@ -263,9 +266,9 @@ const LoginModal = (props) => {
                       <AvatarGen
                         className='fb100'
                         i={props.game.debater2Avi}
-                        style={{ width: '3.8rem', height: '3.8rem' }}
+                        style={{ width: "3.8rem", height: "3.8rem" }}
                       />
-                      <RiSwordFill className='big-icon' />{' '}
+                      <RiSwordFill className='big-icon' />{" "}
                       <div>{props.game.debater2Name}</div>
                     </div>
                   </div>
