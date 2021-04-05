@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { AiOutlineStar } from "react-icons/ai";
 import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
 import { HiOutlineSaveAs } from "react-icons/hi";
 
@@ -10,7 +9,6 @@ import { GrOverview } from "react-icons/gr";
 import "./Card.css";
 
 const Card = (props) => {
-  const [hover, setHover] = useState(false);
   const [wasRated, setWasRated] = useState("");
   const [cardSaved, setCardSaved] = useState(false);
 
@@ -43,7 +41,7 @@ const Card = (props) => {
         </h4>
         <p className='card-body'>{props.claim}</p>
         {props.source ? (
-          <a href={props.source} target='_blank'>
+          <a href={props.source} target='_blank' rel='noreferrer'>
             source
           </a>
         ) : null}

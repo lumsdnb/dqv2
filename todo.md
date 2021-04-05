@@ -72,6 +72,7 @@
 - deploy DONE
 - final design DONE
 - chat char limit DONE
+- voting screen DONE
 
 ## tag 7 - 5.4.
 
@@ -92,15 +93,9 @@
 
 ### extra zeug unsortiert bis jetzt
 
-voting screen
-verdict, spectator voting, diskussion aufklappen
+- chat text rot highlight
+  verdict, spectator voting, diskussion aufklappen
 
-erste karte mit voting zeigen
+- spectator voting DONE
 
-spectator voting
-
-karten display(?)
-
-wahl o mat
-
-freie themenwahl
+- freie themenwahl DONE

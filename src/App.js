@@ -670,12 +670,12 @@ const App = () => {
           />
         </div>
         <div className='crowd'>
-          <img src={crowd} alt='crowd cheering'></img>
+          <img src={crowd} alt='crowd cheering' draggable='false'></img>
         </div>
         <div className='card-deck'>
           {role === "judge" ? null : (
             <button className='deck-button' onClick={showDeck}>
-              <img src={deckbtn} alt='deck öffnen'></img>
+              <img src={deckbtn} alt='deck öffnen' draggable='false'></img>
             </button>
           )}
         </div>

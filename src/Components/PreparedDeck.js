@@ -148,6 +148,20 @@ const PreparedDeck = (props) => {
         judgeRating: 0,
         spectatorRating: 0,
       },
+      {
+        body:
+          "Niemand MUSS in einer Großstadt leben. Wer sich Wohnungen in beliebten Gebieten mit Platzmangel nicht leisten kann, soll sich an weniger dicht besiedelten Orten Wohnraum suchen.",
+        type: "argument",
+        judgeRating: 0,
+        spectatorRating: 0,
+      },
+      {
+        body:
+          "Eine Mietpreisbremse alleine reicht nicht aus, um finanziell schwache Gruppen zu unterstützen.",
+        type: "argument",
+        judgeRating: 0,
+        spectatorRating: 0,
+      },
     ],
   ];
 

@@ -205,7 +205,7 @@ const LoginModal = (props) => {
                                 style={{ width: "5rem", height: "5rem" }}
                               />
                             </div>
-                            {props.userName && props.role && debateID != -1 ? (
+                            {props.userName && props.role && debateID !== -1 ? (
                               <>
                                 <button
                                   type='button'

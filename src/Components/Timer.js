@@ -4,7 +4,7 @@ import { propTypes } from "react-bootstrap/esm/Image";
 import "./Timer.css";
 
 const Timer = ({ playTick, startTimer, stopRound }) => {
-  const DEFAULT_TIME = 11;
+  const DEFAULT_TIME = 301;
   const [seconds, setSeconds] = useState(DEFAULT_TIME);
   const [isActive, setIsActive] = useState(false);
 

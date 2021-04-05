@@ -60,10 +60,6 @@ const Toolbox = (props) => {
     );
   };
 
-  const startTimer = () => {
-    props.startTimer();
-  };
-
   return (
     <BlockUi
       tag='div'
