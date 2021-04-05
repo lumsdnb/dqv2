@@ -250,7 +250,7 @@ const LoginModal = (props) => {
 
                   <div className='login-player fb50'>
                     <div className='login-flex-player'>
-                      ?
+                      <strong>?</strong>
                       <AvatarGen
                         className='fb100'
                         i={props.game.debater1Avi}
@@ -262,7 +262,7 @@ const LoginModal = (props) => {
                   </div>
                   <div className='login-player fb50'>
                     <div className='login-flex-player'>
-                      ?
+                      <strong>?</strong>
                       <AvatarGen
                         className='fb100'
                         i={props.game.debater2Avi}

@@ -68,6 +68,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: space-around;
+  font-size: 160%;
 }
 
 .rate-card {

@@ -21,8 +21,8 @@ sup {
   background: rgb(0, 0, 0);
   background: linear-gradient(
     332deg,
-    rgba(0, 0, 0, 0.5719421557685574) 0%,
-    rgba(0, 0, 0, 0.7960317916228992) 64%
+    rgba(0, 0, 0, 0.829) 0%,
+    rgba(0, 0, 0, 0.87) 64%
   );
   padding: 2rem;
   z-index: 999;
@@ -34,9 +34,9 @@ sup {
   grid-template-rows: 0.4fr 3.6fr 0.4fr;
   gap: 10px 10px;
   grid-template-areas:
-    'extra-panel login-title'
-    'login-card login-settings'
-    'extra-panel2 login-settings';
+    "extra-panel login-title"
+    "login-card login-settings"
+    "extra-panel2 login-settings";
 }
 .login-topic-carousel {
   grid-area: login-card;
@@ -109,9 +109,9 @@ sup {
   grid-template-rows: 0.2fr 1.8fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    'round1-title round2-title round3-title round4-title'
-    'round1 round2 round3 round4'
-    'title-topic title-topic voting voting';
+    "round1-title round2-title round3-title round4-title"
+    "round1 round2 round3 round4"
+    "title-topic title-topic voting voting";
 }
 .round1-title {
   grid-area: round1-title;
