@@ -203,9 +203,8 @@ button:active {
   color: black;
 }
 
-.--box-padding {
-  padding: 0.7rem;
-  margin: 0.6rem;
+.--box-top-margin {
+  margin-top: 0.6rem;
 }
 
 .neo-box-inward {

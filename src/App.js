@@ -32,6 +32,7 @@ import soundMystery from './sounds/mystery.wav';
 import soundCard from './sounds/card.mp3';
 import soundClick from './sounds/click.mp3';
 import soundTick from './sounds/tick.wav';
+import AvatarGen from './Components/AvatarGen.js';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
 const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
@@ -126,7 +127,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -235,6 +236,22 @@ const App = () => {
       setRoundTimerWasUsed(true);
     }
   };
+
+  const [spectators, setSpectators] = useState([]);
+
+  useEffect(() => {
+    if (game.spectators) setSpectators(game.spectators);
+  }, [game.spectators]);
+
+  const spectatorList = spectators.map((s, i) => {
+    if (s.id !== yourID)
+      return (
+        <div>
+          <h2>{s.name}</h2>
+          <AvatarGen i={s.avi} style={{ width: '3rem', height: '3rem' }} />
+        </div>
+      );
+  });
 
   useEffect(() => {
     if (cardList.length === 0) {
@@ -515,6 +532,7 @@ const App = () => {
           role={role}
           userName={userName}
           setRole={handleSetRole}
+          spectators={spectators}
           handleSetUser={handleSetUser}
           handleNameChange={handleNameChange}
           handleStartGame={handleStartGame}
@@ -670,6 +688,7 @@ const App = () => {
           />
         </div>
         <div className='crowd'>
+          {spectatorList}
           <img src={crowd} alt='crowd cheering' draggable='false'></img>
         </div>
         <div className='card-deck'>
