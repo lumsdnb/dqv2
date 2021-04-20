@@ -23,7 +23,7 @@ h1 {
 
 .login-title {
   text-align: center !important;
-  font-family: "Piazzolla", serif !important;
+  font-family: 'Piazzolla', serif !important;
   font-size: 150% !important;
 }
 button {
@@ -76,17 +76,17 @@ button:active {
   grid-template-rows: 0.5fr 0.1fr 2fr 1fr;
   gap: 1rem 1rem;
   grid-template-areas:
-    "opponents title title navbar"
-    "opponents card-table card-table toolbox"
-    "chat card-table card-table toolbox"
-    "player1 crowd crowd card-deck";
+    'opponents title title navbar'
+    'opponents card-table card-table toolbox'
+    'chat card-table card-table toolbox'
+    'player1 crowd crowd card-deck';
 }
 .spectator-layout {
   grid-template-areas:
-    "opponents title title navbar"
-    "opponents card-table card-table toolbox"
-    "chat card-table card-table toolbox"
-    "player1 crowd crowd card-deck";
+    'opponents title title navbar'
+    'opponents card-table card-table toolbox'
+    'chat card-table card-table toolbox'
+    'player1 crowd crowd card-deck';
   grid-template-rows: 0.5fr 0.5fr 2fr 1fr;
 }
 
@@ -197,25 +197,23 @@ button:active {
 }
 
 .neo-box-outward {
-  padding: 0.7rem;
-  margin: 0.6rem;
   border-radius: 0.5rem;
   background: linear-gradient(145deg, #e4e4e4f6, #b3b3b3);
   box-shadow: 3px 3px 4px #3d3d3d87, -3px -3px 4px #77777787;
   color: black;
 }
 
-.neo-box-inward {
-  padding: 2rem;
+.--box-padding {
+  padding: 0.7rem;
   margin: 0.6rem;
+}
+
+.neo-box-inward {
   border-radius: 0.5rem;
   background: #d1d1d1;
   box-shadow: inset 7px 7px 14px #bbbbbb, inset -7px -7px 14px #fbfbfb;
-  padding: 0.3rem;
 }
 .neo-box-split {
-  padding: 2rem;
-  margin: 0.6rem;
   border-radius: 12px;
   background: #d1d1d1;
   box-shadow: inset 7px 7px 14px #bbbbbb, inset -7px -7px 14px #fbfbfb;
