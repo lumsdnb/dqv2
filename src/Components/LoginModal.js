@@ -282,10 +282,12 @@ const LoginModal = (props) => {
                   </div>
                 </div>
               </div>
-              <div className='neo-box-inward --box-top-margin'>
-                Zuschauer:
-                <div className='login-spectators'>{spectatorList}</div>
-              </div>
+              {spectatorList ? (
+                <div className='neo-box-inward --box-top-margin'>
+                  Zuschauer:
+                  <div className='login-spectators'>{spectatorList}</div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

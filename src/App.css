@@ -164,6 +164,34 @@ button:active {
   align-items: flex-end;
   justify-content: center;
 }
+
+.crowd img {
+  position: absolute;
+}
+
+.spectator-small {
+  z-index: 4;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.spectator-small .avi-gen-container {
+  z-index: 4;
+}
+
+.spectator-small h2 {
+  background-color: rgba(212, 212, 212, 0.384);
+  padding: 0.3rem 2rem;
+  position: relative;
+  right: 2rem;
+  border-radius: 0.6rem;
+  box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
+  -webkit-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: 8px 10px 35px -12px rgba(0, 0, 0, 0.46);
+}
+
 .card-deck {
   grid-area: card-deck;
   position: absolute;
@@ -175,7 +203,7 @@ button:active {
   color: white;
   height: fit-content;
   background-color: rgb(61, 61, 61);
-  border-radius: 0 0 0 1rem;
+  border-radius: 0 0 0.6rem 0.6rem;
   grid-area: navbar;
   display: flex;
   justify-content: center;

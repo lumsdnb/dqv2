@@ -246,9 +246,9 @@ const App = () => {
   const spectatorList = spectators.map((s, i) => {
     if (s.id !== yourID)
       return (
-        <div>
-          <h2>{s.name}</h2>
+        <div className='spectator-small'>
           <AvatarGen i={s.avi} style={{ width: '3rem', height: '3rem' }} />
+          <h2>{s.name}</h2>
         </div>
       );
   });
@@ -300,6 +300,7 @@ const App = () => {
       setRole('judge');
     }
     if (game.spectators.find((s) => s.id === yourID)) {
+      console.log(`spectator found!`);
       setUserAvi(tempSpectatorAvi);
     }
 
@@ -452,9 +453,14 @@ const App = () => {
   const emitGavel = () => {
     socketRef.current.emit('emit sound', 'gavel');
   };
+  const silenceChat = () => {
+    emitGavel();
+    socketRef.current.emit('silence chat');
+  };
   const emitWoo = () => {
     socketRef.current.emit('emit sound', 'woo');
   };
+
   const emitTimer = () => {
     socketRef.current.emit('start timer');
   };
@@ -655,11 +661,7 @@ const App = () => {
             <Player avi={game.judgeAvi} name={game.judgeName} role='Richter' />
           ) : null}
           {role === 'spectator' ? (
-            <Player
-              avi={tempSpectatorAvi}
-              name={game.judgeName}
-              role='Zuschauer'
-            />
+            <Player avi={tempSpectatorAvi} name={userName} role='Zuschauer' />
           ) : null}
         </div>
         <div className='title'>
@@ -722,7 +724,7 @@ const App = () => {
               playWoo={emitWoo}
               playSlap={emitSlap}
               playAirhorn={emitAirhorn}
-              playGavel={emitGavel}
+              playGavel={silenceChat}
               startTimer={emitTimer}
             />
           )}
