@@ -58,7 +58,7 @@ const Card = (props) => {
                 <GrOverview /> {props.spectatorRating}
               </h5>
             </div>
-            <progress value={'50'} max='100'></progress>
+            {/*<progress value={'50'} max='100'></progress>*/}
           </div>
         )}
         {props.userRole === 'judge' || props.userRole === 'spectator' ? (
