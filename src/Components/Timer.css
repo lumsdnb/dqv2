@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: center;
   transform: rotate(20deg);
+  user-select: none;
 }
 .time {
   text-align: center;
