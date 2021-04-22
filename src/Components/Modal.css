@@ -132,6 +132,7 @@ sup {
 }
 .voting {
   grid-area: voting;
+  display: flex;
 }
 .round-1 {
   grid-area: round-1;
