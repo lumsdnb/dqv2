@@ -21,18 +21,20 @@ import './App.css';
 
 import crowd from './images/crowd.png';
 import deckbtn from './images/cardbtn.png';
+import AvatarGen from './Components/AvatarGen.js';
 
 import useSound from 'use-sound';
 import soundGavel from './sounds/gavel-2.mp3';
 import soundWoo from './sounds/woo.wav';
-import soundSlap from './sounds/smol.wav';
+import soundBoo from './sounds/boo.mp3';
 import soundAirhorn from './sounds/airhorn.wav';
 import soundBigHammer from './sounds/big-hammer.wav';
 import soundMystery from './sounds/mystery.wav';
 import soundCard from './sounds/card.mp3';
 import soundClick from './sounds/click.mp3';
 import soundTick from './sounds/tick.wav';
-import AvatarGen from './Components/AvatarGen.js';
+import soundUp from './sounds/upvote.mp3';
+import soundDown from './sounds/downvote.mp3';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
 const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
@@ -116,7 +118,7 @@ const App = () => {
     volume: 0.2,
   });
 
-  const [playSlap] = useSound(soundSlap, {
+  const [playBoo] = useSound(soundBoo, {
     volume: 0.2,
   });
   const [playAirhorn] = useSound(soundAirhorn, {
@@ -126,6 +128,12 @@ const App = () => {
     volume: 0.2,
   });
 
+  const [playUp] = useSound(soundUp, {
+    volume: 0.6,
+  });
+  const [playDown] = useSound(soundDown, {
+    volume: 0.6,
+  });
   useEffect(() => {
     socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
@@ -195,8 +203,8 @@ const App = () => {
           playAirhorn();
 
           break;
-        case 'slap':
-          playSlap();
+        case 'boo':
+          playBoo();
 
           break;
         case 'gavel':
@@ -209,6 +217,12 @@ const App = () => {
           break;
         case 'timer':
           playTick();
+          break;
+        case 'up':
+          playUp();
+          break;
+        case 'down':
+          playDown();
           break;
         default:
           break;
@@ -391,7 +405,7 @@ const App = () => {
 
   const handleClick = () => {
     setPlaybackRate(playbackRate + 0.1);
-    playSlap();
+    playBoo();
   };
 
   const handleSetCustomTopic = (t) => {
@@ -447,8 +461,8 @@ const App = () => {
     socketRef.current.emit('emit sound', 'airhorn');
   };
 
-  const emitSlap = () => {
-    socketRef.current.emit('emit sound', 'slap');
+  const emitBoo = () => {
+    socketRef.current.emit('emit sound', 'boo');
   };
   const emitGavel = () => {
     socketRef.current.emit('emit sound', 'gavel');
@@ -459,6 +473,14 @@ const App = () => {
   };
   const emitWoo = () => {
     socketRef.current.emit('emit sound', 'woo');
+  };
+
+  const emitUp = () => {
+    socketRef.current.emit('emit sound', 'up');
+  };
+
+  const emitDown = () => {
+    socketRef.current.emit('emit sound', 'down');
   };
 
   const emitTimer = () => {
@@ -708,7 +730,7 @@ const App = () => {
             <>
               <div onKeyPress={handleSoundKeys}>
                 <button onClick={emitWoo}>woo</button>
-                <button onClick={emitSlap}>slap</button>
+                <button onClick={emitBoo}>boo</button>
                 <button onClick={emitAirhorn}>airhorn</button>
               </div>
             </>
@@ -722,7 +744,7 @@ const App = () => {
               role={role}
               canSend={canSend}
               playWoo={emitWoo}
-              playSlap={emitSlap}
+              playBoo={emitBoo}
               playAirhorn={emitAirhorn}
               playGavel={silenceChat}
               startTimer={emitTimer}

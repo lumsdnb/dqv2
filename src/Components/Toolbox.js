@@ -54,7 +54,7 @@ const Toolbox = (props) => {
     return (
       <div className='spectator-board'>
         <button onClick={props.playWoo}>woo</button>
-        <button onClick={props.playSlap}>slap</button>
+        <button onClick={props.playBoo}>boo</button>
         <button onClick={props.playAirhorn}>airhorn</button>
       </div>
     );
