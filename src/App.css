@@ -163,6 +163,7 @@ button:active {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  user-select: none;
 }
 
 .crowd img {
