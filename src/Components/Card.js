@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { TiThumbsUp, TiThumbsDown } from 'react-icons/ti';
 import { HiOutlineSaveAs } from 'react-icons/hi';
+import { FaRegSave } from 'react-icons/fa';
+import { RiQuestionnaireLine } from 'react-icons/ri';
 
 import { GiBangingGavel } from 'react-icons/gi';
 import { GrOverview } from 'react-icons/gr';
@@ -17,6 +19,8 @@ const Card = (props) => {
     setWasRated(v);
     props.rateCard(props.index, v);
   };
+
+  const saveCard = (c) => {};
 
   const handleCardSave = () => {
     setCardSaved(true);
@@ -71,6 +75,19 @@ const Card = (props) => {
                 >
                   <TiThumbsUp />
                 </button>
+                <button
+                  className={wasRated === 1 ? 'select-highlight' : null}
+                  onClick={() => saveCard(1)}
+                >
+                  <FaRegSave />
+                </button>
+                <button
+                  className={wasRated === 1 ? 'select-highlight' : null}
+                  onClick={() => voteOnCard(1)}
+                >
+                  <RiQuestionnaireLine />
+                </button>
+
                 <button
                   className={wasRated === -1 ? 'select-highlight' : null}
                   onClick={() => voteOnCard(-1)}

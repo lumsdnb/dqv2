@@ -50,7 +50,6 @@ const LoginModal = (props) => {
 
   const changeDebateTopic = (e) => {
     let temp = props.topicID + e;
-    console.log(temp);
 
     if (temp >= props.debateTopics.length) {
       props.handleTopicID(0);
@@ -89,7 +88,7 @@ const LoginModal = (props) => {
             </button>
           </div>
           <div className='login-title neo-box-inward'>
-            <h2 classname='login-title'>Debate.Quest</h2>
+            <h2 classname='login-title'>Debate.Quest v2</h2>
           </div>
           <div className='extra-panel'>
             <button onClick={handleResetGame}>Spiel zurücksetzen</button>
@@ -107,7 +106,7 @@ const LoginModal = (props) => {
           </div>
           <div className='login-settings'>
             <div>
-              {props.gameReady && userHasJoined ? (
+              {userHasJoined ? (
                 <div className='neo-box-split'>
                   <button
                     className='BUTTON_START'
@@ -146,64 +145,6 @@ const LoginModal = (props) => {
                       </div>
 
                       <div className='form-group'>
-                        <div className='select-buttons'>
-                          {props.game.debater1Name === '' ? (
-                            <button
-                              type='button'
-                              onClick={(e) => props.setRole('player1')}
-                              className={
-                                props.role === 'player1'
-                                  ? 'select-highlight'
-                                  : null
-                              }
-                              title='Spieler 1'
-                            >
-                              <RiSwordFill />
-                            </button>
-                          ) : null}
-                          {props.game.debater2Name === '' ? (
-                            <button
-                              type='button'
-                              onClick={(e) => props.setRole('player2')}
-                              className={
-                                props.role === 'player2'
-                                  ? 'select-highlight'
-                                  : null
-                              }
-                              title='Spieler 2'
-                            >
-                              <RiSwordFill />
-                            </button>
-                          ) : null}
-
-                          {props.game.judgeName === '' ? (
-                            <button
-                              type='button'
-                              onClick={(e) => props.setRole('judge')}
-                              className={
-                                props.role === 'judge'
-                                  ? 'select-highlight'
-                                  : null
-                              }
-                              title='Richter'
-                            >
-                              <GiBangingGavel />
-                            </button>
-                          ) : null}
-
-                          <button
-                            type='button'
-                            onClick={(e) => props.setRole('spectator')}
-                            className={
-                              props.role === 'spectator'
-                                ? 'select-highlight'
-                                : null
-                            }
-                            title='Zuschauer'
-                          >
-                            <GrOverview />
-                          </button>
-                        </div>
                         {userHasJoined ? null : (
                           <div className='neo-box-split'>
                             <div>
@@ -213,7 +154,7 @@ const LoginModal = (props) => {
                                 style={{ width: '5rem', height: '5rem' }}
                               />
                             </div>
-                            {props.userName && props.role && debateID !== -1 ? (
+                            {props.userName && debateID !== -1 ? (
                               <>
                                 <button
                                   type='button'
@@ -242,49 +183,10 @@ const LoginModal = (props) => {
                   )}
                 </div>
               )}
-              <div className='neo-box-inward --box-top-margin'>
-                <div className='triangular-flex-container'>
-                  <div className='login-flex-player'>
-                    <div className='center-flex'>
-                      <GiBangingGavel className='big-icon' />
-                      <AvatarGen
-                        className='fb100'
-                        i={props.game.judgeAvi}
-                        style={{ width: '3.8rem', height: '3.8rem' }}
-                      />
-                      <div>{props.game.judgeName}</div>
-                    </div>
-                  </div>
-
-                  <div className='login-player fb50'>
-                    <div className='login-flex-player'>
-                      <strong>?</strong>
-                      <AvatarGen
-                        className='fb100'
-                        i={props.game.debater1Avi}
-                        style={{ width: '3.8rem', height: '3.8rem' }}
-                      />
-                      <RiSwordFill className='big-icon' />{' '}
-                      <div>{props.game.debater1Name}</div>
-                    </div>
-                  </div>
-                  <div className='login-player fb50'>
-                    <div className='login-flex-player'>
-                      <strong>?</strong>
-                      <AvatarGen
-                        className='fb100'
-                        i={props.game.debater2Avi}
-                        style={{ width: '3.8rem', height: '3.8rem' }}
-                      />
-                      <RiSwordFill className='big-icon' />{' '}
-                      <div>{props.game.debater2Name}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div className='neo-box-inward --box-top-margin'></div>
               {spectatorList ? (
                 <div className='neo-box-inward --box-top-margin'>
-                  Zuschauer:
+                  Spieler:
                   <div className='login-spectators'>{spectatorList}</div>
                 </div>
               ) : null}

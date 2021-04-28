@@ -11,7 +11,6 @@ import Modal from './Components/Modal.js';
 import LoginModal from './Components/LoginModal.js';
 import VotingModal from './Components/VotingModal.js';
 import FinalModal from './Components/FinalModal.js';
-import Timer from './Components/Timer.js';
 
 import { RiSwordFill } from 'react-icons/ri';
 
@@ -55,9 +54,8 @@ const App = () => {
 
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
-  const [showStartingModal, setShowStartingModal] = useState(false);
   const [showFinal, setShowFinal] = useState(false);
-  const [showCommentary, setShowCommentary] = useState(false);
+  const [showCommentary, setShowCommentary] = useState(true);
 
   const [userAvi, setUserAvi] = useState(0);
   const [tempSpectatorAvi, setTempSpectatorAvi] = useState(0);
@@ -304,24 +302,9 @@ const App = () => {
   }
 
   const handleStartGame = () => {
-    if (yourID === game.affirmativeID) {
-      setRole('affirmative');
-    }
-    if (yourID === game.negativeID) {
-      setRole('negative');
-    }
-    if (yourID === game.judgeID) {
-      setRole('judge');
-    }
-    if (game.spectators.find((s) => s.id === yourID)) {
-      console.log(`spectator found!`);
-      setUserAvi(tempSpectatorAvi);
-    }
+    setRole('spectator');
 
     setShowLogin(false);
-    if (role !== 'spectator') {
-      setShowStartingModal(true);
-    }
   };
 
   const showDeck = () => {
@@ -344,7 +327,7 @@ const App = () => {
   }
 
   function handleSetRole(e) {
-    setRole(e);
+    setRole('spectator');
   }
 
   function handleNameChange(e) {
@@ -368,7 +351,7 @@ const App = () => {
   function handleSetUser(e) {
     const messageObject = {
       name: userName,
-      role: role,
+      role: 'spectator',
       avi: userAvi,
     };
     socketRef.current.emit('set user', messageObject);
@@ -387,7 +370,6 @@ const App = () => {
     setShowRuling(false);
     setShowFinal(false);
     setShowVoting(false);
-    setShowStartingModal(false);
     setShowInfo(false);
   }
 
@@ -499,21 +481,8 @@ const App = () => {
     <>
       <Helmet>
         <meta charSet='utf-8' />
-        <title>
-          {userName
-            ? `Rolle: ${role === 'affirmative' ? 'Pro' : ''}${
-                role === 'negative' ? 'Contra' : ''
-              }${role === 'judge' ? 'Richter' : ''} ${
-                role === 'spectator' ? 'Zuschauer' : ''
-              } - Debate Quest`
-            : 'Debate Quest'}
-        </title>
+        <title>v2</title>
       </Helmet>
-      <Timer
-        startTimer={showTimer}
-        playTick={playTick}
-        stopRound={finishCounting}
-      />
 
       <Modal
         title='Debate Quest'
@@ -528,12 +497,7 @@ const App = () => {
         body={judgeMessage}
         closeModal={closeModal}
       />
-      <Modal
-        title='Die Debatte beginnt'
-        showModal={showStartingModal}
-        closeModal={closeModal}
-        game={game}
-      />
+
       {showVoting ? (
         <VotingModal
           game={game}
@@ -586,76 +550,7 @@ const App = () => {
           debateTopics={debateTopics}
         />
       ) : null}
-      <div
-        className={
-          role === 'spectator'
-            ? 'grid-container spectator-layout'
-            : 'grid-container'
-        }
-      >
-        <div className='opponents'>
-          {role === 'affirmative' ? (
-            <>
-              <Player
-                avi={game.judgeAvi}
-                name={game.judgeName}
-                role='Richter'
-              />
-              <Player
-                avi={game.negativeAvi}
-                name={game.negativeName}
-                role='Contra'
-              />
-            </>
-          ) : null}
-          {role === 'negative' ? (
-            <>
-              <Player
-                avi={game.judgeAvi}
-                name={game.judgeName}
-                role='Richter'
-              />
-              <Player
-                avi={game.affirmativeAvi}
-                name={game.affirmativeName}
-                role='Pro'
-              />
-            </>
-          ) : null}
-          {role === 'judge' ? (
-            <>
-              <Player
-                avi={game.affirmativeAvi}
-                name={game.affirmativeName}
-                role={'dafür'}
-              />
-              <Player
-                avi={game.negativeAvi}
-                name={game.negativeName}
-                role='dagegen'
-              />
-            </>
-          ) : null}
-          {role === 'spectator' ? (
-            <>
-              <Player
-                avi={game.judgeAvi}
-                name={game.judgeName}
-                role='Richter'
-              />
-              <Player
-                avi={game.affirmativeAvi}
-                name={game.affirmativeName}
-                role={'dafür'}
-              />
-              <Player
-                avi={game.negativeAvi}
-                name={game.negativeName}
-                role='dagegen'
-              />
-            </>
-          ) : null}
-        </div>
+      <div className='grid-container'>
         <div className='chat'>
           <Chat
             sendChatMsg={sendChatMsg}
@@ -683,7 +578,7 @@ const App = () => {
             <Player avi={game.judgeAvi} name={game.judgeName} role='Richter' />
           ) : null}
           {role === 'spectator' ? (
-            <Player avi={tempSpectatorAvi} name={userName} role='Zuschauer' />
+            <Player avi={tempSpectatorAvi} name={userName} role=' ' />
           ) : null}
         </div>
         <div className='title'>
@@ -694,14 +589,7 @@ const App = () => {
             {topic}
           </h1>
           <div className='game-commentary'>
-            {showCommentary ? (
-              <h3>
-                Runde {game.round} von 4 <br />
-                {game.round % 2 === 1
-                  ? `${game.affirmativeName} spielt das erste PRO Argument`
-                  : `${game.negativeName} spielt das erste CONTRA Argument`}
-              </h3>
-            ) : null}
+            {showCommentary ? <h3>Was fällt euch zu dem Thema ein?</h3> : null}
           </div>
         </div>
         <div className='card-table'>
@@ -726,30 +614,19 @@ const App = () => {
           <button onClick={handleShowInfo}>Info</button>
         </div>
         <div className='toolbox'>
-          {role === 'spectator' ? (
-            <>
-              <div onKeyPress={handleSoundKeys}>
-                <button onClick={emitWoo}>woo</button>
-                <button onClick={emitBoo}>boo</button>
-                <button onClick={emitAirhorn}>airhorn</button>
-              </div>
-            </>
-          ) : (
-            <Toolbox
-              game={game}
-              onChange={handleChange}
-              handleCardType={handleCardType}
-              sendMessage={sendMessage}
-              nextRound={nextRound}
-              role={role}
-              canSend={canSend}
-              playWoo={emitWoo}
-              playBoo={emitBoo}
-              playAirhorn={emitAirhorn}
-              playGavel={silenceChat}
-              startTimer={emitTimer}
-            />
-          )}
+          <Toolbox
+            game={game}
+            onChange={handleChange}
+            handleCardType={handleCardType}
+            sendMessage={sendMessage}
+            nextRound={nextRound}
+            role={role}
+            canSend={canSend}
+            playWoo={emitWoo}
+            playBoo={emitBoo}
+            playAirhorn={emitAirhorn}
+            playGavel={silenceChat}
+          />
         </div>
       </div>
     </>
