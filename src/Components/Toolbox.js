@@ -32,8 +32,8 @@ const Toolbox = (props) => {
         role: props.role,
         type: cardType,
         source: cardSource,
-        judgeRating: 0,
-        spectatorRating: 0,
+        upVotes: 0,
+        downVotes: 0,
       };
       props.sendMessage(messageObject);
     } else {
@@ -41,8 +41,8 @@ const Toolbox = (props) => {
         body: yourArgument,
         role: props.role,
         type: cardType,
-        judgeRating: 0,
-        spectatorRating: 0,
+        upVotes: 0,
+        downVotes: 0,
       };
       props.sendMessage(messageObject);
     }
