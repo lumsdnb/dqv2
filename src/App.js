@@ -36,7 +36,7 @@ import soundUp from './sounds/upvote.mp3';
 import soundDown from './sounds/downvote.mp3';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
-const productionENDPOINT = 'https://cardgame-server-master.herokuapp.com:443';
+const productionENDPOINT = 'https://dqv2-server.herokuapp.com/:443';
 const piENDPOINT = 'http://192.168.178.44:4000';
 
 const App = () => {
@@ -133,7 +133,7 @@ const App = () => {
     volume: 0.6,
   });
   useEffect(() => {
-    socketRef.current = io.connect(localENDPOINT);
+    socketRef.current = io.connect(productionENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
