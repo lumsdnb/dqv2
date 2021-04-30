@@ -29,7 +29,9 @@ const CardTable = (props) => {
         source={c.source}
         userRole={props.userRole}
         spectatorRating={c.spectatorRating}
-        judgeRating={c.judgeRating}
+        upVotes={c.upVotes}
+        downVotes={c.downVotes}
+        numberOfQuestions={c.numberOfQuestions}
         rateCard={(i, r) => handleRating(i, r)}
       />
     );

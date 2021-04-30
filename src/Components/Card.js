@@ -5,8 +5,7 @@ import { HiOutlineSaveAs } from 'react-icons/hi';
 import { FaRegSave } from 'react-icons/fa';
 import { RiQuestionnaireLine } from 'react-icons/ri';
 
-import { GiBangingGavel } from 'react-icons/gi';
-import { GrOverview } from 'react-icons/gr';
+import { BiUserCircle } from 'react-icons/bi';
 
 import './Card.css';
 
@@ -51,54 +50,56 @@ const Card = (props) => {
         ) : null}
 
         {props.size === 'smol' ? null : (
-          <div className='card-bottom'>
-            {/*<h5 classname='card-id'>ID: {props.index}</h5>*/}
-            <div className='card-ratings'>
-              <h5 className='card-bottom__left-corner'>
-                <GiBangingGavel /> {props.judgeRating}
-              </h5>
+          <>
+            <div className='card-bottom'>
+              {/*<h5 classname='card-id'>ID: {props.index}</h5>*/}
+              <div className='card-ratings'>
+                <h5 className='card-bottom__left-corner'>
+                  <RiQuestionnaireLine /> {props.questions}
+                </h5>
 
-              <h5 className='card-bottom__right-corner'>
-                <GrOverview /> {props.spectatorRating}
-              </h5>
+                <h5 style={{ marginLeft: '2rem' }}>{props.upVotes}</h5>
+                <h5>
+                  <BiUserCircle />
+                </h5>
+                <h5>{props.downVotes}</h5>
+              </div>
+              {/*<progress value={'50'} max='100'></progress>*/}
             </div>
-            {/*<progress value={'50'} max='100'></progress>*/}
-          </div>
+
+            <div className='rate-card'>
+              {wasRated ? null : (
+                <>
+                  <button
+                    className={wasRated === 1 ? 'select-highlight' : null}
+                    onClick={() => voteOnCard(1)}
+                  >
+                    <TiThumbsUp />
+                  </button>
+                  <button
+                    className={wasRated === 1 ? 'select-highlight' : null}
+                    onClick={() => saveCard(1)}
+                  >
+                    <FaRegSave />
+                  </button>
+                  <button
+                    className={wasRated === 1 ? 'select-highlight' : null}
+                    onClick={() => voteOnCard(3)}
+                  >
+                    <RiQuestionnaireLine />
+                  </button>
+
+                  <button
+                    className={wasRated === -1 ? 'select-highlight' : null}
+                    onClick={() => voteOnCard(-1)}
+                  >
+                    <TiThumbsDown />
+                  </button>
+                </>
+              )}
+            </div>
+          </>
         )}
-        {props.userRole === 'judge' || props.userRole === 'spectator' ? (
-          <div className='rate-card'>
-            {wasRated ? null : (
-              <>
-                <button
-                  className={wasRated === 1 ? 'select-highlight' : null}
-                  onClick={() => voteOnCard(1)}
-                >
-                  <TiThumbsUp />
-                </button>
-                <button
-                  className={wasRated === 1 ? 'select-highlight' : null}
-                  onClick={() => saveCard(1)}
-                >
-                  <FaRegSave />
-                </button>
-                <button
-                  className={wasRated === 1 ? 'select-highlight' : null}
-                  onClick={() => voteOnCard(1)}
-                >
-                  <RiQuestionnaireLine />
-                </button>
-
-                <button
-                  className={wasRated === -1 ? 'select-highlight' : null}
-                  onClick={() => voteOnCard(-1)}
-                >
-                  <TiThumbsDown />
-                </button>
-              </>
-            )}
-          </div>
-        ) : null}
-
         {props.save ? (
           <div className='fb100'>
             {cardSaved ? (
