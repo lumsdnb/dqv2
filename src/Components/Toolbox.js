@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import BlockUi from 'react-block-ui';
-
-import 'react-block-ui/style.css';
 
 import './Toolbox.css';
 import { GiBangingGavel } from 'react-icons/gi';
@@ -26,25 +23,17 @@ const Toolbox = (props) => {
   function sendMessage(e) {
     if (e === '') return;
     if (yourArgument === '') return;
+    const cardObject = {
+      body: yourArgument,
+      type: cardType,
+      upVotes: 0,
+      downVotes: 0,
+    };
     if (cardType === 'fact') {
-      const cardObject = {
-        body: yourArgument,
-        type: cardType,
-        source: cardSource,
-        upVotes: 0,
-        downVotes: 0,
-      };
-      props.sendMessage(cardObject);
-    } else {
-      const messageObject = {
-        body: yourArgument,
-        role: props.role,
-        type: cardType,
-        upVotes: 0,
-        downVotes: 0,
-      };
-      props.sendMessage(messageObject);
+      cardObject.source = cardSource;
     }
+    props.sendMessage(cardObject);
+
     document.getElementById('toolbox-form').reset();
     setYourArgument('');
   }
@@ -60,80 +49,73 @@ const Toolbox = (props) => {
   };
 
   return (
-    <BlockUi
-      tag='div'
-      blocking={!props.canSend}
-      message=''
-      style={{ borderRadius: '100vh' }}
-    >
-      <div style={{ height: '100vh' }}>
-        {props.role === 'spectator' ? spectatorView : null}
+    <div style={{ height: '100vh' }}>
+      {props.role === 'spectator' ? spectatorView : null}
 
-        {props.role === 'judge' ? (
-          <div classname='tools-judge'>
-            <button className='gavel-btn' onClick={props.playGavel}>
-              <GiBangingGavel />
-            </button>
+      {props.role === 'judge' ? (
+        <div classname='tools-judge'>
+          <button className='gavel-btn' onClick={props.playGavel}>
+            <GiBangingGavel />
+          </button>
 
-            <button onClick={props.nextRound}>Runde beenden</button>
-          </div>
+          <button onClick={props.nextRound}>Runde beenden</button>
+        </div>
+      ) : null}
+
+      <>
+        <div class='select-buttons'>
+          <button
+            className={cardType === 'argument' ? 'select-highlight' : null}
+            type='button'
+            name='card_type'
+            value='argument'
+            onClick={handleCardType}
+          >
+            Argument
+          </button>
+          <button
+            className={cardType === 'fact' ? 'select-highlight' : null}
+            type='button'
+            name='card_type'
+            value='fact'
+            onClick={handleCardType}
+          >
+            Fakt
+          </button>
+          <button
+            className={cardType === 'question' ? 'select-highlight' : null}
+            type='button'
+            name='card_type'
+            value='question'
+            onClick={handleCardType}
+          >
+            Frage
+          </button>
+        </div>
+      </>
+
+      <form id='toolbox-form'>
+        <textarea
+          id='cardform'
+          className='form-textarea'
+          onChange={handleArgument}
+          maxLength='200'
+        />
+        {cardType === 'fact' ? (
+          <textarea
+            id='cardsource'
+            className='source-field'
+            onChange={handleCardSource}
+          >
+            source pls
+          </textarea>
         ) : null}
 
-        <>
-          <div class='select-buttons'>
-            <button
-              className={cardType === 'argument' ? 'select-highlight' : null}
-              type='button'
-              name='card_type'
-              value='argument'
-              onClick={handleCardType}
-            >
-              Argument
-            </button>
-            <button
-              className={cardType === 'fact' ? 'select-highlight' : null}
-              type='button'
-              name='card_type'
-              value='fact'
-              onClick={handleCardType}
-            >
-              Fakt
-            </button>
-            <button
-              className={cardType === 'question' ? 'select-highlight' : null}
-              type='button'
-              name='card_type'
-              value='question'
-              onClick={handleCardType}
-            >
-              Frage
-            </button>
-          </div>
-        </>
-
-        <form id='toolbox-form'>
-          <textarea
-            id='cardform'
-            className='form-textarea'
-            onChange={handleArgument}
-            maxLength='200'
-          />
-          {cardType === 'fact' ? (
-            <textarea
-              id='cardsource'
-              className='source-field'
-              onChange={handleCardSource}
-            >
-              source pls
-            </textarea>
-          ) : null}
-
-          <button type='button' className='form-btn' onClick={sendMessage}>
-            {props.role === 'judge' ? 'Runde kommentieren' : 'Karte spielen'}
-          </button>
-        </form>
-      </div>
-    </BlockUi>
+        <button type='button' className='form-btn' onClick={sendMessage}>
+          {props.role === 'judge' ? 'Runde kommentieren' : 'Karte spielen'}
+        </button>
+      </form>
+    </div>
   );
 };
 

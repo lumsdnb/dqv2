@@ -88,7 +88,7 @@ const LoginModal = (props) => {
             </button>
           </div>
           <div className='login-title neo-box-inward'>
-            <h2 classname='login-title'>Debate.Quest v2</h2>
+            <h2 classname='login-title'>Karten Konsens</h2>
           </div>
           <div className='extra-panel'>
             <button onClick={handleResetGame}>Spiel zurücksetzen</button>
