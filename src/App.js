@@ -59,7 +59,7 @@ const App = () => {
   const [userAvi, setUserAvi] = useState(0);
   const [tempSpectatorAvi, setTempSpectatorAvi] = useState(0);
 
-  const [preparedDeck, setpreparedDeck] = useState([]);
+  const [yourDeck, setYourDeck] = useState([]);
   const [showCardDeck, setShowCardDeck] = useState(false);
 
   const [chatList, setChatList] = useState([]);
@@ -68,6 +68,8 @@ const App = () => {
   const [isTyping] = useState(false);
 
   const [newCardType, setNewCardType] = useState();
+
+  const [showInput, setShowInput] = useState();
 
   const [gameReady, setGameReady] = useState('');
 
@@ -225,20 +227,11 @@ const App = () => {
           break;
       }
     });
-    socketRef.current.on('final ruling', (e) => {
-      setFinalRuling(e);
-    });
 
-    socketRef.current.on('judge ruling', (ruling) => {
-      setJudgeMessage(ruling);
-      if (role !== 'judge') {
-        setShowRuling(true);
-      }
-    });
     socketRef.current.on('please vote', () => {
       setShowVoting(true);
     });
-  }, []);
+  }, [socketRef]);
 
   const oneTimerPerRound = () => {
     if (!roundTimerWasUsed) {
@@ -247,6 +240,19 @@ const App = () => {
       setRoundTimerWasUsed(true);
     }
   };
+
+  const saveToDeck = (i) => {
+    const testObj = {
+      body: 'test karte!.',
+      type: 'argument',
+      upVotes: 0,
+      downVotes: 0,
+    };
+
+    setYourDeck((yourDeck) => [...yourDeck, cardList[i]]);
+    console.log(yourDeck);
+  };
+  useEffect(() => {}, [cardList, role, game.round]);
 
   const [spectators, setSpectators] = useState([]);
 
@@ -263,26 +269,6 @@ const App = () => {
         </div>
       );
   });
-
-  useEffect(() => {
-    if (cardList.length === 0) {
-      //if role is aff and round is odd, turn on sending
-      //if role is neg and round is even, turn on sending
-      if (role === 'affirmative') {
-        game.round % 2 === 1 ? setCanSend(true) : setCanSend(false);
-      }
-      if (role === 'negative') {
-        game.round % 2 === 1 ? setCanSend(false) : setCanSend(true);
-      }
-      if (role === 'judge') {
-        setCanSend(true);
-      }
-    } else if (cardList.length > 0) {
-      oneTimerPerRound();
-      setCanSend(true);
-      setShowCommentary(false);
-    }
-  }, [cardList, role, game.round]);
 
   const sendTopic = () => {
     socketRef.current.emit('set topic', topic);
@@ -497,6 +483,13 @@ const App = () => {
         closeModal={closeModal}
       />
 
+      <Modal
+        title='arte:'
+        showModal={showInput}
+        body={judgeMessage}
+        closeModal={closeModal}
+      />
+
       {showVoting ? (
         <VotingModal
           game={game}
@@ -542,6 +535,7 @@ const App = () => {
         <PreparedDeck
           canSend={canSend}
           cardList={game.preparedDeck}
+          newCards={yourDeck}
           sendMessage={sendMessage}
           hideDeck={hideDeck}
           role={role}
@@ -595,6 +589,7 @@ const App = () => {
           <CardTable
             cardList={cardList}
             userRole={role}
+            saveToDeck={(i) => saveToDeck(i)}
             rateCard={(i, r) => rateCard(i, r)}
           />
         </div>
@@ -620,6 +615,7 @@ const App = () => {
             sendMessage={sendMessage}
             nextRound={nextRound}
             role={role}
+            yourID={yourID}
             canSend={canSend}
             playWoo={emitWoo}
             playBoo={emitBoo}

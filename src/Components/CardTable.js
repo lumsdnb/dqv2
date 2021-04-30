@@ -24,10 +24,9 @@ const CardTable = (props) => {
         key={c.index}
         claim={c.body}
         index={index}
-        role={c.role}
+        saveToDeck={(i) => props.saveToDeck(i)}
         type={c.type}
         source={c.source}
-        userRole={props.userRole}
         spectatorRating={c.spectatorRating}
         upVotes={c.upVotes}
         downVotes={c.downVotes}

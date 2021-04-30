@@ -6,6 +6,12 @@
   border-radius: 0.5rem;
 }
 
+.card-deck-title {
+  background-color: #bbb;
+  padding: 1rem;
+  border-radius: 0.6rem;
+}
+
 .scrolling-cards {
   display: flex;
   flex-direction: row;
@@ -56,6 +62,9 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+.flex100 {
+  flex-basis: 100%;
+}
 
 .d {
   margin: 1rem;
@@ -80,7 +89,7 @@
   position: fixed;
   z-index: 999;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
   background-color: #00000096;
   overflow-y: scroll;
   width: 100vw;

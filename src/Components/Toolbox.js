@@ -27,15 +27,14 @@ const Toolbox = (props) => {
     if (e === '') return;
     if (yourArgument === '') return;
     if (cardType === 'fact') {
-      const messageObject = {
+      const cardObject = {
         body: yourArgument,
-        role: props.role,
         type: cardType,
         source: cardSource,
         upVotes: 0,
         downVotes: 0,
       };
-      props.sendMessage(messageObject);
+      props.sendMessage(cardObject);
     } else {
       const messageObject = {
         body: yourArgument,
@@ -79,41 +78,39 @@ const Toolbox = (props) => {
             <button onClick={props.nextRound}>Runde beenden</button>
           </div>
         ) : null}
-        {props.role === 'affirmative' ||
-        props.role === 'negative' ||
-        props.role === 'debater' ? (
-          <>
-            <div class='select-buttons'>
-              <button
-                className={cardType === 'argument' ? 'select-highlight' : null}
-                type='button'
-                name='card_type'
-                value='argument'
-                onClick={handleCardType}
-              >
-                Argument
-              </button>
-              <button
-                className={cardType === 'fact' ? 'select-highlight' : null}
-                type='button'
-                name='card_type'
-                value='fact'
-                onClick={handleCardType}
-              >
-                Fakt
-              </button>
-              <button
-                className={cardType === 'question' ? 'select-highlight' : null}
-                type='button'
-                name='card_type'
-                value='question'
-                onClick={handleCardType}
-              >
-                Frage
-              </button>
-            </div>
-          </>
-        ) : null}
+
+        <>
+          <div class='select-buttons'>
+            <button
+              className={cardType === 'argument' ? 'select-highlight' : null}
+              type='button'
+              name='card_type'
+              value='argument'
+              onClick={handleCardType}
+            >
+              Argument
+            </button>
+            <button
+              className={cardType === 'fact' ? 'select-highlight' : null}
+              type='button'
+              name='card_type'
+              value='fact'
+              onClick={handleCardType}
+            >
+              Fakt
+            </button>
+            <button
+              className={cardType === 'question' ? 'select-highlight' : null}
+              type='button'
+              name='card_type'
+              value='question'
+              onClick={handleCardType}
+            >
+              Frage
+            </button>
+          </div>
+        </>
+
         <form id='toolbox-form'>
           <textarea
             id='cardform'

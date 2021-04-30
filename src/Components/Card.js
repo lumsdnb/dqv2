@@ -19,7 +19,11 @@ const Card = (props) => {
     props.rateCard(props.index, v);
   };
 
-  const saveCard = (c) => {};
+  const saveCard = (c) => {
+    console.log('s');
+    setWasRated(99);
+    props.saveToDeck(c);
+  };
 
   const handleCardSave = () => {
     setCardSaved(true);
@@ -29,15 +33,6 @@ const Card = (props) => {
     <>
       <div className={props.save ? 'card' : 'card card-hover'}>
         <h4 className='card-top'>
-          {props.role === 'Main' && props.type !== 'question'
-            ? 'Rundenargument'
-            : null}
-          {props.role === 'affirmative' && props.type !== 'question'
-            ? 'Pro'
-            : null}
-          {props.role === 'negative' && props.type !== 'question'
-            ? 'Contra'
-            : null}{' '}
           {props.type === 'argument' ? 'Argument' : null}
           {props.type === 'fact' ? 'Fakt' : null}
           {props.type === 'question' ? 'Frage' : null}
@@ -49,63 +44,59 @@ const Card = (props) => {
           </a>
         ) : null}
 
+        <div className='card-bottom'>
+          {/*<h5 classname='card-id'>ID: {props.index}</h5>*/}
+          <div className='card-ratings'>
+            <h5 className='card-bottom__left-corner'>
+              <RiQuestionnaireLine /> {props.questions}
+            </h5>
+
+            <h5 style={{ marginLeft: '2rem' }}>{props.upVotes}</h5>
+            <h5>
+              <BiUserCircle />
+            </h5>
+
+            <h5>{props.downVotes}</h5>
+          </div>
+          {/*<progress value={'50'} max='100'></progress>*/}
+        </div>
+
         {props.size === 'smol' ? null : (
-          <>
-            <div className='card-bottom'>
-              {/*<h5 classname='card-id'>ID: {props.index}</h5>*/}
-              <div className='card-ratings'>
-                <h5 className='card-bottom__left-corner'>
-                  <RiQuestionnaireLine /> {props.questions}
-                </h5>
+          <div className='rate-card'>
+            <button
+              className={wasRated === 1 ? 'select-highlight' : null}
+              onClick={() => voteOnCard(1)}
+            >
+              <TiThumbsUp />
+            </button>
 
-                <h5 style={{ marginLeft: '2rem' }}>{props.upVotes}</h5>
-                <h5>
-                  <BiUserCircle />
-                </h5>
-                <h5>{props.downVotes}</h5>
-              </div>
-              {/*<progress value={'50'} max='100'></progress>*/}
-            </div>
+            {wasRated === 99 ? null : (
+              <button onClick={() => saveCard(props.index)}>
+                <FaRegSave />
+              </button>
+            )}
+            <button
+              className={wasRated === 3 ? 'select-highlight' : null}
+              onClick={() => voteOnCard(3)}
+            >
+              <RiQuestionnaireLine />
+            </button>
 
-            <div className='rate-card'>
-              {wasRated ? null : (
-                <>
-                  <button
-                    className={wasRated === 1 ? 'select-highlight' : null}
-                    onClick={() => voteOnCard(1)}
-                  >
-                    <TiThumbsUp />
-                  </button>
-                  <button
-                    className={wasRated === 1 ? 'select-highlight' : null}
-                    onClick={() => saveCard(1)}
-                  >
-                    <FaRegSave />
-                  </button>
-                  <button
-                    className={wasRated === 1 ? 'select-highlight' : null}
-                    onClick={() => voteOnCard(3)}
-                  >
-                    <RiQuestionnaireLine />
-                  </button>
-
-                  <button
-                    className={wasRated === -1 ? 'select-highlight' : null}
-                    onClick={() => voteOnCard(-1)}
-                  >
-                    <TiThumbsDown />
-                  </button>
-                </>
-              )}
-            </div>
-          </>
+            <button
+              className={wasRated === -1 ? 'select-highlight' : null}
+              onClick={() => voteOnCard(-1)}
+            >
+              <TiThumbsDown />
+            </button>
+          </div>
         )}
+
         {props.save ? (
           <div className='fb100'>
             {cardSaved ? (
               <p>in Deck gespeichert</p>
             ) : (
-              <button onClick={handleCardSave}>
+              <button onClick={() => handleCardSave()}>
                 <HiOutlineSaveAs />
               </button>
             )}
