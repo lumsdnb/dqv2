@@ -36,8 +36,7 @@ import soundUp from './sounds/upvote.mp3';
 import soundDown from './sounds/downvote.mp3';
 
 const localENDPOINT = 'http://127.0.0.1:4000';
-const productionENDPOINT = 'https://dqv2-server.herokuapp.com/:443';
-const piENDPOINT = 'http://192.168.178.44:4000';
+const productionENDPOINT = 'https://dqv2-server.herokuapp.com:443';
 
 const App = () => {
   const [yourID, setYourID] = useState();
