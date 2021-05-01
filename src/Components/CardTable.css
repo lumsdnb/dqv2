@@ -67,8 +67,10 @@
   flex-basis: 100%;
 }
 
-.d {
-  margin: 1rem;
+.child-card {
+  position: relative;
+  right: 7rem;
+  top: 2rem;
 }
 
 .card-place-btn {

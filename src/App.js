@@ -241,13 +241,6 @@ const App = () => {
   };
 
   const saveToDeck = (i) => {
-    const testObj = {
-      body: 'test karte!.',
-      type: 'argument',
-      upVotes: 0,
-      downVotes: 0,
-    };
-
     setYourDeck((yourDeck) => [...yourDeck, cardList[i]]);
     console.log(yourDeck);
   };

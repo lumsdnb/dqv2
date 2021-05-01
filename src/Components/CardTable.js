@@ -20,21 +20,24 @@ const CardTable = (props) => {
 
   const listOfCards = props.cardList.map((c, index) => {
     return (
-      <Card
-        key={c.id}
-        id={c.id}
-        claim={c.body}
-        index={index}
-        saveToDeck={(i) => props.saveToDeck(i)}
-        replyToCard={(id) => props.replyToCard(id)}
-        type={c.parent ? 'Antwort' : c.type}
-        source={c.source}
-        spectatorRating={c.spectatorRating}
-        upVotes={c.upVotes}
-        downVotes={c.downVotes}
-        numberOfQuestions={c.numberOfQuestions}
-        rateCard={(i, r) => handleRating(i, r)}
-      />
+      <div className={c.parent ? 'child-card' : 'd'}>
+        <Card
+          key={c.id}
+          id={c.id}
+          claim={c.body}
+          index={index}
+          saveToDeck={(i) => props.saveToDeck(i)}
+          replyToCard={(id) => props.replyToCard(id)}
+          type={c.parent ? 'Antwort' : c.type}
+          source={c.source}
+          parent={props.parent}
+          spectatorRating={c.spectatorRating}
+          upVotes={c.upVotes}
+          downVotes={c.downVotes}
+          numberOfQuestions={c.numberOfQuestions}
+          rateCard={(i, r) => handleRating(i, r)}
+        />
+      </div>
     );
   });
 
