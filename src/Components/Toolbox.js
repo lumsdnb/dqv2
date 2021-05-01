@@ -32,6 +32,7 @@ const Toolbox = (props) => {
     if (cardType === 'fact') {
       cardObject.source = cardSource;
     }
+
     props.sendMessage(cardObject);
 
     document.getElementById('toolbox-form').reset();
@@ -50,49 +51,35 @@ const Toolbox = (props) => {
 
   return (
     <div style={{ height: '100vh' }}>
-      {props.role === 'spectator' ? spectatorView : null}
-
-      {props.role === 'judge' ? (
-        <div classname='tools-judge'>
-          <button className='gavel-btn' onClick={props.playGavel}>
-            <GiBangingGavel />
-          </button>
-
-          <button onClick={props.nextRound}>Runde beenden</button>
-        </div>
-      ) : null}
-
-      <>
-        <div class='select-buttons'>
-          <button
-            className={cardType === 'argument' ? 'select-highlight' : null}
-            type='button'
-            name='card_type'
-            value='argument'
-            onClick={handleCardType}
-          >
-            Argument
-          </button>
-          <button
-            className={cardType === 'fact' ? 'select-highlight' : null}
-            type='button'
-            name='card_type'
-            value='fact'
-            onClick={handleCardType}
-          >
-            Fakt
-          </button>
-          <button
-            className={cardType === 'question' ? 'select-highlight' : null}
-            type='button'
-            name='card_type'
-            value='question'
-            onClick={handleCardType}
-          >
-            Frage
-          </button>
-        </div>
-      </>
+      <div class='select-buttons'>
+        <button
+          className={cardType === 'argument' ? 'select-highlight' : null}
+          type='button'
+          name='card_type'
+          value='argument'
+          onClick={handleCardType}
+        >
+          Argument
+        </button>
+        <button
+          className={cardType === 'fact' ? 'select-highlight' : null}
+          type='button'
+          name='card_type'
+          value='fact'
+          onClick={handleCardType}
+        >
+          Fakt
+        </button>
+        <button
+          className={cardType === 'question' ? 'select-highlight' : null}
+          type='button'
+          name='card_type'
+          value='question'
+          onClick={handleCardType}
+        >
+          Frage
+        </button>
+      </div>
 
       <form id='toolbox-form'>
         <textarea
@@ -112,7 +99,10 @@ const Toolbox = (props) => {
         ) : null}
 
         <button type='button' className='form-btn' onClick={sendMessage}>
-          {props.role === 'judge' ? 'Runde kommentieren' : 'Karte spielen'}
+          Karte spielen
+        </button>
+        <button type='button' className='form-btn'>
+          Neues Thema vorschlagen
         </button>
       </form>
     </div>
