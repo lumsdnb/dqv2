@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./Chat.css";
+import React, { useState, useEffect, useRef } from 'react';
+import './Chat.css';
 const Chat = (props) => {
-  const [currentMessage, setCurrentMessage] = useState("");
+  const [currentMessage, setCurrentMessage] = useState('');
 
   function handleChatMsg(e) {
     setCurrentMessage(e.target.value);
@@ -11,16 +11,16 @@ const Chat = (props) => {
 
   const scrollToBottom = () => {
     chatMessagesEndRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "start",
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
     });
   };
 
   const chatMessages = props.chatList.map((msg, index) => (
     <p>
-      <i className={msg.type === "notification" ? "chatmsg-highlight" : ""}>
-        {" "}
+      <i className={msg.type === 'notification' ? 'chatmsg-highlight' : ''}>
+        {' '}
         {msg.name}
       </i>
       : {msg.body}
@@ -36,7 +36,7 @@ const Chat = (props) => {
     if (currentMessage) {
       props.sendChatMsg(currentMessage);
     }
-    document.getElementById("chat-form").reset();
+    document.getElementById('chat-form').reset();
   }
 
   return (
