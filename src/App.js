@@ -493,9 +493,9 @@ const App = () => {
       />
 
       <ReplyModal
-        title='Antwort:'
+        title='Auf Karte antworten'
         showModal={showReply}
-        body={'bla'}
+        body={''}
         parent={replyCardID}
         closeModal={closeReply}
         sendMessage={sendMessage}
