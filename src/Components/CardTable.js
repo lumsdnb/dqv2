@@ -21,11 +21,13 @@ const CardTable = (props) => {
   const listOfCards = props.cardList.map((c, index) => {
     return (
       <Card
-        key={c.index}
+        key={c.id}
+        id={c.id}
         claim={c.body}
         index={index}
         saveToDeck={(i) => props.saveToDeck(i)}
-        type={c.type}
+        replyToCard={(id) => props.replyToCard(id)}
+        type={c.parent ? 'Antwort' : c.type}
         source={c.source}
         spectatorRating={c.spectatorRating}
         upVotes={c.upVotes}

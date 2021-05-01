@@ -9,8 +9,9 @@ import Toolbox from './Components/Toolbox.js';
 import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
 import LoginModal from './Components/LoginModal.js';
+import ReplyModal from './Components/ReplyModal.js';
+
 import VotingModal from './Components/VotingModal.js';
-import FinalModal from './Components/FinalModal.js';
 
 import { RiSwordFill } from 'react-icons/ri';
 
@@ -53,7 +54,7 @@ const App = () => {
 
   const [showLogin, setShowLogin] = useState(true);
   const [showVoting, setShowVoting] = useState(false);
-  const [showFinal, setShowFinal] = useState(false);
+
   const [showCommentary, setShowCommentary] = useState(true);
 
   const [userAvi, setUserAvi] = useState(0);
@@ -80,7 +81,9 @@ const App = () => {
 
   const [judgeCanAdvance, setJudgeCanAdvance] = useState([]);
 
-  const [finalVotes, setFinalVotes] = useState([]);
+  const [showReply, setShowReply] = useState(false);
+
+  const [replyCardID, setReplyCardID] = useState('');
 
   const debateTopics = [
     'Der ÖPNV sollte kostenlos für alle verfügbar sein.',
@@ -134,7 +137,7 @@ const App = () => {
     volume: 0.6,
   });
   useEffect(() => {
-    socketRef.current = io.connect(productionENDPOINT);
+    socketRef.current = io.connect(localENDPOINT);
     socketRef.current.on('your id', (id) => {
       setYourID(id);
     });
@@ -155,10 +158,6 @@ const App = () => {
       if (id != -1) {
         setTopic(debateTopics[id]);
       }
-    });
-
-    socketRef.current.on('final votes', (voot) => {
-      setFinalVotes(voot);
     });
 
     socketRef.current.on('message', (cards) => {
@@ -254,6 +253,12 @@ const App = () => {
   };
   useEffect(() => {}, [cardList, role, game.round]);
 
+  const replyToCard = (id) => {
+    setShowReply(true);
+    setReplyCardID(id);
+    console.log(id);
+  };
+
   const [spectators, setSpectators] = useState([]);
 
   useEffect(() => {
@@ -330,7 +335,6 @@ const App = () => {
     };
     socketRef.current.emit('send final vote', voteObj);
     closeModal();
-    setShowFinal(true);
   };
 
   function handleSetUser(e) {
@@ -353,10 +357,12 @@ const App = () => {
 
   function closeModal() {
     setShowRuling(false);
-    setShowFinal(false);
+
     setShowVoting(false);
     setShowInfo(false);
   }
+
+  const closeReply = () => setShowReply(false);
 
   function changeAvi(e) {
     setUserAvi(e);
@@ -364,6 +370,10 @@ const App = () => {
 
   const handleShowInfo = () => {
     setShowInfo(true);
+  };
+
+  const handleShowReply = (id) => {
+    setShowReply(true);
   };
 
   //use this for increasing pitch of slaps
@@ -397,7 +407,6 @@ const App = () => {
   };
   const finishGame = (e) => {
     closeModal();
-    setShowFinal(true);
     socketRef.current.emit('end game');
   };
 
@@ -483,11 +492,13 @@ const App = () => {
         closeModal={closeModal}
       />
 
-      <Modal
-        title='arte:'
-        showModal={showInput}
-        body={judgeMessage}
-        closeModal={closeModal}
+      <ReplyModal
+        title='Antwort:'
+        showModal={showReply}
+        body={'bla'}
+        parent={replyCardID}
+        closeModal={closeReply}
+        sendMessage={sendMessage}
       />
 
       {showVoting ? (
@@ -500,16 +511,7 @@ const App = () => {
           handleRuling={handleFinalRuling}
         />
       ) : null}
-      {showFinal ? (
-        <FinalModal
-          topic={topic}
-          role={role}
-          game={game}
-          resetGame={resetGame}
-          finalVotes={finalVotes}
-          finalRuling={finalRuling}
-        />
-      ) : null}
+
       {showLogin ? (
         <LoginModal
           game={game}
@@ -590,6 +592,7 @@ const App = () => {
             cardList={cardList}
             userRole={role}
             saveToDeck={(i) => saveToDeck(i)}
+            replyToCard={(id) => replyToCard(id)}
             rateCard={(i, r) => rateCard(i, r)}
           />
         </div>

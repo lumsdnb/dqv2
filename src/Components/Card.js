@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { TiThumbsUp, TiThumbsDown } from 'react-icons/ti';
 import { HiOutlineSaveAs } from 'react-icons/hi';
 import { FaRegSave } from 'react-icons/fa';
-import { RiQuestionnaireLine } from 'react-icons/ri';
+import { RiQuestionnaireLine, RiReplyAllFill } from 'react-icons/ri';
 
 import { BiUserCircle } from 'react-icons/bi';
 
@@ -32,11 +32,10 @@ const Card = (props) => {
   return (
     <>
       <div className={props.save ? 'card' : 'card card-hover'}>
-        <h4 className='card-top'>
-          {props.type === 'argument' ? 'Argument' : null}
-          {props.type === 'fact' ? 'Fakt' : null}
-          {props.type === 'question' ? 'Frage' : null}
-        </h4>
+        {props.size === 'smol' ? null : (
+          <span className='card-above-top'>Karte {props.index}</span>
+        )}
+        <h4 className='card-top'>{props.type}</h4>
         <p className='card-body'>{props.claim}</p>
         {props.source ? (
           <a href={props.source} target='_blank' rel='noreferrer'>
@@ -69,7 +68,6 @@ const Card = (props) => {
             >
               <TiThumbsUp />
             </button>
-
             {wasRated === 99 ? null : (
               <button onClick={() => saveCard(props.index)}>
                 <FaRegSave />
@@ -80,6 +78,9 @@ const Card = (props) => {
               onClick={() => voteOnCard(3)}
             >
               <RiQuestionnaireLine />
+            </button>
+            <button onClick={(id) => props.replyToCard(props.id)}>
+              <RiReplyAllFill />
             </button>
 
             <button

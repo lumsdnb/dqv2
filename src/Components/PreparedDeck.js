@@ -219,7 +219,7 @@ const PreparedDeck = (props) => {
               className='card-place-btn'
               onClick={() => playCard(c)}
             >
-              Karte spielen
+              Karte legen
             </button>
           ) : null}
         </div>

@@ -17,6 +17,15 @@
   /*transform: rotate3d(-1, 7, -1, 20deg);*/
   z-index: 4;
 }
+.card-above-top {
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Piazzolla, serif;
+  line-height: 0.1rem;
+}
 
 .card-id {
   position: relative;
@@ -42,7 +51,7 @@
 
 .card-top {
   position: relative;
-  top: 0.2rem;
+  bottom: 1.4 rem;
   font-size: 130%;
   font-family: Piazzolla, serif;
 }
@@ -71,6 +80,8 @@
   justify-content: space-around;
   align-items: center;
   font-size: 160%;
+  position: relative;
+  top: 2.2rem;
 }
 
 .rate-card {
