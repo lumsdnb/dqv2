@@ -264,7 +264,7 @@ sup {
   text-align: center;
   border-radius: 50px;
   background: linear-gradient(145deg, #cacaca, #f0f0f0);
-  box-shadow: 2px 2px 4px #d9d9d9, -2px -2px 4px #e7e7e7;
+  box-shadow: 2px 2px 15px #20202094, -2px -2px 8px #c5c5c5;
   z-index: 55;
 }
 

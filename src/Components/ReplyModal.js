@@ -48,9 +48,20 @@ const ReplyModal = (props) => {
           <h3>{props.title}</h3>
           <p>{props.body}</p>
           <form id='reply-form'>
-            <input type='textarea' onChange={handleReply} />
-            <button onClick={handleClose}>abbrechen</button>
-            <button onClick={handleSubmit}>antworten</button>
+            <textarea onChange={handleReply} />
+            <br />
+            <button
+              style={{ backgroundColor: '#757575', color: '#fff' }}
+              onClick={handleClose}
+            >
+              abbrechen
+            </button>
+            <button
+              style={{ backgroundColor: '#2b8a5b' }}
+              onClick={handleSubmit}
+            >
+              antworten
+            </button>
           </form>
         </div>
       </div>
