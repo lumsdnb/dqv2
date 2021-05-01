@@ -84,9 +84,20 @@
   top: 2.2rem;
 }
 
-.rate-card {
+.card-buttons {
   display: flex;
   flex-direction: row;
+  position: relative;
+  top: 0.5rem;
+  transform: scale(0.9);
+}
+
+.--green:hover {
+  background-color: #2b8a5b;
+}
+
+.--red:hover {
+  background-color: hsl(0, 52%, 35%);
 }
 
 .rate-card button {

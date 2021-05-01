@@ -57,40 +57,39 @@ const Card = (props) => {
 
             <h5>{props.downVotes}</h5>
           </div>
+          {props.size === 'smol' ? null : (
+            <div className='card-buttons'>
+              <button
+                className={wasRated === -1 ? 'select-highlight' : '--red'}
+                onClick={() => voteOnCard(-1)}
+              >
+                <TiThumbsDown />
+              </button>
+              {wasRated === 99 ? null : (
+                <button onClick={() => saveCard(props.index)}>
+                  <FaRegSave />
+                </button>
+              )}
+              <button
+                className={wasRated === 3 ? 'select-highlight' : null}
+                onClick={() => voteOnCard(3)}
+              >
+                <RiQuestionnaireLine />
+              </button>
+              <button onClick={(id) => props.replyToCard(props.id)}>
+                <RiReplyAllFill />
+              </button>
+
+              <button
+                className={wasRated === 1 ? 'select-highlight' : '--green'}
+                onClick={() => voteOnCard(1)}
+              >
+                <TiThumbsUp />
+              </button>
+            </div>
+          )}
           {/*<progress value={'50'} max='100'></progress>*/}
         </div>
-
-        {props.size === 'smol' ? null : (
-          <div className='rate-card'>
-            <button
-              className={wasRated === 1 ? 'select-highlight' : null}
-              onClick={() => voteOnCard(1)}
-            >
-              <TiThumbsUp />
-            </button>
-            {wasRated === 99 ? null : (
-              <button onClick={() => saveCard(props.index)}>
-                <FaRegSave />
-              </button>
-            )}
-            <button
-              className={wasRated === 3 ? 'select-highlight' : null}
-              onClick={() => voteOnCard(3)}
-            >
-              <RiQuestionnaireLine />
-            </button>
-            <button onClick={(id) => props.replyToCard(props.id)}>
-              <RiReplyAllFill />
-            </button>
-
-            <button
-              className={wasRated === -1 ? 'select-highlight' : null}
-              onClick={() => voteOnCard(-1)}
-            >
-              <TiThumbsDown />
-            </button>
-          </div>
-        )}
 
         {props.save ? (
           <div className='fb100'>
