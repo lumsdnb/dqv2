@@ -5,7 +5,7 @@ import { GiBangingGavel } from 'react-icons/gi';
 
 const Toolbox = (props) => {
   const [yourArgument, setYourArgument] = useState('');
-  const [cardType, setCardType] = useState('argument');
+  const [cardType, setCardType] = useState('Argument');
   const [cardSource, setCardSource] = useState('');
 
   function handleArgument(e) {
@@ -28,6 +28,7 @@ const Toolbox = (props) => {
       type: cardType,
       upVotes: 0,
       downVotes: 0,
+      numberOfQuestions: 0,
     };
     if (cardType === 'fact') {
       cardObject.source = cardSource;
@@ -53,10 +54,10 @@ const Toolbox = (props) => {
     <div style={{ height: '100vh' }}>
       <div class='select-buttons'>
         <button
-          className={cardType === 'argument' ? 'select-highlight' : null}
+          className={cardType === 'Argument' ? 'select-highlight' : null}
           type='button'
           name='card_type'
-          value='argument'
+          value='Argument'
           onClick={handleCardType}
         >
           Argument
@@ -65,7 +66,7 @@ const Toolbox = (props) => {
           className={cardType === 'fact' ? 'select-highlight' : null}
           type='button'
           name='card_type'
-          value='fact'
+          value='Fakt'
           onClick={handleCardType}
         >
           Fakt

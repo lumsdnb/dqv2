@@ -10,42 +10,42 @@ const PreparedDeck = (props) => {
       {
         body:
           'Wenn man überall mit ÖPNV hinkommt, sinkt der Bedarf an Autos, was ein Vorteil für die Umwelt wäre.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Nicht alle Menschen nutzen den ÖPNV - diese sollten nicht mitbezahlen müssen',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Durch das Fördern von E-Motoren gehen wir als Vorbild für andere Länder voran.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Ein großflächiger Umstieg auf ÖPNV würde weniger Autos in der Stadt und somit ein geringeres Unfallrisiko für Fußgänger und Radfahrer bedeuten.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'In dicht besiedelten Städten macht es keinen Sinn, wenn jeder mit dem Auto durch die Gegend fährt.',
-        type: 'argument',
+        type: 'Argument',
         judgeRating: 0,
         spectatorRating: 0,
       },
 
       {
         body: 'ÖPNV ist zu Stoßzeiten eh schon überfüllt.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
@@ -68,13 +68,13 @@ const PreparedDeck = (props) => {
       {
         body:
           'Finanziell schwachen Leuten wird Mobilität ermöglicht, die sie sich sonst nicht leisten könnten. Das wäre fairer für die Gesellschaft.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body: 'ÖPNV ist nie kostenlos: Wir zahlen mehr Steuern.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
@@ -93,14 +93,14 @@ const PreparedDeck = (props) => {
       {
         body:
           'Durch das Fördern von E-Motoren gehen wir als Vorbild für andere Länder voran.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Unsere Abhängigkeit von ausländischen Energielieferanten würde sinken.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
@@ -114,28 +114,28 @@ const PreparedDeck = (props) => {
       },
       {
         body: 'Verbrennungsmotoren haben keinerlei ökologische Vorteile.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Statt Verbrenner zu verbieten, sollte in nachhaltige synthetische Treibstoffe investiert werden.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Ein generelles Verbot würde alle existierenden Geräte mit solchen Motoren obsolet machen und einen massiven wirtschaftlichen Schaden anrichten.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Ein Verbot aus umweltschutzgründen macht keinen Sinn, wenn Alternativen wie Elektroautos immer noch nicht nachhaltig sind.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
@@ -144,21 +144,21 @@ const PreparedDeck = (props) => {
       {
         body:
           'Eine Mietpreisbremse würde nicht dazu führen, dass finanziell schwache Gruppen eine Wohnung tatsächlich bekämen. Mieter würden sich trotzdem für die Familien mit stabilem Einkommen entscheiden, und diese würden dann noch mehr profitieren als vorher.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Niemand MUSS in einer Großstadt leben. Wer sich Wohnungen in beliebten Gebieten mit Platzmangel nicht leisten kann, soll sich an weniger dicht besiedelten Orten Wohnraum suchen.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
       {
         body:
           'Eine Mietpreisbremse alleine reicht nicht aus, um finanziell schwache Gruppen zu unterstützen.',
-        type: 'argument',
+        type: 'Argument',
         upVotes: 0,
         downVotes: 0,
       },
