@@ -7,6 +7,7 @@ const Toolbox = (props) => {
   const [yourArgument, setYourArgument] = useState('');
   const [cardType, setCardType] = useState('Argument');
   const [cardSource, setCardSource] = useState('');
+  const [newTopic, setNewTopic] = useState('');
 
   function handleArgument(e) {
     setYourArgument(e.target.value);
@@ -38,6 +39,18 @@ const Toolbox = (props) => {
 
     document.getElementById('toolbox-form').reset();
     setYourArgument('');
+  }
+
+  function handleNewTopic(e) {
+    setNewTopic(e.target.value);
+  }
+
+  function requestNewTopic() {
+    if (newTopic !== '') {
+      props.requestNewTopic(newTopic);
+      document.getElementById('topic-form').reset();
+      setNewTopic('');
+    }
   }
 
   const spectatorView = () => {
@@ -102,7 +115,15 @@ const Toolbox = (props) => {
         <button type='button' className='form-btn' onClick={sendMessage}>
           Karte spielen
         </button>
-        <button type='button' className='form-btn'>
+        <form id='topic-form'>
+          <textarea
+            id='topicform'
+            className='form-textarea'
+            onChange={handleNewTopic}
+            maxLength='200'
+          />
+        </form>
+        <button type='button' className='form-btn' onClick={requestNewTopic}>
           Neues Thema vorschlagen
         </button>
       </form>

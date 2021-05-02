@@ -10,6 +10,7 @@ import Chat from './Components/Chat.js';
 import Modal from './Components/Modal.js';
 import LoginModal from './Components/LoginModal.js';
 import ReplyModal from './Components/ReplyModal.js';
+import TopicChangeModal from './Components/TopicChangeModal.js';
 
 import VotingModal from './Components/VotingModal.js';
 
@@ -84,6 +85,7 @@ const App = () => {
   const [showReply, setShowReply] = useState(false);
 
   const [replyCardID, setReplyCardID] = useState('');
+  const [showTopicRequest, setShowTopicRequest] = useState('');
 
   const debateTopics = [
     'Der ÖPNV sollte kostenlos für alle verfügbar sein.',
@@ -93,6 +95,17 @@ const App = () => {
 
   const socketRef = useRef();
 
+  const requestNewTopic = (t) => {
+    socketRef.current.emit('request topic', t);
+  };
+
+  const topicRequested = (t) => {
+    setShowTopicRequest(t);
+  };
+  const acceptNewTopic = () => {
+    socketRef.current.emit('accept topic change');
+    setShowTopicRequest(false);
+  };
   //=============================================
   // sound triggers
 
@@ -143,6 +156,10 @@ const App = () => {
     });
     socketRef.current.on('topic', (topic) => {
       setTopic(topic);
+    });
+    socketRef.current.on('requested topic change', (t) => {
+      console.log('requested topic: ' + t);
+      topicRequested(t);
     });
     socketRef.current.on('game reset', () => {
       setGameReady(false);
@@ -355,6 +372,8 @@ const App = () => {
     setShowInfo(false);
   }
 
+  const closeTopicRequest = () => setShowTopicRequest(false);
+
   const closeReply = () => setShowReply(false);
 
   function changeAvi(e) {
@@ -494,6 +513,14 @@ const App = () => {
         sendMessage={sendMessage}
       />
 
+      <TopicChangeModal
+        title='Themenwechsel?'
+        showModal={showTopicRequest}
+        body={showTopicRequest}
+        closeModal={closeTopicRequest}
+        acceptNewTopic={acceptNewTopic}
+      />
+
       {showVoting ? (
         <VotingModal
           game={game}
@@ -615,6 +642,7 @@ const App = () => {
             canSend={canSend}
             playWoo={emitWoo}
             playBoo={emitBoo}
+            requestNewTopic={requestNewTopic}
             playAirhorn={emitAirhorn}
             playGavel={silenceChat}
           />
