@@ -514,7 +514,7 @@ const App = () => {
       />
 
       <TopicChangeModal
-        title='Themenwechsel?'
+        title='Neuer Themenvorschlag:'
         showModal={showTopicRequest}
         body={showTopicRequest}
         closeModal={closeTopicRequest}
