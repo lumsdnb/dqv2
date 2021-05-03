@@ -604,7 +604,7 @@ const App = () => {
             {topic}
           </h1>
           <div className='game-commentary'>
-            {showCommentary ? <h3>Was fällt euch zu dem Thema ein?</h3> : null}
+            {showCommentary ? <h3>Was ist deine Perspektive dazu?</h3> : null}
           </div>
         </div>
         <div className='card-table'>
